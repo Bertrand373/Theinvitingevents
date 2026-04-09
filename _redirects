@@ -1,0 +1,14 @@
+# Cloudflare Pages _redirects
+# These handle clean URLs and legacy WordPress redirects
+
+# Legacy WordPress URLs → new site
+/grand-ballroom/   /gallery/#grand   301
+/auxiliary-ballroom/   /gallery/#aux   301
+/studio-78/   /gallery/#studio78   301
+/private-lounge/   /about/#lounge   301
+
+# Old contact form path (if any bookmarks exist)
+/contact   /contact/   301
+/pricing   /pricing/   301
+/gallery   /gallery/   301
+/about     /about/     301

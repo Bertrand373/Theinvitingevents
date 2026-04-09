@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Inviting Events</title>
+<link rel="icon" type="image/png" href="/assets/images/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/global.css">
+<style>
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:100px;}
+.about-photo{position:relative;}
+.about-photo img{width:100%;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+.about-photo::after{content:'';position:absolute;inset:-12px;border:1px solid var(--glass-b);border-radius:16px;pointer-events:none;}
+.about-text h2{font-family:var(--h);font-size:2rem;font-weight:400;color:var(--cream);margin-bottom:24px;line-height:1.3;}
+.about-text h2 em{font-style:italic;color:var(--cream70);}
+.about-text p{font-size:0.92rem;color:var(--cream40);line-height:1.8;margin-bottom:20px;}
+.about-name{font-family:var(--sub);font-size:0.7rem;letter-spacing:2px;color:var(--cream);margin-top:32px;}
+.about-role{font-size:0.82rem;color:var(--cream40);margin-top:4px;}
+
+.timeline{position:relative;padding-left:40px;}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.06);}
+.tl-item{position:relative;margin-bottom:40px;}
+.tl-item::before{content:'';position:absolute;left:-36px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--burgundy);border:2px solid var(--bg);}
+.tl-year{font-family:var(--sub);font-size:0.6rem;letter-spacing:2px;color:var(--green);margin-bottom:8px;}
+.tl-text{font-size:0.88rem;color:var(--cream40);line-height:1.7;}
+
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:64px;}
+.val-card{background:var(--glass);border:1px solid var(--glass-b);border-radius:12px;padding:32px 24px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:all 0.3s;position:relative;overflow:hidden;}
+.val-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 50%);pointer-events:none;}
+.val-card:hover{border-color:rgba(255,255,255,0.1);}
+.val-card h4{font-family:var(--sub);font-size:0.6rem;letter-spacing:2px;color:var(--cream);margin-bottom:10px;position:relative;}
+.val-card p{font-size:0.82rem;color:var(--cream40);line-height:1.7;position:relative;}
+
+@media(max-width:900px){
+  .about-grid{grid-template-columns:1fr;gap:40px;}
+  .values-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
+  <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/#ballrooms">Spaces</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/#reviews">Reviews</a></li>
+    <li><a href="/pricing/">Pricing</a></li>
+    <li><a href="/about/" class="active">About</a></li>
+  </ul>
+  <a href="/contact/" class="nav-cta">Schedule a Tour</a>
+</nav>
+
+<div class="page-header">
+  <span class="sec-tag" style="margin-bottom:12px;">Our Story</span>
+  <h1>About Inviting Events</h1>
+  <p>Over 18 years of creating unforgettable events in the Atlanta metro area.</p>
+</div>
+
+<section>
+  <div class="sec-inner">
+    <div class="about-grid reveal">
+      <div class="about-photo">
+        <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Bob-profile-pic.png" alt="Robert Pope">
+      </div>
+      <div class="about-text">
+        <span class="sec-tag">The Man Behind It All</span>
+        <h2>Built on Hospitality, Driven by <em>Your Vision.</em></h2>
+        <p>Dedicaters Inc, the parent company of Inviting Events, was formed in 1991 by Robert Pope. Prior to founding Inviting Events, Robert had been a manager at several 5-star hotels and restaurants throughout the Atlanta area.</p>
+        <p>Dedicaters Inc initially operated as a catering company and opened its first event hall in 2001. Shortly after, a second facility was opened in 2004. The two facilities were later merged and became known as Inviting Events.</p>
+        <p>Our event hall has served the area consistently for the past 18 years. From local residents to high-profile celebrities, we have been and will continue to be one of the premier event destinations in the Atlanta metro area.</p>
+        <div class="about-name">Robert Pope</div>
+        <div class="about-role">Owner & Founder</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:48px;" class="reveal">
+      <span class="sec-tag">Our Journey</span>
+      <h2 class="sec-title">A Legacy of <em>Excellence.</em></h2>
+    </div>
+
+    <div class="timeline reveal" style="max-width:600px;margin:0 auto 64px;">
+      <div class="tl-item">
+        <div class="tl-year">1991</div>
+        <div class="tl-text">Robert Pope founds Dedicaters Inc as a catering company, bringing 5-star hotel and restaurant experience to private events.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2001</div>
+        <div class="tl-text">The first Dedicaters event hall opens, expanding from catering-only to a full-service event venue.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2004</div>
+        <div class="tl-text">A second facility opens to meet growing demand. Both locations serve the greater Atlanta area.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">2006</div>
+        <div class="tl-text">The two facilities merge into a single, larger venue — Inviting Events is born.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-year">Today</div>
+        <div class="tl-text">Over 1,000+ events hosted, 170+ five-star reviews, and three distinct ballrooms serving Snellville and the greater Atlanta metro area.</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:40px;" class="reveal">
+      <span class="sec-tag">What We Stand For</span>
+      <h2 class="sec-title">Our <em>Values.</em></h2>
+    </div>
+
+    <div class="values-grid reveal">
+      <div class="val-card">
+        <h4>Personal Touch</h4>
+        <p>Robert personally consults with every client. No automated bookings, no call centers — just one-on-one attention to make your vision a reality.</p>
+      </div>
+      <div class="val-card">
+        <h4>One Stop Shop</h4>
+        <p>Everything you need is in-house. Decor, linens, lighting, balloons, kitchen, bar — no scrambling to coordinate with outside vendors.</p>
+      </div>
+      <div class="val-card">
+        <h4>Your Vision First</h4>
+        <p>We don't impose a style. You tell us what you want, and we make it happen. Endless color combinations, layouts, and decor options — all included.</p>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:80px;" class="reveal">
+      <a href="/contact/" class="btn-primary">Schedule a Tour</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE">
+      <p>Snellville's premier event hall.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">f</a>
+        <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">ig</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div>
+      <div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a><a href="/contact/">Contact</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom">Inviting Events &copy; 2026. All rights reserved.</div>
+</footer>
+<script src="/assets/js/global.js"></script>
+</body>
+</html>

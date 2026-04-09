@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inviting Events — Snellville's Premier Event Hall</title>
+<meta name="description" content="Inviting Events is the premier event hall in Snellville, GA. Three spacious ballrooms, full decor service, and over 1000+ satisfied customers. Schedule a tour today.">
+<link rel="icon" type="image/png" href="/assets/images/favicon.png">
+<link rel="canonical" href="https://theinvitingevents.com/">
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/global.css">
+<style>
+/* ═══ HOME-SPECIFIC STYLES ═══ */
+
+/* Ambient glow */
+body::before {
+  content:''; position:fixed; top:-30%; left:-10%;
+  width:600px; height:600px;
+  background:radial-gradient(circle, var(--burg-glow) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+  animation:drift 20s ease-in-out infinite alternate;
+}
+body::after {
+  content:''; position:fixed; bottom:-20%; right:-10%;
+  width:500px; height:500px;
+  background:radial-gradient(circle, rgba(122,182,72,0.08) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+  animation:drift 25s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift { 0%{transform:translate(0,0);} 100%{transform:translate(40px,30px);} }
+
+/* Hero */
+.hero{position:relative;height:100vh;min-height:600px;overflow:hidden;}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;z-index:1;}
+.hero-slide.active{opacity:1;z-index:2;}
+.hero-slide video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,6,0.5) 0%,rgba(6,6,6,0.3) 40%,rgba(6,6,6,0.7) 100%);z-index:1;}
+.hero-content{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 24px;}
+.hero-tag{font-family:var(--sub);font-size:0.6rem;letter-spacing:5px;color:var(--cream40);margin-bottom:20px;}
+.hero h1{font-family:var(--h);font-size:clamp(2.2rem,5vw,4rem);font-weight:400;color:var(--cream);line-height:1.15;margin-bottom:20px;max-width:700px;}
+.hero h1 em{font-style:italic;color:var(--cream70);}
+.hero p{font-size:0.95rem;color:var(--cream40);max-width:500px;line-height:1.7;margin-bottom:36px;}
+.hero-dots{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:3;display:flex;gap:10px;}
+.hero-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.15);cursor:pointer;transition:all 0.3s;}
+.hero-dot.active{background:var(--cream);box-shadow:0 0 10px rgba(255,255,240,0.3);}
+.hero-scroll{position:absolute;bottom:40px;right:48px;z-index:3;writing-mode:vertical-rl;font-size:0.6rem;letter-spacing:3px;color:var(--cream20);font-family:var(--sub);}
+
+/* Ballroom cards */
+.ballroom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.ballroom-card{overflow:hidden;transition:all 0.4s;}
+.ballroom-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.4);}
+.card-media{position:relative;height:220px;overflow:hidden;background:var(--surface);}
+.card-media img{width:100%;height:100%;object-fit:cover;opacity:0.8;transition:all 0.5s;}
+.ballroom-card:hover .card-media img{opacity:1;transform:scale(1.03);}
+.card-badge{position:absolute;top:16px;right:16px;font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;background:rgba(0,0,0,0.6);backdrop-filter:blur(8px);padding:6px 14px;border-radius:3px;color:var(--cream70);}
+.card-body{padding:28px 24px;}
+.card-name{font-family:var(--sub);font-size:0.8rem;letter-spacing:2px;color:var(--cream);margin-bottom:10px;}
+.card-desc{font-size:0.82rem;color:var(--cream40);line-height:1.6;margin-bottom:16px;}
+
+/* Showcase */
+.showcase-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.showcase-video{border-radius:12px;overflow:hidden;aspect-ratio:16/9;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+.showcase-video iframe{width:100%;height:100%;border:none;}
+.showcase-features{display:flex;flex-direction:column;gap:32px;margin-top:32px;}
+.feat{display:flex;gap:20px;align-items:flex-start;}
+.feat-line{width:2px;flex-shrink:0;min-height:48px;background:linear-gradient(180deg,var(--burgundy),transparent);border-radius:1px;margin-top:4px;}
+.feat h4{font-family:var(--sub);font-size:0.65rem;letter-spacing:2px;color:var(--cream);margin-bottom:6px;}
+.feat p{font-size:0.82rem;color:var(--cream40);line-height:1.6;}
+
+/* Pricing teaser */
+.pricing-glass{display:inline-block;border-radius:16px;padding:56px 64px;max-width:600px;}
+.pricing-glass .sec-tag,.pricing-glass .sec-title,.pricing-glass .sec-text{text-align:center;margin-left:auto;margin-right:auto;}
+.pricing-glass .sec-divider{margin:24px auto;}
+
+/* Decor */
+.decor-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.decor-video{border-radius:12px;overflow:hidden;aspect-ratio:16/9;box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+.decor-video iframe{width:100%;height:100%;border:none;}
+.decor-item{border-radius:10px;padding:24px 28px;transition:all 0.3s;}
+.decor-item h4{font-family:var(--sub);font-size:0.65rem;letter-spacing:2px;color:var(--cream);margin-bottom:8px;}
+.decor-item p{font-size:0.82rem;color:var(--cream40);line-height:1.6;}
+
+/* Reviews */
+.review-stats{display:flex;justify-content:center;align-items:center;gap:40px;margin-bottom:48px;}
+.stat-num{font-family:var(--h);font-size:3rem;color:var(--cream);}
+.stat-label{font-size:0.75rem;color:var(--cream40);margin-top:4px;}
+.stat-divider{width:1px;height:48px;background:rgba(255,255,255,0.08);}
+.stars{color:#f4c542;font-size:1.2rem;letter-spacing:2px;margin-bottom:4px;}
+.review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left;}
+.review-card{border-radius:12px;padding:28px 24px;}
+.rc-stars{color:#f4c542;font-size:0.8rem;margin-bottom:12px;letter-spacing:2px;}
+.rc-text{font-size:0.82rem;color:var(--cream40);line-height:1.7;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;}
+.rc-author{font-family:var(--sub);font-size:0.6rem;letter-spacing:2px;color:var(--cream70);}
+.rc-date{font-size:0.7rem;color:var(--cream20);margin-top:4px;}
+
+/* CTA */
+#cta{text-align:center;padding:120px 48px;overflow:hidden;}
+#cta::before{content:'';position:absolute;top:50%;left:50%;width:600px;height:600px;transform:translate(-50%,-50%);background:radial-gradient(circle,var(--burg-glow),transparent 70%);pointer-events:none;}
+
+/* Location */
+#location{background:var(--surface);}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.loc-video{border-radius:12px;overflow:hidden;aspect-ratio:16/9;box-shadow:0 20px 60px rgba(0,0,0,0.5);border:1px solid var(--glass-b);}
+.loc-video iframe{width:100%;height:100%;border:none;}
+
+/* Mobile overrides */
+@media(max-width:900px){
+  .hero h1{font-size:2.2rem;max-width:90%;}
+  .hero p{font-size:0.88rem;max-width:85%;}
+  .hero-scroll{display:none;}
+  .ballroom-grid,.review-grid{grid-template-columns:1fr;}
+  .showcase-grid,.decor-grid,.loc-grid{grid-template-columns:1fr;gap:36px;}
+  .review-stats{flex-wrap:wrap;gap:20px;}
+  .stat-divider{display:none;}
+  .pricing-glass{padding:40px 24px;width:100%;}
+  .card-media{height:200px;}
+}
+@media(max-width:480px){
+  .hero{min-height:100svh;}
+  .hero h1{font-size:1.8rem;}
+  .hero-dots{bottom:24px;}
+  .card-body{padding:22px 18px;}
+  .card-media{height:180px;}
+  .review-card{padding:22px 18px;}
+  .stat-num{font-size:1.8rem;}
+  #cta{padding:80px 16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
+  <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="/" class="active">Home</a></li>
+    <li><a href="#ballrooms">Spaces</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="/pricing/">Pricing</a></li>
+    <li><a href="/about/">About</a></li>
+  </ul>
+  <a href="/contact/" class="nav-cta">Schedule a Tour</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-slide active" id="slide0">
+    <video autoplay muted loop playsinline>
+      <source src="https://www.theinvitingevents.com/wp-content/uploads/2024/07/SliderBanner-Images-1440-x-800-px-3.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Snellville's Premier Event Hall</div>
+      <h1>Turn Your Dream Into <em>A Reality.</em></h1>
+      <p>We are one of the premier event halls in the Snellville, Georgia area. Get in touch to schedule a consultation and walk-through.</p>
+      <a href="/contact/" class="btn-primary">Schedule My Tour</a>
+    </div>
+  </div>
+  <div class="hero-slide" id="slide1">
+    <video autoplay muted loop playsinline>
+      <source src="https://www.theinvitingevents.com/wp-content/uploads/2024/07/SliderBanner-aux-update-1440-x-800-px.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Private Lounge Experience</div>
+      <h1>Rent Your Own <em>Private Lounge & Bar.</em></h1>
+      <p>Our lounge & bar is perfect for a private comedy night, game night, birthday event, and much more. It's up to you.</p>
+      <a href="/about/#lounge" class="btn-primary">Tell Me More</a>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <div class="hero-dot active" onclick="goSlide(0)"></div>
+    <div class="hero-dot" onclick="goSlide(1)"></div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- BALLROOMS -->
+<section id="ballrooms">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:64px;" class="reveal">
+      <span class="sec-tag">Our Spaces</span>
+      <h2 class="sec-title">Three <em>Spacious</em> Event Halls to Choose From.</h2>
+    </div>
+    <div class="ballroom-grid">
+      <div class="ballroom-card glass reveal">
+        <div class="card-media">
+          <img src="/assets/images/grand-aux-halls.png" alt="Grand Ballroom">
+          <span class="card-badge">Up to 250 Guests</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Grand Ballroom</div>
+          <p class="card-desc">Our main, luxurious event hall has a capacity of 80–250 guests. The space can always be altered to accommodate your vision.</p>
+          <a href="/gallery/#grand" class="btn-secondary">Explore Space</a>
+        </div>
+      </div>
+      <div class="ballroom-card glass reveal">
+        <div class="card-media">
+          <img src="/assets/images/grand-aux-halls.png" alt="Auxiliary Ballroom" style="object-position:right;">
+          <span class="card-badge">Up to 60 Guests</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Auxiliary Ballroom</div>
+          <p class="card-desc">Adjacent to the Grand Ballroom, this intimate space has a capacity of 30–60. Pool table, movie projector, and more included.</p>
+          <a href="/gallery/#aux" class="btn-secondary">Explore Space</a>
+        </div>
+      </div>
+      <div class="ballroom-card glass reveal">
+        <div class="card-media">
+          <img src="/assets/images/grand-aux-halls.png" alt="Studio 78" style="object-position:center;">
+          <span class="card-badge">Up to 80 Guests</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name">Studio 78</div>
+          <p class="card-desc">Arguably our most unique event hall. Great for smaller, private, and intimate events with a capacity of 50–80 guests.</p>
+          <a href="/gallery/#studio78" class="btn-secondary">Explore Space</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section id="showcase" style="background:var(--surface);">
+  <div class="sec-inner">
+    <div class="showcase-grid">
+      <div class="showcase-video reveal">
+        <iframe src="https://www.youtube.com/embed/kznJeQBwWfg" title="Grand Ballroom" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="reveal">
+        <span class="sec-tag">Why Choose Us</span>
+        <h2 class="sec-title">More Than Just <em>A Venue.</em></h2>
+        <p class="sec-text">What separates us from other banquet and event halls is the fact that we offer endless design and decor options in house.</p>
+        <div class="showcase-features">
+          <div class="feat"><div class="feat-line"></div><div><h4>Decor Options</h4><p>Numerous colors and combinations, all in house. From chair decor and sashes to table decor and covers — it's up to you.</p></div></div>
+          <div class="feat"><div class="feat-line"></div><div><h4>Lighting & Balloons</h4><p>Stage and party lights set to the color of your choosing. Plus balloon decor services for any theme.</p></div></div>
+          <div class="feat"><div class="feat-line"></div><div><h4>Preferred Vendors</h4><p>Need a DJ, photographer, or bartender? We have a list of preferred vendors ready to go.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING TEASER -->
+<section style="text-align:center;padding:100px 48px;">
+  <div class="pricing-glass glass reveal">
+    <span class="sec-tag">Transparent Pricing</span>
+    <h2 class="sec-title">Learn More About Our <em>Rental Rates.</em></h2>
+    <div class="sec-divider"></div>
+    <p class="sec-text" style="margin-bottom:32px;">Get in touch today. If you are inquiring after business hours, leave us a message on our contact page.</p>
+    <a href="/pricing/" class="btn-primary" style="font-size:0.55rem;">View Pricing</a>
+  </div>
+</section>
+
+<!-- DECOR / POSSIBILITIES -->
+<section id="decor">
+  <div class="sec-inner">
+    <div style="text-align:center;margin-bottom:64px;" class="reveal">
+      <span class="sec-tag">In-House Everything</span>
+      <h2 class="sec-title"><em>The Possibilities</em> Are Endless.</h2>
+    </div>
+    <div class="decor-grid">
+      <div style="display:flex;flex-direction:column;gap:16px;" class="reveal">
+        <div class="decor-item glass"><h4>Full Decor Service</h4><p>Linens, charger plates, centerpieces, candles, glass mirrors, table runners, chair sashes — your choice of colors, all included with Gold.</p></div>
+        <div class="decor-item glass"><h4>Kitchen & Bar</h4><p>Full kitchen with oven, hot boxes, prep tables, refrigerator, and ice machine. Lighted bar area with beverage dispensers and coffee urns.</p></div>
+        <div class="decor-item glass"><h4>Audio & Visual</h4><p>Sound system, 110" projector screen, 3 flat screen TVs, and pool table. Stage-ready for DJs, speakers, or presentations.</p></div>
+      </div>
+      <div class="decor-video reveal">
+        <iframe src="https://www.youtube.com/embed/8a4K1lXphtI" title="Decor Options" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews" style="background:var(--surface);text-align:center;">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-tag">Testimonials</span>
+      <h2 class="sec-title">Over 1,000+ <em>Satisfied</em> Customers.</h2>
+      <div class="review-stats">
+        <div><div class="stars">★★★★★</div><div class="stat-label">Google Rating</div></div>
+        <div class="stat-divider"></div>
+        <div><div class="stat-num">170+</div><div class="stat-label">Reviews</div></div>
+        <div class="stat-divider"></div>
+        <div><div class="stat-num">1000+</div><div class="stat-label">Events Hosted</div></div>
+      </div>
+    </div>
+    <div class="review-grid">
+      <div class="review-card glass reveal"><div class="rc-stars">★★★★★</div><p class="rc-text">Robert and his team did an excellent job with my event. They were patient, professional, and great to work with!</p><div class="rc-author">Tanya Jennings</div><div class="rc-date">February 2026</div></div>
+      <div class="review-card glass reveal"><div class="rc-stars">★★★★★</div><p class="rc-text">We celebrated my parents' 50th wedding anniversary at Inviting Events. IE is a one stop shop. No need to shop around — they've got it all!</p><div class="rc-author">M G</div><div class="rc-date">December 2025</div></div>
+      <div class="review-card glass reveal"><div class="rc-stars">★★★★★</div><p class="rc-text">I could not have been happier with the setup for the baby shower. Beautifully decorated with all the elements I asked for. Bob went the extra mile.</p><div class="rc-author">Valerie Couch</div><div class="rc-date">January 2026</div></div>
+      <div class="review-card glass reveal"><div class="rc-stars">★★★★★</div><p class="rc-text">Had my sweet sixteen here and it was the most amazing experience. The set-up, catering, add-ons — all of it made the night wonderful.</p><div class="rc-author">Danicaa Harris</div><div class="rc-date">September 2025</div></div>
+      <div class="review-card glass reveal"><div class="rc-stars">★★★★★</div><p class="rc-text">Bob and his team were great. Customer service and attention to detail were top-notch. The venue looked exactly as pictured.</p><div class="rc-author">Jevic Muteba</div><div class="rc-date">January 2026</div></div>
+      <div class="review-card glass reveal"><div class="rc-stars">★★★★★</div><p class="rc-text">Absolutely amazing experience. Mr. Robert & staff, we truly want to thank you all for making our wedding day truly memorable.</p><div class="rc-author">Kay House</div><div class="rc-date">October 2025</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div style="position:relative;z-index:1;" class="reveal">
+    <span class="sec-tag">Book Your Event</span>
+    <h2 class="sec-title" style="text-align:center;">Ready to <em>Schedule</em> a Tour?</h2>
+    <p class="sec-text" style="text-align:center;margin:0 auto 8px;">Get in touch today. If you are inquiring after business hours, leave us a message on our contact page.</p>
+    <div style="text-align:center;margin-top:32px;"><a href="/contact/" class="btn-primary">Schedule My Tour</a></div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <div class="sec-inner">
+    <div class="loc-grid">
+      <div class="reveal">
+        <span class="sec-tag">Find Us</span>
+        <h2 class="sec-title">You Shouldn't Have a Hard Time <em>Finding Us.</em></h2>
+        <div class="sec-divider"></div>
+        <p class="sec-text" style="margin-bottom:24px;">Our address is <strong style="color:var(--cream);">3485 Stone Mountain Hwy, Snellville, GA 30078</strong></p>
+        <p class="sec-text">Open by appointment only. Give us a call or reach out through our contact page to schedule your visit.</p>
+        <a href="tel:6785178963" style="display:inline-block;margin-top:24px;font-family:var(--sub);font-size:0.6rem;letter-spacing:2px;color:var(--green);">(678) 517-8963</a>
+      </div>
+      <div class="loc-video reveal">
+        <iframe src="https://www.youtube.com/embed/bUWU_JSWQ9w" title="Inviting Events Location" loading="lazy" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE">
+      <p>Snellville's premier event hall. One stop shop for your next meeting or special event.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">f</a>
+        <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">ig</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h5>Spaces</h5>
+        <a href="/gallery/#grand">Grand Ballroom</a>
+        <a href="/gallery/#aux">Auxiliary Ballroom</a>
+        <a href="/gallery/#studio78">Studio 78</a>
+        <a href="/about/#lounge">Private Lounge</a>
+      </div>
+      <div class="footer-col">
+        <h5>Info</h5>
+        <a href="/pricing/">Pricing</a>
+        <a href="/gallery/">Gallery</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">Inviting Events &copy; 2026. All rights reserved.</div>
+</footer>
+
+<script src="/assets/js/global.js"></script>
+<script>
+// Hero slider
+let cur = 0;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dot');
+function goSlide(n) {
+  slides[cur].classList.remove('active');
+  dots[cur].classList.remove('active');
+  cur = n;
+  slides[cur].classList.add('active');
+  dots[cur].classList.add('active');
+}
+setInterval(() => goSlide((cur + 1) % slides.length), 7000);
+</script>
+</body>
+</html>

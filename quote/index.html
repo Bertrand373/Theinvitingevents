@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inviting Events — Get Your Estimate</title>
+<link rel="icon" type="image/png" href="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png">
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #000000;
+    --bg: #0a0a0a;
+    --surface: #111111;
+    --burgundy: #611f1d;
+    --burgundy-glow: rgba(97,31,29,0.35);
+    --cream: #fffff0;
+    --cream-dim: rgba(255,255,240,0.7);
+    --cream-faint: rgba(255,255,240,0.04);
+    --green: #7ab648;
+    --green-dim: rgba(122,182,72,0.8);
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+    --glass-hover: rgba(255,255,255,0.07);
+    --text: rgba(255,255,240,0.85);
+    --text-dim: rgba(255,255,240,0.4);
+    --text-mid: rgba(255,255,240,0.55);
+    --font-h: 'Cardo', Georgia, serif;
+    --font-sub: 'Julius Sans One', sans-serif;
+    --font-body: 'Questrial', sans-serif;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Ambient glow */
+  body::before {
+    content: '';
+    position: fixed; top: -30%; left: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, var(--burgundy-glow) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+    animation: drift 20s ease-in-out infinite alternate;
+  }
+  body::after {
+    content: '';
+    position: fixed; bottom: -20%; right: -10%;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(122,182,72,0.08) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+    animation: drift 25s ease-in-out infinite alternate-reverse;
+  }
+  @keyframes drift {
+    0% { transform: translate(0,0); }
+    100% { transform: translate(40px, 30px); }
+  }
+
+  .wrap { max-width: 740px; margin: 0 auto; padding: 52px 24px 80px; position: relative; z-index: 1; }
+
+  /* ——— HEADER ——— */
+  .hdr { text-align: center; margin-bottom: 56px; animation: fadeIn 0.7s ease; }
+  .hdr-logo { margin-bottom: 28px; }
+  .hdr-logo img { height: 36px; width: auto; filter: brightness(0) invert(1); opacity: 0.9; }
+  .hdr h1 {
+    font-family: var(--font-h); font-size: 2.4rem; font-weight: 400;
+    color: var(--cream); margin-bottom: 16px; letter-spacing: 0.5px;
+  }
+  .hdr p {
+    font-size: 0.88rem; color: var(--text-dim);
+    line-height: 1.7; max-width: 460px; margin: 0 auto;
+  }
+
+  /* ——— PROGRESS ——— */
+  .prog { display: flex; align-items: center; justify-content: center; margin-bottom: 52px; animation: fadeIn 0.7s ease 0.15s both; }
+  .pd { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.1); transition: all 0.4s ease; flex-shrink: 0; }
+  .pd.on { background: var(--burgundy); box-shadow: 0 0 12px var(--burgundy-glow); }
+  .pd.dn { background: var(--green-dim); }
+  .pl { width: 44px; height: 1px; background: rgba(255,255,255,0.06); transition: all 0.4s ease; }
+  .pl.dn { background: rgba(122,182,72,0.3); }
+
+  .si {
+    text-align: center; font-family: var(--font-sub);
+    font-size: 0.6rem; letter-spacing: 4px;
+    color: var(--text-dim); margin-bottom: 10px;
+  }
+
+  /* ——— QUESTION ——— */
+  .q {
+    text-align: center; font-family: var(--font-h);
+    font-size: 1.75rem; font-weight: 400;
+    color: var(--cream); margin-bottom: 40px;
+    line-height: 1.35;
+  }
+
+  /* ——— GLASS CARDS ——— */
+  .opts { display: grid; gap: 14px; }
+  .opts.c3 { grid-template-columns: repeat(3, 1fr); }
+
+  .gc {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 30px 22px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+  }
+  .gc::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .gc:hover {
+    background: var(--glass-hover);
+    border-color: rgba(255,255,255,0.12);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .gc.sel {
+    border-color: var(--burgundy);
+    background: rgba(97,31,29,0.12);
+    box-shadow: 0 0 40px rgba(97,31,29,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .gc-t {
+    font-family: var(--font-sub); font-size: 0.85rem;
+    color: var(--cream); margin-bottom: 6px;
+    letter-spacing: 1.5px;
+  }
+  .gc-s { font-size: 0.78rem; color: var(--text-dim); line-height: 1.5; }
+  .gc-cap {
+    display: inline-block; margin-top: 12px;
+    font-size: 0.68rem; color: var(--green);
+    letter-spacing: 1px;
+  }
+
+  /* ——— TIER CARDS ——— */
+  .tl {
+    font-family: var(--font-sub); font-size: 0.6rem;
+    letter-spacing: 3px; margin-bottom: 12px;
+    display: inline-block; padding: 4px 14px;
+    border-radius: 2px;
+  }
+  .tb .tl { background: rgba(139,105,20,0.15); color: #c9a84c; }
+  .ts .tl { background: rgba(180,180,180,0.1); color: #aaa; }
+  .tg .tl { background: rgba(212,168,67,0.12); color: #d4a843; }
+
+  .td {
+    font-family: var(--font-h); font-size: 1rem;
+    color: var(--cream); margin-bottom: 16px;
+  }
+  .tf {
+    text-align: left; font-size: 0.73rem;
+    color: var(--text-dim); line-height: 2;
+  }
+  .tf span {
+    display: block; padding-left: 16px; position: relative;
+  }
+  .tf span::before {
+    content: ''; position: absolute; left: 2px; top: 50%;
+    width: 5px; height: 1px; background: var(--green-dim);
+    transform: translateY(-50%);
+  }
+
+  /* ——— DAY PRICE ——— */
+  .dp {
+    font-family: var(--font-h); font-size: 1.6rem;
+    color: var(--cream); margin-top: 14px;
+  }
+
+  /* ——— EVENT GRID ——— */
+  .eg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .ev {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 18px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.82rem; color: var(--text-mid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .ev:hover { background: var(--glass-hover); border-color: rgba(255,255,255,0.12); color: var(--cream); }
+  .ev.sel {
+    border-color: var(--burgundy);
+    background: rgba(97,31,29,0.12);
+    color: var(--cream);
+  }
+
+  /* ——— SLIDER ——— */
+  .sw { max-width: 420px; margin: 0 auto; text-align: center; }
+  .gn {
+    font-family: var(--font-h); font-size: 5rem;
+    color: var(--cream); line-height: 1; margin-bottom: 4px;
+  }
+  .gt { font-size: 0.82rem; color: var(--text-dim); margin-bottom: 36px; }
+  input[type="range"] {
+    -webkit-appearance: none; width: 100%;
+    height: 1px; background: rgba(255,255,255,0.1);
+    border-radius: 1px; outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--burgundy);
+    border: 2px solid rgba(255,255,240,0.3);
+    cursor: pointer;
+    box-shadow: 0 0 16px var(--burgundy-glow);
+  }
+  .rl { display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.68rem; color: rgba(255,255,255,0.15); }
+
+  /* ——— ESTIMATE ——— */
+  .est {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+  .est-top {
+    background: linear-gradient(135deg, var(--burgundy) 0%, #7a2522 100%);
+    padding: 44px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .est-top::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .el {
+    font-family: var(--font-sub); font-size: 0.65rem;
+    letter-spacing: 4px; color: rgba(255,255,240,0.5);
+    margin-bottom: 12px; position: relative;
+  }
+  .ep {
+    font-family: var(--font-h); font-size: 4rem;
+    color: var(--cream); line-height: 1;
+    margin-bottom: 10px; position: relative;
+  }
+  .en { font-size: 0.8rem; color: rgba(255,255,240,0.4); position: relative; }
+
+  .est-body { padding: 32px 36px; }
+  .dr {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .dr:last-of-type { border-bottom: none; }
+  .dk {
+    font-family: var(--font-sub); font-size: 0.62rem;
+    color: var(--text-dim); letter-spacing: 2px;
+  }
+  .dv { font-size: 0.88rem; color: var(--cream); }
+
+  .dep {
+    margin: 24px 0;
+    padding: 16px 20px;
+    background: rgba(255,255,240,0.03);
+    border: 1px solid rgba(255,255,240,0.06);
+    border-radius: 8px;
+    font-size: 0.8rem; color: var(--text-dim);
+    line-height: 1.5;
+  }
+  .oc {
+    margin-bottom: 16px;
+    padding: 16px 20px;
+    background: rgba(97,31,29,0.08);
+    border-left: 2px solid var(--burgundy);
+    border-radius: 0 8px 8px 0;
+    font-size: 0.8rem; color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* ——— BUTTONS ——— */
+  .nav { display: flex; justify-content: space-between; align-items: center; margin-top: 44px; }
+
+  .bb {
+    background: none; border: none;
+    font-family: var(--font-body);
+    font-size: 0.78rem; color: var(--text-dim);
+    cursor: pointer; transition: color 0.25s;
+    letter-spacing: 1px;
+  }
+  .bb:hover { color: var(--cream); }
+
+  .bn {
+    font-family: var(--font-sub);
+    background: var(--burgundy);
+    color: var(--cream);
+    border: 1px solid rgba(255,255,240,0.08);
+    padding: 15px 40px;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .bn:hover {
+    background: #7a2522;
+    box-shadow: 0 4px 24px var(--burgundy-glow);
+    border-color: rgba(255,255,240,0.12);
+  }
+  .bn:disabled { opacity: 0.2; cursor: default; box-shadow: none; }
+
+  .cta {
+    display: block; width: 100%;
+    font-family: var(--font-sub);
+    background: linear-gradient(135deg, var(--burgundy) 0%, #7a2522 100%);
+    color: var(--cream);
+    border: 1px solid rgba(255,255,240,0.1);
+    padding: 18px;
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .cta:hover {
+    box-shadow: 0 8px 32px var(--burgundy-glow);
+    border-color: rgba(255,255,240,0.15);
+    transform: translateY(-1px);
+  }
+  .cta-s {
+    text-align: center; font-size: 0.72rem;
+    color: var(--text-dim); margin-top: 12px;
+  }
+
+  /* ——— ANIM ——— */
+  @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ——— RESPONSIVE ——— */
+  @media (max-width: 640px) {
+    .hdr h1 { font-size: 1.8rem; }
+    .q { font-size: 1.35rem; }
+    .opts.c3 { grid-template-columns: 1fr; }
+    .eg { grid-template-columns: repeat(2, 1fr); }
+    .ep { font-size: 3rem; }
+    .est-body { padding: 24px 20px; }
+    .gn { font-size: 3.8rem; }
+    .gc { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="hdr">
+    <div class="hdr-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></div>
+    <h1>Get Your Estimate</h1>
+    <p>Answer a few quick questions to receive a starting price for your event. Robert will personally follow up to discuss the details.</p>
+  </div>
+  <div class="prog" id="prog"></div>
+  <div class="si" id="si"></div>
+  <div id="ct"></div>
+  <div class="nav" id="nv"></div>
+</div>
+
+<script>
+const PR = {
+  'Grand Ballroom': {
+    Bronze:{'Mon – Thurs':1500,'Fri & Sun':2000,Saturday:2400},
+    Silver:{'Mon – Thurs':2200,'Fri & Sun':2600,Saturday:3000},
+    Gold:{'Mon – Thurs':2800,'Fri & Sun':4000,Saturday:5100}
+  },
+  'Auxiliary Ballroom': {
+    Bronze:{'Mon – Thurs':800,'Fri & Sun':1200,Saturday:1600},
+    Silver:{'Mon – Thurs':1300,'Fri & Sun':1700,Saturday:2100},
+    Gold:{'Mon – Thurs':2000,'Fri & Sun':2400,Saturday:2800}
+  },
+  'Studio 78': {
+    Bronze:{'Mon – Thurs':1200,'Fri & Sun':1600,Saturday:2000},
+    Silver:{'Mon – Thurs':1700,'Fri & Sun':2100,Saturday:2500},
+    Gold:{'Mon – Thurs':2500,'Fri & Sun':2900,Saturday:3300}
+  }
+};
+const CA = {'Grand Ballroom':{mn:80,mx:250,st:150},'Auxiliary Ballroom':{mn:30,mx:60,st:50},'Studio 78':{mn:30,mx:80,st:60}};
+const T=6;
+let S={s:0,ev:null,rm:null,ti:null,dy:null,g:100};
+
+function go(){
+  let h='';
+  for(let i=0;i<T;i++){
+    h+=`<div class="pd ${i<S.s?'dn':i===S.s?'on':''}"></div>`;
+    if(i<T-1) h+=`<div class="pl ${i<S.s?'dn':''}"></div>`;
+  }
+  document.getElementById('prog').innerHTML=h;
+  document.getElementById('si').textContent=`Step ${S.s+1} of ${T}`;
+
+  const el=document.getElementById('ct');
+  el.style.opacity='0'; el.style.transform='translateY(8px)';
+  setTimeout(()=>{
+    el.innerHTML=[rEv,rRm,rTi,rDy,rGu,rEs][S.s]();
+    el.style.transition='all 0.35s ease';
+    el.style.opacity='1'; el.style.transform='translateY(0)';
+    if(S.s===4){
+      const sl=document.getElementById('gSl');
+      if(sl) sl.oninput=e=>{S.g=+e.target.value;document.getElementById('gN').textContent=S.g;};
+    }
+  },120);
+
+  const nv=document.getElementById('nv');
+  if(S.s===T-1){nv.innerHTML=`<button class="bb" onclick="bk()">Back</button><button class="bn" onclick="rs()">Start Over</button>`;return;}
+  const ok=(S.s===0&&S.ev)||(S.s===1&&S.rm)||(S.s===2&&S.ti)||(S.s===3&&S.dy)||(S.s===4);
+  nv.innerHTML=`${S.s>0?'<button class="bb" onclick="bk()">Back</button>':'<div></div>'}
+    <button class="bn" ${ok?'':'disabled'} onclick="nx()">${S.s===4?'See Estimate':'Continue'}</button>`;
+}
+
+function nx(){if(S.s<T-1){S.s++;go();scrollTo({top:0,behavior:'smooth'});}}
+function bk(){if(S.s>0){S.s--;go();scrollTo({top:0,behavior:'smooth'});}}
+function rs(){S={s:0,ev:null,rm:null,ti:null,dy:null,g:100};go();scrollTo({top:0,behavior:'smooth'});}
+function pk(k,v){S[k]=v;go();}
+
+function rEv(){
+  const t=['Wedding','Birthday','Corporate','Graduation','Baby Shower','Repass','Anniversary','Reunion','Other'];
+  return `<div class="q">What type of event are you planning?</div>
+    <div class="eg">${t.map(x=>`<div class="ev ${S.ev===x?'sel':''}" onclick="pk('ev','${x}')">${x}</div>`).join('')}</div>`;
+}
+
+function rRm(){
+  const r=[
+    {n:'Grand Ballroom',c:'80 – 250 guests',d:'Our main, luxurious event hall'},
+    {n:'Auxiliary Ballroom',c:'30 – 60 guests',d:'Intimate lounge with pool table & projector'},
+    {n:'Studio 78',c:'50 – 80 guests',d:'Unique setting for private events'}
+  ];
+  return `<div class="q">Which ballroom interests you?</div>
+    <div class="opts c3">${r.map(x=>`
+      <div class="gc ${S.rm===x.n?'sel':''}" onclick="pk('rm','${x.n}');S.g=${CA[x.n].st};">
+        <div class="gc-t">${x.n}</div>
+        <div class="gc-s">${x.d}</div>
+        <span class="gc-cap">${x.c}</span>
+      </div>`).join('')}</div>`;
+}
+
+function rTi(){
+  const t=[
+    {k:'Bronze',c:'tb',d:'Room Only',l:['8 hours rental time','Tables & chairs','Decorative lighting','Dance floor','Bar tables']},
+    {k:'Silver',c:'ts',d:'Room with Linens',l:['Everything in Bronze','Table linens & runners','Chair sashes','Full linen service','8 hours rental time']},
+    {k:'Gold',c:'tg',d:'Total Room Decor',l:['Full set-up, service & clean-up','Your choice of linens & colors','Centerpieces & candles','Chafing dishes & silverware','6 hours rental time']}
+  ];
+  return `<div class="q">Choose your package</div>
+    <div class="opts c3">${t.map(x=>`
+      <div class="gc ${x.c} ${S.ti===x.k?'sel':''}" onclick="pk('ti','${x.k}')">
+        <div class="tl">${x.k}</div>
+        <div class="td">${x.d}</div>
+        <div class="tf">${x.l.map(l=>`<span>${l}</span>`).join('')}</div>
+      </div>`).join('')}</div>`;
+}
+
+function rDy(){
+  const pr=PR[S.rm]?.[S.ti]||{};
+  const d=[{k:'Mon – Thurs',s:'Best rates'},{k:'Fri & Sun',s:'Popular choice'},{k:'Saturday',s:'Premium day'}];
+  return `<div class="q">What day of the week?</div>
+    <div class="opts c3">${d.map(x=>`
+      <div class="gc ${S.dy===x.k?'sel':''}" onclick="pk('dy','${x.k}')">
+        <div class="gc-t">${x.k}</div>
+        <div class="gc-s">${x.s}</div>
+        <div class="dp">$${(pr[x.k]||0).toLocaleString()}</div>
+      </div>`).join('')}</div>`;
+}
+
+function rGu(){
+  const c=CA[S.rm];
+  return `<div class="q">How many guests?</div>
+    <div class="sw">
+      <div class="gn" id="gN">${S.g}</div>
+      <div class="gt">estimated guests</div>
+      <input type="range" id="gSl" min="${c.mn}" max="${c.mx}" value="${S.g}" step="5">
+      <div class="rl"><span>${c.mn}</span><span>${c.mx} max</span></div>
+    </div>`;
+}
+
+function rEs(){
+  const price=PR[S.rm]?.[S.ti]?.[S.dy]||0;
+  const hrs=S.ti==='Gold'?6:8;
+  const c=CA[S.rm];
+  return `<div class="est">
+    <div class="est-top">
+      <div class="el">Estimated Price</div>
+      <div class="ep">$${price.toLocaleString()}</div>
+      <div class="en">Starting price · Final pricing confirmed after consultation</div>
+    </div>
+    <div class="est-body">
+      <div class="dr"><span class="dk">Event</span><span class="dv">${S.ev}</span></div>
+      <div class="dr"><span class="dk">Ballroom</span><span class="dv">${S.rm}</span></div>
+      <div class="dr"><span class="dk">Package</span><span class="dv">${S.ti}</span></div>
+      <div class="dr"><span class="dk">Day</span><span class="dv">${S.dy}</span></div>
+      <div class="dr"><span class="dk">Guests</span><span class="dv">${S.g}</span></div>
+      <div class="dr"><span class="dk">Rental Time</span><span class="dv">${hrs} hours</span></div>
+      <div class="dep">A $300 refundable security deposit is required with all bookings.</div>
+      ${S.g>c.st?`<div class="oc">For events over ${c.st} guests in the ${S.rm}, pricing may be adjusted. Robert will confirm during your consultation.</div>`:''}
+      <button class="cta" onclick="window.open('https://www.theinvitingevents.com/contact/','_blank')">Schedule My Tour</button>
+      <div class="cta-s">Robert will personally reach out within 24 hours</div>
+    </div>
+  </div>`;
+}
+
+go();
+</script>
+</body>
+</html>

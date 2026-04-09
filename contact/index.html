@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Inviting Events</title>
+<link rel="icon" type="image/png" href="/assets/images/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/global.css">
+<style>
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1000px;margin:0 auto;}
+.contact-info{padding-top:20px;}
+.contact-info .info-item{margin-bottom:28px;}
+.contact-info h4{font-family:var(--sub);font-size:0.6rem;letter-spacing:2px;color:var(--cream);margin-bottom:8px;}
+.contact-info p,.contact-info a{font-size:0.88rem;color:var(--cream40);line-height:1.6;}
+.contact-info a:hover{color:var(--cream);}
+.contact-form{border-radius:16px;padding:40px;position:relative;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+.form-row.full{grid-template-columns:1fr;}
+.form-field label{font-family:var(--sub);font-size:0.55rem;letter-spacing:2px;color:var(--cream40);display:block;margin-bottom:8px;}
+.form-field input,.form-field select,.form-field textarea{
+  width:100%;padding:14px 16px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:6px;
+  color:var(--cream);font-family:var(--body);font-size:0.88rem;
+  transition:all 0.3s;outline:none;
+}
+.form-field input:focus,.form-field select:focus,.form-field textarea:focus{
+  border-color:var(--burgundy);
+  background:rgba(255,255,255,0.05);
+  box-shadow:0 0 20px rgba(97,31,29,0.15);
+}
+.form-field select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='rgba(255,255,240,0.3)' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;}
+.form-field select option{background:var(--surface);color:var(--cream);}
+.form-field textarea{resize:vertical;min-height:120px;}
+.form-submit{margin-top:24px;text-align:right;}
+.form-submit button{font-family:var(--sub);font-size:0.6rem;letter-spacing:3px;padding:16px 44px;background:var(--burgundy);color:var(--cream);border:1px solid rgba(255,255,240,0.1);border-radius:4px;cursor:pointer;transition:all 0.3s;}
+.form-submit button:hover{background:var(--burg-light);box-shadow:0 8px 40px var(--burg-glow);}
+.form-note{font-size:0.75rem;color:var(--cream20);margin-top:12px;text-align:right;}
+@media(max-width:900px){
+  .contact-grid{grid-template-columns:1fr;gap:40px;}
+  .form-row{grid-template-columns:1fr;}
+  .contact-form{padding:28px 20px;}
+}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
+  <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/#ballrooms">Spaces</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/#reviews">Reviews</a></li>
+    <li><a href="/pricing/">Pricing</a></li>
+    <li><a href="/about/">About</a></li>
+  </ul>
+  <a href="/contact/" class="nav-cta active">Schedule a Tour</a>
+</nav>
+
+<div class="page-header">
+  <span class="sec-tag" style="margin-bottom:12px;">Get In Touch</span>
+  <h1>Contact Us</h1>
+  <p>Send us a message or give us a call to schedule a tour. Our facilities are shown by appointment only.</p>
+</div>
+
+<section>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <div class="info-item">
+        <h4>Address</h4>
+        <p>3485 Stone Mountain Hwy<br>Snellville, GA 30078</p>
+      </div>
+      <div class="info-item">
+        <h4>Phone</h4>
+        <a href="tel:6785178963">(678) 517-8963</a>
+      </div>
+      <div class="info-item">
+        <h4>Email</h4>
+        <a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a>
+      </div>
+      <div class="info-item">
+        <h4>Hours</h4>
+        <p>By appointment only.<br>If inquiring after business hours, leave a message here and we will get back to you.</p>
+      </div>
+      <div style="margin-top:40px;">
+        <span class="sec-tag">Quick Estimate</span>
+        <p class="sec-text" style="margin-bottom:16px;">Want to see pricing before reaching out?</p>
+        <a href="/quote/" class="btn-secondary">Try Our Quote Builder</a>
+      </div>
+    </div>
+
+    <div class="contact-form glass reveal">
+      <form id="contactForm" action="#" method="POST">
+        <div class="form-row">
+          <div class="form-field">
+            <label>Your Name</label>
+            <input type="text" name="name" required placeholder="Full name">
+          </div>
+          <div class="form-field">
+            <label>Email Address</label>
+            <input type="email" name="email" required placeholder="you@email.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Phone Number</label>
+            <input type="tel" name="phone" placeholder="(xxx) xxx-xxxx">
+          </div>
+          <div class="form-field">
+            <label>Event Type</label>
+            <select name="event_type">
+              <option value="">Select event type</option>
+              <option>Wedding</option>
+              <option>Birthday</option>
+              <option>Corporate</option>
+              <option>Graduation</option>
+              <option>Baby Shower</option>
+              <option>Repass</option>
+              <option>Anniversary</option>
+              <option>Reunion</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label>Estimated Guest Count</label>
+            <select name="guests">
+              <option value="">How many guests?</option>
+              <option>Under 50</option>
+              <option>50 – 80</option>
+              <option>80 – 150</option>
+              <option>150 – 250</option>
+              <option>250+</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label>Preferred Ballroom</label>
+            <select name="ballroom">
+              <option value="">Select a ballroom</option>
+              <option>Grand Ballroom</option>
+              <option>Auxiliary Ballroom</option>
+              <option>Studio 78</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-field">
+            <label>Preferred Date Range</label>
+            <input type="text" name="dates" placeholder="e.g. June 2026, flexible on weekdays">
+          </div>
+        </div>
+        <div class="form-row full">
+          <div class="form-field">
+            <label>Message</label>
+            <textarea name="message" placeholder="Tell us about your vision for your event..."></textarea>
+          </div>
+        </div>
+        <div class="form-submit">
+          <button type="submit">Send Message</button>
+          <p class="form-note">Robert will personally reach out within 24 hours.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE">
+      <p>Snellville's premier event hall.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div>
+      <div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom">Inviting Events &copy; 2026. All rights reserved.</div>
+</footer>
+<script src="/assets/js/global.js"></script>
+</body>
+</html>

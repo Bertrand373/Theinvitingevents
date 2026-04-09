@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — Inviting Events</title>
+<meta name="description" content="View rental rates for all three Inviting Events ballrooms. Bronze, Silver, and Gold packages available.">
+<link rel="icon" type="image/png" href="/assets/images/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/global.css">
+<style>
+.pricing-head{text-align:center;margin-bottom:16px;}
+.pricing-notes{text-align:center;margin-bottom:64px;}
+.pricing-notes p{font-size:0.82rem;color:var(--cream40);line-height:1.6;}
+.pricing-notes .dep{color:var(--green);font-style:italic;}
+
+.room-section{margin-bottom:80px;}
+.room-header{text-align:center;margin-bottom:40px;}
+.room-name{font-family:var(--sub);font-size:0.9rem;letter-spacing:3px;color:var(--cream);margin-bottom:8px;}
+.room-cap{font-size:0.82rem;color:var(--cream40);}
+.room-cap strong{color:var(--cream70);}
+.room-note{font-size:0.75rem;color:var(--green);margin-top:6px;}
+
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.tier{background:var(--glass);border:1px solid var(--glass-b);border-radius:14px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);overflow:hidden;transition:all 0.3s;position:relative;}
+.tier::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 50%);pointer-events:none;}
+.tier:hover{border-color:rgba(255,255,255,0.1);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3);}
+
+.tier-top{padding:28px 24px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.04);}
+.tier-badge{font-family:var(--sub);font-size:0.55rem;letter-spacing:3px;display:inline-block;padding:4px 16px;border-radius:2px;margin-bottom:14px;}
+.bronze .tier-badge{background:rgba(139,105,20,0.15);color:#c9a84c;}
+.silver .tier-badge{background:rgba(180,180,180,0.1);color:#aaa;}
+.gold .tier-badge{background:rgba(212,168,67,0.12);color:#d4a843;}
+.tier-desc{font-family:var(--h);font-size:1.1rem;color:var(--cream);margin-bottom:16px;}
+
+.tier-prices{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.tier-price-row{display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;}
+.tier-price-row .day{color:var(--cream40);}
+.tier-price-row .price{font-family:var(--h);font-size:1.1rem;color:var(--cream);}
+
+.tier-body{padding:24px;}
+.tier-hours{font-family:var(--sub);font-size:0.55rem;letter-spacing:2px;color:var(--green);margin-bottom:16px;text-align:center;}
+.tier-list{font-size:0.78rem;color:var(--cream40);line-height:2;}
+.tier-list span{display:block;padding-left:16px;position:relative;}
+.tier-list span::before{content:'';position:absolute;left:2px;top:50%;width:5px;height:1px;background:rgba(122,182,72,0.5);transform:translateY(-50%);}
+
+.quote-cta{text-align:center;margin-top:80px;padding:60px 40px;background:var(--glass);border:1px solid var(--glass-b);border-radius:16px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
+.quote-cta h3{font-family:var(--h);font-size:1.6rem;color:var(--cream);margin-bottom:12px;}
+.quote-cta p{font-size:0.88rem;color:var(--cream40);margin-bottom:28px;max-width:400px;margin-left:auto;margin-right:auto;}
+
+@media(max-width:900px){
+  .tier-grid{grid-template-columns:1fr;}
+}
+@media(max-width:480px){
+  .tier-top{padding:24px 18px 16px;}
+  .tier-body{padding:18px;}
+}
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
+  <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/#ballrooms">Spaces</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/#reviews">Reviews</a></li>
+    <li><a href="/pricing/" class="active">Pricing</a></li>
+    <li><a href="/about/">About</a></li>
+  </ul>
+  <a href="/contact/" class="nav-cta">Schedule a Tour</a>
+</nav>
+
+<div class="page-header">
+  <span class="sec-tag" style="margin-bottom:12px;">Transparent Pricing</span>
+  <h1>Pricing</h1>
+  <p>Each pricing chart is unique to each ballroom. Choose the package that fits your vision.</p>
+</div>
+
+<section>
+  <div class="sec-inner">
+    <div class="pricing-notes">
+      <p class="dep">*A $300 refundable security/damage deposit is required.</p>
+    </div>
+
+    <!-- GRAND BALLROOM -->
+    <div class="room-section">
+      <div class="room-header">
+        <div class="room-name">Grand Ballroom</div>
+        <div class="room-cap">Capacity of up to <strong>250 guests</strong></div>
+        <div class="room-note">*Inquire for rates above 150 guests</div>
+      </div>
+      <div class="tier-grid">
+        <div class="tier bronze">
+          <div class="tier-top">
+            <div class="tier-badge">Bronze</div>
+            <div class="tier-desc">Room Only</div>
+            <div class="tier-prices">
+              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$1,500</span></div>
+              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$2,000</span></div>
+              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$2,400</span></div>
+            </div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-hours">8 Hours Rental Time</div>
+            <div class="tier-list">
+              <span>Tables</span><span>Chairs / Barstools</span><span>Decorative lighting</span><span>Dance floor</span><span>Bar tables</span>
+            </div>
+          </div>
+        </div>
+        <div class="tier silver">
+          <div class="tier-top">
+            <div class="tier-badge">Silver</div>
+            <div class="tier-desc">Room with Linens</div>
+            <div class="tier-prices">
+              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$2,200</span></div>
+              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$2,600</span></div>
+              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$3,000</span></div>
+            </div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-hours">8 Hours Rental Time</div>
+            <div class="tier-list">
+              <span>Everything in Bronze</span><span>Table linens</span><span>Chair sashes</span><span>Table runners</span><span>Full linen service</span>
+            </div>
+          </div>
+        </div>
+        <div class="tier gold">
+          <div class="tier-top">
+            <div class="tier-badge">Gold</div>
+            <div class="tier-desc">Total Room Decor</div>
+            <div class="tier-prices">
+              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$2,800</span></div>
+              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$4,000</span></div>
+              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$5,100</span></div>
+            </div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-hours">6 Hours Rental Time</div>
+            <div class="tier-list">
+              <span>Full set-up, service & clean-up</span><span>Your choice of linens & colors</span><span>Charger plates & cloth napkins</span><span>Chair sashes & table runners</span><span>Upscale floral centerpieces</span><span>Glass plates & silverware</span><span>Wine/Champagne glasses</span><span>Votive & floating candles</span><span>Silver chafing dishes & trays</span><span>Drink dispensers & coffee urns</span><span>Lighted bar area</span><span>Kitchen area with oven & fridge</span><span>Dance floor & decorative lighting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AUXILIARY BALLROOM -->
+    <div class="room-section">
+      <div class="room-header">
+        <div class="room-name">Auxiliary Ballroom</div>
+        <div class="room-cap">Capacity of up to <strong>60 guests</strong></div>
+      </div>
+      <div class="tier-grid">
+        <div class="tier bronze">
+          <div class="tier-top">
+            <div class="tier-badge">Bronze</div>
+            <div class="tier-desc">Room Only</div>
+            <div class="tier-prices">
+              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$800</span></div>
+              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$1,200</span></div>
+              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$1,600</span></div>
+            </div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-hours">8 Hours Rental Time</div>
+            <div class="tier-list">
+              <span>Tables</span><span>Chairs / Barstools</span><span>Decorative lighting</span><span>Dance floor</span><span>Bar tables</span><span>Sound system</span><span>Projector & 110" screen</span><span>3 flat screen TVs</span><span>Pool table</span>
+            </div>
+          </div>
+        </div>
+        <div class="tier silver">
+          <div class="tier-top">
+            <div class="tier-badge">Silver</div>
+            <div class="tier-desc">Room with Linens</div>
+            <div class="tier-prices">
+              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$1,300</span></div>
+              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$1,700</span></div>
+              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$2,100</span></div>
+            </div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-hours">8 Hours Rental Time</div>
+            <div class="tier-list">
+              <span>Everything in Bronze</span><span>Table linens</span><span>Chair sashes</span><span>Table runners</span><span>Full linen service</span>
+            </div>
+          </div>
+        </div>
+        <div class="tier gold">
+          <div class="tier-top">
+            <div class="tier-badge">Gold</div>
+            <div class="tier-desc">Total Room Decor</div>
+            <div class="tier-prices">
+              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$2,000</span></div>
+              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$2,400</span></div>
+              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$2,800</span></div>
+            </div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-hours">6 Hours Rental Time</div>
+            <div class="tier-list">
+              <span>Full set-up, service & clean-up</span><span>Your choice of linens & colors</span><span>Charger plates & cloth napkins</span><span>Centerpieces & candles</span><span>Silver chafing dishes & trays</span><span>Drink dispensers & coffee urns</span><span>Lighted bar area</span><span>Kitchen area with oven & fridge</span><span>Dance floor & decorative lighting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDIO 78 -->
+    <div class="room-section">
+      <div class="room-header">
+        <div class="room-name">Studio 78</div>
+        <div class="room-cap">Capacity of up to <strong>80 guests</strong></div>
+      </div>
+      <div class="tier-grid">
+        <div class="tier bronze">
+          <div class="tier-top">
+            <div class="tier-badge">Bronze</div>
+            <div class="tier-desc">Room Only</div>
+            <div class="tier-prices">
+              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$1,200</span></div>
+              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$1,600</span></div>
+              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$2,000</span></div>
+            </div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-hours">8 Hours Rental Time</div>
+            <div class="tier-list">
+              <span>Tables</span><span>Chairs / Barstools</span><span>Decorative lighting</span><span>Dance floor</span><span>Bar tables</span>
+            </div>
+          </div>
+        </div>
+        <div class="tier silver">
+          <div class="tier-top">
+            <div class="tier-badge">Silver</div>
+            <div class="tier-desc">Room with Linens</div>
+            <div class="tier-prices">
+              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$1,700</span></div>
+              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$2,100</span></div>
+              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$2,500</span></div>
+            </div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-hours">8 Hours Rental Time</div>
+            <div class="tier-list">
+              <span>Everything in Bronze</span><span>Table linens</span><span>Chair sashes</span><span>Table runners</span><span>Full linen service</span>
+            </div>
+          </div>
+        </div>
+        <div class="tier gold">
+          <div class="tier-top">
+            <div class="tier-badge">Gold</div>
+            <div class="tier-desc">Total Room Decor</div>
+            <div class="tier-prices">
+              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$2,500</span></div>
+              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$2,900</span></div>
+              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$3,300</span></div>
+            </div>
+          </div>
+          <div class="tier-body">
+            <div class="tier-hours">6 Hours Rental Time</div>
+            <div class="tier-list">
+              <span>Full set-up, service & clean-up</span><span>Your choice of linens & colors</span><span>Charger plates & cloth napkins</span><span>Centerpieces & candles</span><span>Silver chafing dishes & trays</span><span>Drink dispensers & coffee urns</span><span>Lighted bar area</span><span>Kitchen area with oven & fridge</span><span>Dance floor & decorative lighting</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTE CTA -->
+    <div class="quote-cta reveal">
+      <span class="sec-tag">Quick Estimate</span>
+      <h3>Not Sure Where to Start?</h3>
+      <p>Try our interactive quote builder to get an instant estimate based on your event details.</p>
+      <a href="/quote/" class="btn-primary" style="margin-right:16px;">Get a Quote</a>
+      <a href="/contact/" class="btn-primary" style="background:transparent;border-color:var(--glass-b);">Contact Us</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE">
+      <p>Snellville's premier event hall. One stop shop for your next meeting or special event.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">f</a>
+        <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">ig</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div>
+      <div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a><a href="/contact/">Contact</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom">Inviting Events &copy; 2026. All rights reserved.</div>
+</footer>
+<script src="/assets/js/global.js"></script>
+</body>
+</html>

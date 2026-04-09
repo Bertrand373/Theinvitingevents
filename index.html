@@ -475,7 +475,7 @@ setInterval(() => goSlide((cur + 1) % slides.length), 7000);
   }
 
   // Try to fetch from Worker API, fall back to hardcoded
-  fetch('/api/reviews').then(r=>r.json()).then(renderReviews).catch(()=>renderReviews({reviews:fallbackReviews,rating:4.7,totalReviews:170}));
+  fetch('https://worker-lingering-heart-0510.fancy-brook-a8e8.workers.dev').then(r=>r.json()).then(renderReviews).catch(()=>renderReviews({reviews:fallbackReviews,rating:4.7,totalReviews:170}));
 })();
 </script>
 </body>

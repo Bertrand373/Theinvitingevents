@@ -8,9 +8,13 @@ window.addEventListener('scroll', () => {
   if (nav) nav.classList.toggle('scrolled', window.scrollY > 80);
 });
 
-// Mobile nav toggle
+// Mobile nav toggle with X animation
 function toggleNav() {
-  document.querySelector('.nav-links').classList.toggle('open');
+  const links = document.querySelector('.nav-links');
+  const toggle = document.querySelector('.nav-toggle');
+  links.classList.toggle('open');
+  toggle.classList.toggle('open');
+  document.body.style.overflow = links.classList.contains('open') ? 'hidden' : '';
 }
 
 // Close mobile nav on link click
@@ -18,6 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.nav-links a').forEach(a => {
     a.addEventListener('click', () => {
       document.querySelector('.nav-links')?.classList.remove('open');
+      document.querySelector('.nav-toggle')?.classList.remove('open');
+      document.body.style.overflow = '';
     });
   });
 

@@ -6,15 +6,13 @@ compatibility_date = "2024-12-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "ie-db"
-database_id = "337f8162-603c-4347-8e26-4ea0ca9aed93" # Fill after: wrangler d1 create ie-db
+database_id = "337f8162-603c-4347-8e26-4ea0ca9aed93"
 
 # ── R2 Bucket ──
 [[r2_buckets]]
 binding = "MEDIA"
 bucket_name = "ie-media"
-# Create with: wrangler r2 bucket create ie-media
 
-# ── Routes ──
-# After DNS cutover, route to theinvitingevents.com/api/*
-# For now, deploy as standalone worker
-# routes = [{ pattern = "theinvitingevents.com/api/*", zone_name = "theinvitingevents.com" }]
+# ── Secrets ──
+# Set with: wrangler secret put ANTHROPIC_API_KEY
+# Then paste your key from console.anthropic.com

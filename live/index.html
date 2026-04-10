@@ -14,8 +14,6 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 @keyframes drift{0%{transform:translate(0,0)}100%{transform:translate(40px,30px)}}
 
 .portal-wrap{max-width:480px;margin:0 auto;padding:92px 20px 40px;position:relative;z-index:1}
-
-/* Screens */
 .screen{display:none;flex-direction:column;animation:fadeUp 0.5s ease}
 .screen.active{display:flex}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
@@ -25,29 +23,22 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 .checkin-icon img{width:34px;height:34px;object-fit:contain;filter:brightness(2)}
 .checkin-title{font-family:var(--h);font-weight:400;font-size:clamp(1.5rem,4vw,1.9rem);text-align:center;color:var(--cream);margin-bottom:4px}
 .checkin-sub{text-align:center;color:var(--cream40);font-size:0.85rem;line-height:1.6;margin-bottom:20px}
-
 .event-badge{text-align:center;padding:12px 16px;border-radius:4px;background:rgba(97,31,29,0.12);border:1px solid rgba(97,31,29,0.25);font-family:var(--h);font-style:italic;font-size:0.92rem;color:var(--cream70);margin-bottom:20px}
-
 .form-group{margin-bottom:14px}
 .form-group label{font-family:var(--sub);font-size:0.55rem;letter-spacing:3px;color:var(--cream40);margin-bottom:6px;display:block}
 .form-group label span{font-family:var(--body);letter-spacing:0;font-size:0.72rem;opacity:0.6}
 .form-input{width:100%;padding:13px 14px;background:var(--cream04);border:1px solid var(--cream08);border-radius:4px;color:var(--cream);font-family:var(--body);font-size:0.92rem;transition:border-color 0.3s;outline:none}
 .form-input:focus{border-color:var(--burgundy)}
 .form-input::placeholder{color:var(--cream20)}
-
 .consent-row{display:flex;align-items:flex-start;gap:10px;margin:16px 0 20px}
 .consent-row input[type="checkbox"]{margin-top:2px;accent-color:var(--burgundy);width:16px;height:16px;flex-shrink:0}
 .consent-row label{font-size:0.75rem;color:var(--cream40);line-height:1.5;cursor:pointer;font-family:var(--body);letter-spacing:0;text-transform:none}
-
-/* Divider */
 .or-divider{display:flex;align-items:center;gap:12px;margin:16px 0}
-.or-divider span{font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;color:var(--cream20)}
+.or-divider span{font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;color:var(--cream20);white-space:nowrap}
 .or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--cream08)}
-
-/* Google button */
 .btn-google{width:100%;padding:13px;border:1px solid var(--cream08);border-radius:4px;background:var(--cream04);color:var(--cream);font-family:var(--body);font-size:0.88rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:all 0.3s}
 .btn-google:hover{border-color:var(--cream20);background:var(--cream08)}
-.btn-google svg{width:18px;height:18px}
+.btn-google svg{width:18px;height:18px;flex-shrink:0}
 
 /* Feed */
 .feed-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
@@ -55,7 +46,6 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 .feed-tabs{display:flex;border:1px solid var(--glass-b);border-radius:4px;overflow:hidden}
 .feed-tab{padding:7px 14px;font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;background:transparent;border:none;color:var(--cream40);cursor:pointer;transition:all 0.3s}
 .feed-tab.active{background:var(--burgundy);color:var(--cream)}
-
 .upload-zone{border:1px dashed var(--cream20);border-radius:12px;padding:32px 20px;text-align:center;cursor:pointer;transition:all 0.3s;margin-bottom:16px}
 .upload-zone:hover,.upload-zone.dragover{border-color:var(--burgundy);background:rgba(97,31,29,0.04)}
 .upload-zone svg{width:36px;height:36px;color:var(--cream20);margin-bottom:8px}
@@ -79,16 +69,30 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 .lightbox img{max-width:100%;max-height:85dvh;border-radius:4px;object-fit:contain}
 .lightbox .close-lb{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:var(--glass);border:1px solid var(--glass-b);color:var(--cream);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
-/* Bottom nav — only shows AFTER check-in, stays below content not in header */
-.portal-nav{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(6,6,6,0.9);border:1px solid var(--glass-b);border-radius:40px;padding:4px;display:none;gap:2px;z-index:50;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
-.portal-nav.visible{display:flex}
-.pnav-btn{padding:9px 18px;border:none;border-radius:30px;background:transparent;color:var(--cream40);font-family:var(--sub);font-size:0.48rem;letter-spacing:2px;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:5px}
-.pnav-btn.active{background:var(--burgundy);color:var(--cream)}
-.pnav-btn svg{width:13px;height:13px}
+/* Floating camera FAB — jump to upload */
+.fab{
+  position:fixed;bottom:24px;right:24px;width:52px;height:52px;
+  border-radius:50%;background:var(--burgundy);border:1px solid rgba(255,255,240,0.1);
+  color:var(--cream);cursor:pointer;z-index:50;
+  display:none;align-items:center;justify-content:center;
+  box-shadow:0 4px 20px var(--burg-glow);transition:all 0.3s;
+}
+.fab:hover{background:var(--burg-light);transform:scale(1.08)}
+.fab.visible{display:flex}
+.fab svg{width:22px;height:22px}
 
-/* Toast — burgundy, not green */
-.toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--burgundy);color:var(--cream);padding:11px 22px;border-radius:4px;font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;box-shadow:0 8px 30px rgba(0,0,0,0.5);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);z-index:300;pointer-events:none;text-transform:uppercase;border:1px solid rgba(255,255,240,0.1)}
-.toast.show{transform:translateX(-50%) translateY(0)}
+/* Toast */
+.toast{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(80px);
+  background:var(--burgundy);color:var(--cream);padding:11px 22px;
+  border-radius:4px;font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.5);
+  transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.4s;
+  z-index:300;pointer-events:none;text-transform:uppercase;
+  border:1px solid rgba(255,255,240,0.1);opacity:0;
+}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
 /* No-event */
 .no-event-wrap{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center}
@@ -98,17 +102,11 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 .spinner{width:16px;height:16px;border:2px solid var(--cream20);border-top-color:var(--cream);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* Extra bottom padding when portal-nav visible */
-.screen-feed-pad{padding-bottom:72px}
-
-@media(max-width:480px){
-  .portal-wrap{padding:80px 16px 32px}
-}
+@media(max-width:480px){.portal-wrap{padding:80px 16px 32px}.fab{bottom:20px;right:16px;width:48px;height:48px}}
 </style>
 </head>
 <body>
 
-<!-- NAV (full site nav — marketing moment) -->
 <nav id="navbar">
   <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
   <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
@@ -126,14 +124,14 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 </nav>
 
 <div class="toast" id="toast"></div>
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <button class="close-lb" onclick="closeLightbox()">&times;</button>
-  <img id="lightbox-img" src="" alt="">
-</div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()"><button class="close-lb" onclick="closeLightbox()">&times;</button><img id="lightbox-img" src="" alt=""></div>
+
+<!-- Floating camera FAB (visible after check-in) -->
+<button class="fab" id="fab" onclick="document.getElementById('upload-section').scrollIntoView({behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+</button>
 
 <div class="portal-wrap">
-
-  <!-- No Active Event -->
   <div class="screen" id="screen-inactive">
     <div class="no-event-wrap">
       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--cream20)"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
@@ -144,43 +142,26 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
     </div>
   </div>
 
-  <!-- Check-in -->
   <div class="screen" id="screen-checkin">
-    <div class="checkin-icon">
-      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE">
-    </div>
+    <div class="checkin-icon"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE"></div>
     <div class="sec-tag" style="text-align:center;margin-bottom:14px">Guest Portal</div>
     <h1 class="checkin-title">Welcome to <em style="font-style:italic;color:var(--cream70)">Your Event</em></h1>
     <p class="checkin-sub">Check in to share photos and browse the live event feed</p>
     <div class="event-badge" id="event-badge">Loading event...</div>
-
     <div class="glass" style="padding:24px 20px">
-      <!-- Google Sign-In (primary) -->
       <button class="btn-google" onclick="googleSignIn()">
         <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Sign in with Google
       </button>
-
       <div class="or-divider"><span>Or Enter Manually</span></div>
-
-      <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" class="form-input" id="guest-name" placeholder="First & Last Name" autocomplete="name">
-      </div>
-      <div class="form-group">
-        <label>Email <span>(for your photo album)</span></label>
-        <input type="email" class="form-input" id="guest-email" placeholder="you@email.com" autocomplete="email">
-      </div>
-      <div class="consent-row">
-        <input type="checkbox" id="consent">
-        <label for="consent">I agree to receive my event album and allow my photos to be shared in the event feed.</label>
-      </div>
+      <div class="form-group"><label>Your Name</label><input type="text" class="form-input" id="guest-name" placeholder="First & Last Name" autocomplete="name"></div>
+      <div class="form-group"><label>Email <span>(for your photo album)</span></label><input type="email" class="form-input" id="guest-email" placeholder="you@email.com" autocomplete="email"></div>
+      <div class="consent-row"><input type="checkbox" id="consent"><label for="consent">I agree to receive my event album and allow my photos to be shared in the event feed.</label></div>
       <button class="btn-primary" id="checkin-btn" onclick="handleCheckin()" style="width:100%;text-align:center">Check In &amp; Start Sharing</button>
     </div>
   </div>
 
-  <!-- Feed + Upload -->
-  <div class="screen screen-feed-pad" id="screen-feed">
+  <div class="screen" id="screen-feed">
     <div class="glass" id="upload-section" style="padding:20px;margin-bottom:16px">
       <div class="sec-tag" style="margin-bottom:10px">Share Your Photos</div>
       <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
@@ -194,46 +175,14 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
       <button class="btn-primary" id="upload-btn" style="display:none;width:100%;text-align:center" onclick="uploadPhotos()">Upload Photos</button>
     </div>
     <div>
-      <div class="feed-header">
-        <h2>Event Feed</h2>
-        <div class="feed-tabs">
-          <button class="feed-tab active" data-tab="all" onclick="switchTab('all',this)">All</button>
-          <button class="feed-tab" data-tab="mine" onclick="switchTab('mine',this)">Mine</button>
-        </div>
-      </div>
+      <div class="feed-header"><h2>Event Feed</h2><div class="feed-tabs"><button class="feed-tab active" onclick="switchTab('all',this)">All</button><button class="feed-tab" onclick="switchTab('mine',this)">Mine</button></div></div>
       <div class="photo-grid" id="photo-grid"></div>
-      <div class="empty-state" id="empty-feed" style="display:none">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-        <p>No photos yet — be the first to share!</p>
-      </div>
+      <div class="empty-state" id="empty-feed" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><p>No photos yet — be the first to share!</p></div>
     </div>
   </div>
 </div>
 
-<!-- Bottom nav pill (only after check-in, fixed to bottom, NOT in header) -->
-<nav class="portal-nav" id="portal-nav">
-  <button class="pnav-btn active" onclick="navTo('screen-feed',this)">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Feed
-  </button>
-  <button class="pnav-btn" onclick="scrollToUpload()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4m0 0l-4 4m4-4 4 4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>Upload
-  </button>
-</nav>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE">
-      <p>Snellville's premier event hall.</p>
-      <div class="footer-social"><a href="https://www.facebook.com/invitingevents2/" target="_blank">f</a><a href="https://www.instagram.com/invitingevents/" target="_blank">ig</a></div>
-    </div>
-    <div class="footer-links">
-      <div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div>
-      <div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a><a href="/contact/">Contact</a></div>
-    </div>
-  </div>
-  <div class="footer-bottom">Inviting Events © 2026. All rights reserved.</div>
-</footer>
+<footer><div class="footer-inner"><div class="footer-brand"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE"><p>Snellville's premier event hall.</p><div class="footer-social"><a href="https://www.facebook.com/invitingevents2/" target="_blank">f</a><a href="https://www.instagram.com/invitingevents/" target="_blank">ig</a></div></div><div class="footer-links"><div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div><div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a><a href="/contact/">Contact</a></div></div></div><div class="footer-bottom">Inviting Events © 2026. All rights reserved.</div></footer>
 
 <script>
 function toggleNav(){document.querySelector('.nav-toggle').classList.toggle('open');document.querySelector('.nav-links').classList.toggle('open')}
@@ -249,15 +198,11 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 async function checkActiveEvent(){
   try{const r=await fetch(`${API_BASE}/event/active`);if(!r.ok)throw 0;currentEvent=await r.json();document.getElementById('event-badge').textContent=currentEvent.name;
-    if(guestToken){showScreen('screen-feed');document.getElementById('portal-nav').classList.add('visible');loadFeed()}else showScreen('screen-checkin');
+    if(guestToken){showScreen('screen-feed');document.getElementById('fab').classList.add('visible');loadFeed()}else showScreen('screen-checkin');
   }catch(e){demoMode()}
 }
 function demoMode(){currentEvent={id:'demo',name:'Smith Wedding Reception — Grand Ballroom'};document.getElementById('event-badge').textContent=currentEvent.name;showScreen('screen-checkin')}
-
-function googleSignIn(){
-  // TODO: Implement Google OAuth via Cloudflare Worker
-  showToast('Google Sign-In coming soon');
-}
+function googleSignIn(){showToast('Google Sign-In coming soon')}
 
 async function handleCheckin(){
   const n=document.getElementById('guest-name').value.trim(),e=document.getElementById('guest-email').value.trim(),c=document.getElementById('consent').checked,b=document.getElementById('checkin-btn');
@@ -266,29 +211,33 @@ async function handleCheckin(){
   try{const r=await fetch(`${API_BASE}/guest/checkin`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,email:e,event_id:currentEvent.id})});if(!r.ok)throw 0;const d=await r.json();guestToken=d.token;guestId=d.guest_id}
   catch(err){guestToken='demo-token';guestId='demo-guest'}
   localStorage.setItem('ie_guest',JSON.stringify({token:guestToken,id:guestId}));
-  showScreen('screen-feed');document.getElementById('portal-nav').classList.add('visible');loadFeed();showToast(`Welcome, ${n.split(' ')[0]}!`);
+  showScreen('screen-feed');document.getElementById('fab').classList.add('visible');loadFeed();
   b.innerHTML='Check In &amp; Start Sharing';b.disabled=false;
+  setTimeout(()=>showToast(`Welcome, ${n.split(' ')[0]}!`),300);
 }
 
-async function loadFeed(){
-  const g=document.getElementById('photo-grid'),em=document.getElementById('empty-feed');let p=[];
-  try{const ep=currentTab==='mine'?`${API_BASE}/photos?event_id=${currentEvent.id}&guest_id=${guestId}`:`${API_BASE}/photos?event_id=${currentEvent.id}`;const r=await fetch(ep,{headers:{'Authorization':`Bearer ${guestToken}`}});if(r.ok)p=await r.json()}catch(e){}
-  if(!p.length){g.innerHTML='';em.style.display='block'}else{em.style.display='none';g.innerHTML=p.map((ph,i)=>`<img src="${ph.thumbnail_url||ph.url}" alt="Event photo" loading="lazy" onclick="openLightbox('${ph.url}')" style="animation:fadeUp 0.4s ease ${i*0.05}s both">`).join('')}
-}
+async function loadFeed(){const g=document.getElementById('photo-grid'),em=document.getElementById('empty-feed');let p=[];try{const ep=currentTab==='mine'?`${API_BASE}/photos?event_id=${currentEvent.id}&guest_id=${guestId}`:`${API_BASE}/photos?event_id=${currentEvent.id}`;const r=await fetch(ep,{headers:{'Authorization':`Bearer ${guestToken}`}});if(r.ok)p=await r.json()}catch(e){}if(!p.length){g.innerHTML='';em.style.display='block'}else{em.style.display='none';g.innerHTML=p.map((ph,i)=>`<img src="${ph.thumbnail_url||ph.url}" alt="" loading="lazy" onclick="openLightbox('${ph.url}')" style="animation:fadeUp 0.4s ease ${i*0.05}s both">`).join('')}}
 function switchTab(t,el){currentTab=t;document.querySelectorAll('.feed-tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');loadFeed()}
-
 function setupDragDrop(){const z=document.getElementById('upload-zone');if(!z)return;['dragenter','dragover'].forEach(e=>z.addEventListener(e,ev=>{ev.preventDefault();z.classList.add('dragover')}));['dragleave','drop'].forEach(e=>z.addEventListener(e,ev=>{ev.preventDefault();z.classList.remove('dragover')}));z.addEventListener('drop',ev=>handleFiles(ev.dataTransfer.files))}
 function handleFiles(f){const nf=Array.from(f).filter(x=>x.type.startsWith('image/')).slice(0,10);if(!nf.length)return showToast('Please select images');selectedFiles=[...selectedFiles,...nf].slice(0,10);renderPreviews();document.getElementById('upload-btn').style.display='block'}
-function renderPreviews(){document.getElementById('upload-preview').innerHTML=selectedFiles.map((f,i)=>{const u=URL.createObjectURL(f);return`<div class="thumb-wrap"><img src="${u}" alt=""><button class="remove" onclick="removeFile(${i})">&times;</button></div>`}).join('')}
+function renderPreviews(){document.getElementById('upload-preview').innerHTML=selectedFiles.map((f,i)=>`<div class="thumb-wrap"><img src="${URL.createObjectURL(f)}" alt=""><button class="remove" onclick="removeFile(${i})">&times;</button></div>`).join('')}
 function removeFile(i){selectedFiles.splice(i,1);renderPreviews();if(!selectedFiles.length)document.getElementById('upload-btn').style.display='none'}
 async function uploadPhotos(){if(!selectedFiles.length)return;const b=document.getElementById('upload-btn'),bar=document.getElementById('upload-bar'),pr=document.getElementById('upload-progress');b.innerHTML='<span class="spinner"></span>';b.disabled=true;pr.style.display='block';let d=0;for(const f of selectedFiles){try{const fd=new FormData();fd.append('photo',f);fd.append('event_id',currentEvent.id);fd.append('guest_id',guestId);await fetch(`${API_BASE}/photos/upload`,{method:'POST',headers:{'Authorization':`Bearer ${guestToken}`},body:fd})}catch(e){}d++;bar.style.width=`${(d/selectedFiles.length)*100}%`}showToast(`${d} photo${d>1?'s':''} uploaded`);selectedFiles=[];document.getElementById('upload-preview').innerHTML='';b.style.display='none';b.innerHTML='Upload Photos';b.disabled=false;pr.style.display='none';bar.style.width='0%';loadFeed()}
 
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
-function navTo(s,el){document.querySelectorAll('.pnav-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');showScreen(s);window.scrollTo({top:0,behavior:'smooth'})}
-function scrollToUpload(){showScreen('screen-feed');document.querySelectorAll('.pnav-btn').forEach(b=>b.classList.remove('active'));document.querySelector('.pnav-btn').classList.add('active');document.getElementById('upload-section').scrollIntoView({behavior:'smooth'})}
 function openLightbox(u){document.getElementById('lightbox-img').src=u;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden'}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow=''}
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+
+let toastTimer;
+function showToast(m){
+  clearTimeout(toastTimer);
+  const t=document.getElementById('toast');
+  t.textContent=m;
+  t.classList.remove('show');
+  void t.offsetWidth; // force reflow
+  t.classList.add('show');
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
+}
 </script>
 </body>
 </html>

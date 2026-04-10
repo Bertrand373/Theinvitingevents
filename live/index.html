@@ -13,12 +13,12 @@ body::before{content:'';position:fixed;top:-30%;left:-10%;width:600px;height:600
 body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(122,182,72,0.08) 0%,transparent 70%);pointer-events:none;z-index:0;animation:drift 25s ease-in-out infinite alternate-reverse}
 @keyframes drift{0%{transform:translate(0,0)}100%{transform:translate(40px,30px)}}
 
-.portal-wrap{max-width:480px;margin:0 auto;padding:92px 20px 40px;position:relative;z-index:1}
+.portal-wrap{max-width:520px;margin:0 auto;padding:92px 20px 40px;position:relative;z-index:1}
 .screen{display:none;flex-direction:column;animation:fadeUp 0.5s ease}
 .screen.active{display:flex}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 
-/* Check-in */
+/* ── Check-in ── */
 .checkin-icon{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--burgundy),var(--burg-light));display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 0 60px var(--burg-glow);overflow:hidden}
 .checkin-icon img{width:34px;height:34px;object-fit:contain;filter:brightness(2)}
 .checkin-title{font-family:var(--h);font-weight:400;font-size:clamp(1.5rem,4vw,1.9rem);text-align:center;color:var(--cream);margin-bottom:4px}
@@ -40,69 +40,87 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 .btn-google:hover{border-color:var(--cream20);background:var(--cream08)}
 .btn-google svg{width:18px;height:18px;flex-shrink:0}
 
-/* Feed */
-.feed-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-.feed-header h2{font-family:var(--h);font-weight:400;font-size:1.2rem}
+/* ── Feed (the main experience after check-in) ── */
+.feed-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.feed-bar h2{font-family:var(--h);font-weight:400;font-size:1.2rem}
 .feed-tabs{display:flex;border:1px solid var(--glass-b);border-radius:4px;overflow:hidden}
 .feed-tab{padding:7px 14px;font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;background:transparent;border:none;color:var(--cream40);cursor:pointer;transition:all 0.3s}
 .feed-tab.active{background:var(--burgundy);color:var(--cream)}
-.upload-zone{border:1px dashed var(--cream20);border-radius:12px;padding:32px 20px;text-align:center;cursor:pointer;transition:all 0.3s;margin-bottom:16px}
-.upload-zone:hover,.upload-zone.dragover{border-color:var(--burgundy);background:rgba(97,31,29,0.04)}
-.upload-zone svg{width:36px;height:36px;color:var(--cream20);margin-bottom:8px}
-.upload-zone p{color:var(--cream40);font-size:0.85rem}
-.upload-zone .hint{font-size:0.7rem;margin-top:4px;color:var(--cream20)}
-.upload-preview{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-.thumb-wrap{position:relative}
-.thumb-wrap img{width:56px;height:56px;border-radius:4px;object-fit:cover;border:1px solid var(--burgundy)}
-.thumb-wrap .remove{position:absolute;top:-5px;right:-5px;width:18px;height:18px;border-radius:50%;background:var(--burgundy);color:var(--cream);border:none;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
-.upload-progress{height:3px;background:var(--cream08);border-radius:2px;overflow:hidden;margin-bottom:12px}
-.upload-progress .bar{height:100%;background:var(--burgundy);border-radius:2px;transition:width 0.3s;width:0%}
-.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.photo-grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px;border:1px solid var(--glass-b);cursor:pointer;transition:transform 0.3s}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px}
+.photo-grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:3px;cursor:pointer;transition:transform 0.3s}
 .photo-grid img:hover{transform:scale(1.02)}
-.empty-state{text-align:center;padding:40px 20px;color:var(--cream20)}
-.empty-state svg{width:48px;height:48px;margin-bottom:12px;opacity:0.3}
+.empty-state{text-align:center;padding:60px 20px;color:var(--cream20)}
+.empty-state svg{width:48px;height:48px;margin-bottom:14px;opacity:0.25}
+.empty-state p{font-size:0.88rem;line-height:1.6}
 
-/* Lightbox */
+@media(max-width:400px){.photo-grid{grid-template-columns:1fr 1fr;gap:3px}}
+
+/* ── Floating Upload FAB ── */
+.fab{
+  position:fixed;bottom:28px;right:28px;width:56px;height:56px;
+  border-radius:50%;background:var(--burgundy);border:1px solid rgba(255,255,240,0.12);
+  color:var(--cream);cursor:pointer;z-index:90;
+  display:none;align-items:center;justify-content:center;
+  box-shadow:0 4px 24px var(--burg-glow);transition:all 0.3s;
+}
+.fab:hover{background:var(--burg-light);transform:scale(1.06)}
+.fab:active{transform:scale(0.95)}
+.fab.visible{display:flex}
+.fab svg{width:24px;height:24px}
+@media(max-width:480px){.fab{bottom:24px;right:20px;width:52px;height:52px}.fab svg{width:22px;height:22px}}
+
+/* ── Upload Modal (slides up from bottom) ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(6,6,6,0.6);z-index:150;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.modal-overlay.open{opacity:1;pointer-events:all}
+
+.upload-modal{
+  position:fixed;bottom:0;left:0;right:0;z-index:151;
+  background:var(--surface);border-top:1px solid rgba(255,255,255,0.06);
+  border-radius:20px 20px 0 0;
+  padding:24px 20px 32px;
+  max-width:520px;margin:0 auto;
+  transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);
+  max-height:80vh;overflow-y:auto;
+}
+.upload-modal.open{transform:translateY(0)}
+
+.modal-handle{width:40px;height:4px;border-radius:4px;background:var(--cream20);margin:0 auto 20px}
+.modal-close{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--cream04);border:1px solid var(--cream08);color:var(--cream);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+.upload-zone{border:1px dashed var(--cream20);border-radius:12px;padding:36px 20px;text-align:center;cursor:pointer;transition:all 0.3s;margin-bottom:16px}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--burgundy);background:rgba(97,31,29,0.04)}
+.upload-zone svg{width:40px;height:40px;color:var(--cream20);margin-bottom:8px}
+.upload-zone p{color:var(--cream40);font-size:0.88rem}
+.upload-zone .hint{font-size:0.7rem;margin-top:4px;color:var(--cream20)}
+.upload-preview{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.thumb-wrap{position:relative}
+.thumb-wrap img{width:64px;height:64px;border-radius:4px;object-fit:cover;border:1px solid var(--burgundy)}
+.thumb-wrap .remove{position:absolute;top:-5px;right:-5px;width:18px;height:18px;border-radius:50%;background:var(--burgundy);color:var(--cream);border:none;font-size:10px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.upload-progress{height:3px;background:var(--cream08);border-radius:2px;overflow:hidden;margin-bottom:14px}
+.upload-progress .bar{height:100%;background:var(--burgundy);border-radius:2px;transition:width 0.3s;width:0%}
+
+/* ── Lightbox ── */
 .lightbox{position:fixed;inset:0;background:rgba(6,6,6,0.94);z-index:200;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .lightbox.open{display:flex}
 .lightbox img{max-width:100%;max-height:85dvh;border-radius:4px;object-fit:contain}
 .lightbox .close-lb{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:var(--glass);border:1px solid var(--glass-b);color:var(--cream);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
 
-/* Floating camera FAB — jump to upload */
-.fab{
-  position:fixed;bottom:24px;right:24px;width:52px;height:52px;
-  border-radius:50%;background:var(--burgundy);border:1px solid rgba(255,255,240,0.1);
-  color:var(--cream);cursor:pointer;z-index:50;
-  display:none;align-items:center;justify-content:center;
-  box-shadow:0 4px 20px var(--burg-glow);transition:all 0.3s;
-}
-.fab:hover{background:var(--burg-light);transform:scale(1.08)}
-.fab.visible{display:flex}
-.fab svg{width:22px;height:22px}
-
-/* Toast */
-.toast{
-  position:fixed;bottom:24px;left:50%;
-  transform:translateX(-50%) translateY(80px);
-  background:var(--burgundy);color:var(--cream);padding:11px 22px;
-  border-radius:4px;font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;
-  box-shadow:0 8px 30px rgba(0,0,0,0.5);
-  transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.4s;
-  z-index:300;pointer-events:none;text-transform:uppercase;
-  border:1px solid rgba(255,255,240,0.1);opacity:0;
-}
+/* ── Toast ── */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--burgundy);color:var(--cream);padding:11px 22px;border-radius:4px;font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;box-shadow:0 8px 30px rgba(0,0,0,0.5);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.4s;z-index:300;pointer-events:none;text-transform:uppercase;border:1px solid rgba(255,255,240,0.1);opacity:0}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 
-/* No-event */
+/* ── No-event ── */
 .no-event-wrap{min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center}
 .no-event-wrap h2{font-family:var(--h);font-weight:400;font-size:1.3rem;color:var(--cream40)}
 .no-event-wrap p{color:var(--cream20);max-width:280px;line-height:1.7;font-size:0.85rem}
-
 .spinner{width:16px;height:16px;border:2px solid var(--cream20);border-top-color:var(--cream);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-@media(max-width:480px){.portal-wrap{padding:80px 16px 32px}.fab{bottom:20px;right:16px;width:48px;height:48px}}
+@media(max-width:480px){.portal-wrap{padding:80px 16px 32px}}
 </style>
 </head>
 <body>
@@ -126,12 +144,30 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 <div class="toast" id="toast"></div>
 <div class="lightbox" id="lightbox" onclick="closeLightbox()"><button class="close-lb" onclick="closeLightbox()">&times;</button><img id="lightbox-img" src="" alt=""></div>
 
-<!-- Floating camera FAB (visible after check-in) -->
-<button class="fab" id="fab" onclick="document.getElementById('upload-section').scrollIntoView({behavior:'smooth'})">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+<!-- Upload FAB -->
+<button class="fab" id="fab" onclick="openUploadModal()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 17V3m0 0l-5 5m5-5 5 5"/><path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4"/></svg>
 </button>
 
+<!-- Upload Modal -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeUploadModal()"></div>
+<div class="upload-modal" id="upload-modal">
+  <div class="modal-handle"></div>
+  <button class="modal-close" onclick="closeUploadModal()">&times;</button>
+  <div class="sec-tag" style="margin-bottom:14px">Share Your Photos</div>
+  <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0l-4 4m4-4 4 4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
+    <p>Tap to select photos</p>
+    <p class="hint">or drag & drop · up to 10 at a time</p>
+  </div>
+  <input type="file" id="file-input" accept="image/*" multiple style="display:none" onchange="handleFiles(this.files)">
+  <div class="upload-preview" id="upload-preview"></div>
+  <div class="upload-progress" id="upload-progress" style="display:none"><div class="bar" id="upload-bar"></div></div>
+  <button class="btn-primary" id="upload-btn" style="display:none;width:100%;text-align:center" onclick="uploadPhotos()">Upload Photos</button>
+</div>
+
 <div class="portal-wrap">
+  <!-- No Active Event -->
   <div class="screen" id="screen-inactive">
     <div class="no-event-wrap">
       <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--cream20)"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
@@ -142,6 +178,7 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
     </div>
   </div>
 
+  <!-- Check-in -->
   <div class="screen" id="screen-checkin">
     <div class="checkin-icon"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE"></div>
     <div class="sec-tag" style="text-align:center;margin-bottom:14px">Guest Portal</div>
@@ -161,23 +198,19 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
     </div>
   </div>
 
+  <!-- Feed (the main experience) -->
   <div class="screen" id="screen-feed">
-    <div class="glass" id="upload-section" style="padding:20px;margin-bottom:16px">
-      <div class="sec-tag" style="margin-bottom:10px">Share Your Photos</div>
-      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0l-4 4m4-4 4 4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
-        <p>Tap to add photos</p>
-        <p class="hint">or drag & drop · up to 10 at a time</p>
+    <div class="feed-bar">
+      <h2>Event Feed</h2>
+      <div class="feed-tabs">
+        <button class="feed-tab active" onclick="switchTab('all',this)">All</button>
+        <button class="feed-tab" onclick="switchTab('mine',this)">Mine</button>
       </div>
-      <input type="file" id="file-input" accept="image/*" multiple style="display:none" onchange="handleFiles(this.files)">
-      <div class="upload-preview" id="upload-preview"></div>
-      <div class="upload-progress" id="upload-progress" style="display:none"><div class="bar" id="upload-bar"></div></div>
-      <button class="btn-primary" id="upload-btn" style="display:none;width:100%;text-align:center" onclick="uploadPhotos()">Upload Photos</button>
     </div>
-    <div>
-      <div class="feed-header"><h2>Event Feed</h2><div class="feed-tabs"><button class="feed-tab active" onclick="switchTab('all',this)">All</button><button class="feed-tab" onclick="switchTab('mine',this)">Mine</button></div></div>
-      <div class="photo-grid" id="photo-grid"></div>
-      <div class="empty-state" id="empty-feed" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><p>No photos yet — be the first to share!</p></div>
+    <div class="photo-grid" id="photo-grid"></div>
+    <div class="empty-state" id="empty-feed" style="display:none">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      <p>No photos yet — be the first!<br><span style="color:var(--cream40);font-size:0.78rem">Tap the upload button to share a moment</span></p>
     </div>
   </div>
 </div>
@@ -213,31 +246,60 @@ async function handleCheckin(){
   localStorage.setItem('ie_guest',JSON.stringify({token:guestToken,id:guestId}));
   showScreen('screen-feed');document.getElementById('fab').classList.add('visible');loadFeed();
   b.innerHTML='Check In &amp; Start Sharing';b.disabled=false;
-  setTimeout(()=>showToast(`Welcome, ${n.split(' ')[0]}!`),300);
+  setTimeout(()=>showToast(`Welcome, ${n.split(' ')[0]}!`),400);
 }
 
-async function loadFeed(){const g=document.getElementById('photo-grid'),em=document.getElementById('empty-feed');let p=[];try{const ep=currentTab==='mine'?`${API_BASE}/photos?event_id=${currentEvent.id}&guest_id=${guestId}`:`${API_BASE}/photos?event_id=${currentEvent.id}`;const r=await fetch(ep,{headers:{'Authorization':`Bearer ${guestToken}`}});if(r.ok)p=await r.json()}catch(e){}if(!p.length){g.innerHTML='';em.style.display='block'}else{em.style.display='none';g.innerHTML=p.map((ph,i)=>`<img src="${ph.thumbnail_url||ph.url}" alt="" loading="lazy" onclick="openLightbox('${ph.url}')" style="animation:fadeUp 0.4s ease ${i*0.05}s both">`).join('')}}
+// ── Upload Modal ──
+function openUploadModal(){
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('upload-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeUploadModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.getElementById('upload-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+// ── Feed ──
+async function loadFeed(){
+  const g=document.getElementById('photo-grid'),em=document.getElementById('empty-feed');let p=[];
+  try{const ep=currentTab==='mine'?`${API_BASE}/photos?event_id=${currentEvent.id}&guest_id=${guestId}`:`${API_BASE}/photos?event_id=${currentEvent.id}`;const r=await fetch(ep,{headers:{'Authorization':`Bearer ${guestToken}`}});if(r.ok)p=await r.json()}catch(e){}
+  if(!p.length){g.innerHTML='';em.style.display='block'}
+  else{em.style.display='none';g.innerHTML=p.map((ph,i)=>`<img src="${ph.thumbnail_url||ph.url}" alt="" loading="lazy" onclick="openLightbox('${ph.url}')" style="animation:fadeUp 0.3s ease ${i*0.04}s both">`).join('')}
+}
 function switchTab(t,el){currentTab=t;document.querySelectorAll('.feed-tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');loadFeed()}
+
+// ── Upload ──
 function setupDragDrop(){const z=document.getElementById('upload-zone');if(!z)return;['dragenter','dragover'].forEach(e=>z.addEventListener(e,ev=>{ev.preventDefault();z.classList.add('dragover')}));['dragleave','drop'].forEach(e=>z.addEventListener(e,ev=>{ev.preventDefault();z.classList.remove('dragover')}));z.addEventListener('drop',ev=>handleFiles(ev.dataTransfer.files))}
 function handleFiles(f){const nf=Array.from(f).filter(x=>x.type.startsWith('image/')).slice(0,10);if(!nf.length)return showToast('Please select images');selectedFiles=[...selectedFiles,...nf].slice(0,10);renderPreviews();document.getElementById('upload-btn').style.display='block'}
 function renderPreviews(){document.getElementById('upload-preview').innerHTML=selectedFiles.map((f,i)=>`<div class="thumb-wrap"><img src="${URL.createObjectURL(f)}" alt=""><button class="remove" onclick="removeFile(${i})">&times;</button></div>`).join('')}
 function removeFile(i){selectedFiles.splice(i,1);renderPreviews();if(!selectedFiles.length)document.getElementById('upload-btn').style.display='none'}
-async function uploadPhotos(){if(!selectedFiles.length)return;const b=document.getElementById('upload-btn'),bar=document.getElementById('upload-bar'),pr=document.getElementById('upload-progress');b.innerHTML='<span class="spinner"></span>';b.disabled=true;pr.style.display='block';let d=0;for(const f of selectedFiles){try{const fd=new FormData();fd.append('photo',f);fd.append('event_id',currentEvent.id);fd.append('guest_id',guestId);await fetch(`${API_BASE}/photos/upload`,{method:'POST',headers:{'Authorization':`Bearer ${guestToken}`},body:fd})}catch(e){}d++;bar.style.width=`${(d/selectedFiles.length)*100}%`}showToast(`${d} photo${d>1?'s':''} uploaded`);selectedFiles=[];document.getElementById('upload-preview').innerHTML='';b.style.display='none';b.innerHTML='Upload Photos';b.disabled=false;pr.style.display='none';bar.style.width='0%';loadFeed()}
+async function uploadPhotos(){
+  if(!selectedFiles.length)return;
+  const b=document.getElementById('upload-btn'),bar=document.getElementById('upload-bar'),pr=document.getElementById('upload-progress');
+  b.innerHTML='<span class="spinner"></span>';b.disabled=true;pr.style.display='block';
+  let d=0;
+  for(const f of selectedFiles){
+    try{const fd=new FormData();fd.append('photo',f);fd.append('event_id',currentEvent.id);fd.append('guest_id',guestId);await fetch(`${API_BASE}/photos/upload`,{method:'POST',headers:{'Authorization':`Bearer ${guestToken}`},body:fd})}catch(e){}
+    d++;bar.style.width=`${(d/selectedFiles.length)*100}%`;
+  }
+  // Reset and close
+  selectedFiles=[];document.getElementById('upload-preview').innerHTML='';
+  b.style.display='none';b.innerHTML='Upload Photos';b.disabled=false;
+  pr.style.display='none';bar.style.width='0%';
+  closeUploadModal();
+  showToast(`${d} photo${d>1?'s':''} uploaded`);
+  loadFeed();
+}
 
+// ── Utils ──
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
 function openLightbox(u){document.getElementById('lightbox-img').src=u;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden'}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow=''}
 
 let toastTimer;
-function showToast(m){
-  clearTimeout(toastTimer);
-  const t=document.getElementById('toast');
-  t.textContent=m;
-  t.classList.remove('show');
-  void t.offsetWidth; // force reflow
-  t.classList.add('show');
-  toastTimer=setTimeout(()=>t.classList.remove('show'),2500);
-}
+function showToast(m){clearTimeout(toastTimer);const t=document.getElementById('toast');t.textContent=m;t.classList.remove('show');void t.offsetWidth;t.classList.add('show');toastTimer=setTimeout(()=>t.classList.remove('show'),2500)}
 </script>
 </body>
 </html>

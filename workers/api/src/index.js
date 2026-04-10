@@ -86,12 +86,47 @@ function cors() {
 }
 
 // ══════════ EVENTS ══════════
+
+// Get current time in Eastern
+function getEasternNow() {
+  return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+}
+
 async function getActiveEvent(env, headers) {
-  const event = await env.DB.prepare(
-    'SELECT * FROM events WHERE active = 1 LIMIT 1'
-  ).first();
+  // First check for manually activated events (legacy toggle)
+  let event = await env.DB.prepare('SELECT * FROM events WHERE active = 1 LIMIT 1').first();
+
+  // Then check for time-based active events
+  if (!event) {
+    const { results } = await env.DB.prepare('SELECT * FROM events WHERE start_time IS NOT NULL AND end_time IS NOT NULL ORDER BY date DESC').all();
+    const now = new Date();
+    for (const e of results) {
+      const start = new Date(e.start_time);
+      const end = new Date(e.end_time);
+      const grace = (e.grace_minutes || 120) * 60 * 1000;
+      if (now >= start && now <= new Date(end.getTime() + grace)) {
+        event = e;
+        break;
+      }
+    }
+  }
+
   if (!event) return new Response(JSON.stringify({ error: 'No active event' }), { status: 404, headers });
-  return new Response(JSON.stringify(event), { headers });
+
+  // Add event status info for the portal
+  const now = new Date();
+  const end = event.end_time ? new Date(event.end_time) : null;
+  const grace = (event.grace_minutes || 120) * 60 * 1000;
+  let status = 'active';
+  if (end && now > new Date(end.getTime() + grace)) {
+    status = 'ended';
+  } else if (end && now > end) {
+    status = 'grace_period';
+  } else if (event.start_time && now < new Date(event.start_time)) {
+    status = 'upcoming';
+  }
+
+  return new Response(JSON.stringify({ ...event, status }), { headers });
 }
 
 async function listEvents(env, headers) {
@@ -103,12 +138,16 @@ async function listEvents(env, headers) {
 
 async function createEvent(request, env, headers) {
   const body = await request.json();
-  const { name, date, room, estimated_guests, notes } = body;
+  const { name, date, room, estimated_guests, notes, start_time, end_time, grace_minutes } = body;
   const id = crypto.randomUUID();
 
   await env.DB.prepare(
-    'INSERT INTO events (id, name, date, room, estimated_guests, notes, active, created_at) VALUES (?,?,?,?,?,?,0,?)'
-  ).bind(id, name, date, room || 'grand', estimated_guests || 0, notes || '', new Date().toISOString()).run();
+    'INSERT INTO events (id, name, date, room, estimated_guests, notes, active, start_time, end_time, timezone, grace_minutes, created_at) VALUES (?,?,?,?,?,?,0,?,?,?,?,?)'
+  ).bind(
+    id, name, date, room || 'grand', estimated_guests || 0, notes || '',
+    start_time || null, end_time || null, 'America/New_York', grace_minutes || 120,
+    new Date().toISOString()
+  ).run();
 
   return new Response(JSON.stringify({ id, name }), { status: 201, headers });
 }
@@ -210,6 +249,18 @@ async function uploadPhoto(request, env, headers) {
 
   if (!file || !event_id) {
     return new Response(JSON.stringify({ error: 'Missing photo or event_id' }), { status: 400, headers });
+  }
+
+  // Check if event is still accepting uploads
+  if (event_id !== 'demo') {
+    const event = await env.DB.prepare('SELECT * FROM events WHERE id = ?').bind(event_id).first();
+    if (event && event.end_time) {
+      const end = new Date(event.end_time);
+      const grace = (event.grace_minutes || 120) * 60 * 1000;
+      if (new Date() > new Date(end.getTime() + grace)) {
+        return new Response(JSON.stringify({ error: 'Event has ended. Uploads are closed.' }), { status: 403, headers });
+      }
+    }
   }
 
   const id = crypto.randomUUID();

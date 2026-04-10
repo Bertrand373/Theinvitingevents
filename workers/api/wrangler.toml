@@ -6,7 +6,7 @@ compatibility_date = "2024-12-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "ie-db"
-database_id = "" # Fill after: wrangler d1 create ie-db
+database_id = "337f8162-603c-4347-8e26-4ea0ca9aed93" # Fill after: wrangler d1 create ie-db
 
 # ── R2 Bucket ──
 [[r2_buckets]]

@@ -10,17 +10,17 @@ let isOpen = false;
 // Inject CSS
 const style = document.createElement('style');
 style.textContent = `
-.ie-chat-fab{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:#611f1d;border:1px solid rgba(255,255,240,0.12);color:#fffff0;cursor:pointer;z-index:998;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(97,31,29,0.4);transition:all 0.3s}
+.ie-chat-fab{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:#611f1d;border:1px solid rgba(255,255,240,0.12);color:#fffff0;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(97,31,29,0.4);transition:all 0.3s}
 .ie-chat-fab:hover{background:#7a2522;transform:scale(1.06)}
 .ie-chat-fab:active{transform:scale(0.95)}
 .ie-chat-fab svg{width:24px;height:24px;transition:transform 0.3s}
 .ie-chat-fab.open svg{transform:rotate(90deg)}
 @media(max-width:480px){.ie-chat-fab{bottom:24px;right:20px;width:48px;height:48px}.ie-chat-fab svg{width:22px;height:22px}}
 
-.ie-chat-overlay{position:fixed;inset:0;background:rgba(6,6,6,0.5);z-index:999;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.ie-chat-overlay{position:fixed;inset:0;background:rgba(6,6,6,0.5);z-index:9998;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .ie-chat-overlay.open{opacity:1;pointer-events:all}
 
-.ie-chat-sheet{position:fixed;bottom:0;right:0;z-index:1000;width:100%;max-width:400px;height:70vh;max-height:600px;background:#0d0d0d;border-top:1px solid rgba(255,255,255,0.06);border-left:1px solid rgba(255,255,255,0.06);border-radius:20px 20px 0 0;display:flex;flex-direction:column;transform:translateY(calc(100% + 100px));transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);overflow:hidden;visibility:hidden}
+.ie-chat-sheet{position:fixed;bottom:0;right:0;z-index:9999;width:100%;max-width:400px;height:70vh;max-height:600px;background:rgba(13,13,13,0.85);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-top:1px solid rgba(255,255,255,0.06);border-left:1px solid rgba(255,255,255,0.06);border-radius:20px 20px 0 0;display:flex;flex-direction:column;transform:translateY(calc(100% + 100px));transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);overflow:hidden;visibility:hidden}
 .ie-chat-sheet.open{transform:translateY(0);visibility:visible}
 @media(min-width:481px){.ie-chat-sheet{right:28px;bottom:92px;border-radius:16px;border:1px solid rgba(255,255,255,0.06);max-height:520px;height:auto;min-height:400px;box-shadow:0 12px 48px rgba(0,0,0,0.5)}}
 @media(max-width:480px){.ie-chat-sheet{max-width:100%;height:80vh;max-height:none}}
@@ -34,10 +34,13 @@ style.textContent = `
 .ie-chat-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,240,0.04);border:1px solid rgba(255,255,240,0.08);color:#fffff0;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ie-chat-close svg{width:14px;height:14px}
 
-.ie-chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.ie-chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;position:relative}
+.ie-chat-messages::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;background:url('https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png') center/contain no-repeat;opacity:0.03;pointer-events:none}
 .ie-chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-family:'Questrial',sans-serif;font-size:0.88rem;line-height:1.5;animation:ie-msg-in 0.3s ease}
 @keyframes ie-msg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .ie-chat-msg.bot{align-self:flex-start;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:rgba(255,255,240,0.85);border-bottom-left-radius:4px}
+.ie-chat-msg .ie-chat-btn{display:inline-block;margin-top:8px;padding:8px 16px;background:#611f1d;color:#fffff0;border-radius:4px;font-family:'Julius Sans One',sans-serif;font-size:0.55rem;letter-spacing:2px;text-decoration:none;transition:all 0.2s;border:1px solid rgba(255,255,240,0.1)}
+.ie-chat-msg .ie-chat-btn:hover{background:#7a2522;box-shadow:0 4px 16px rgba(97,31,29,0.4)}
 .ie-chat-msg.user{align-self:flex-end;background:#611f1d;color:#fffff0;border-bottom-right-radius:4px}
 .ie-chat-msg.typing{color:rgba(255,255,240,0.3)}
 .ie-chat-msg.typing span{animation:ie-dots 1.4s infinite}
@@ -110,7 +113,15 @@ closeBtn.addEventListener('click', close);
 function addMsg(text, role) {
   const div = document.createElement('div');
   div.className = 'ie-chat-msg ' + role;
-  div.textContent = text;
+  if (role === 'bot') {
+    // Parse [text](url) into burgundy buttons, escape HTML otherwise
+    const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const withBtns = safe.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<br><a href="$2" class="ie-chat-btn">$1</a>');
+    const withBold = withBtns.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    div.innerHTML = withBold;
+  } else {
+    div.textContent = text;
+  }
   msgContainer.appendChild(div);
   msgContainer.scrollTop = msgContainer.scrollHeight;
   return div;

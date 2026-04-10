@@ -20,8 +20,8 @@ style.textContent = `
 .ie-chat-overlay{position:fixed;inset:0;background:rgba(6,6,6,0.5);z-index:999;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .ie-chat-overlay.open{opacity:1;pointer-events:all}
 
-.ie-chat-sheet{position:fixed;bottom:0;right:0;z-index:1000;width:100%;max-width:400px;height:70vh;max-height:600px;background:#0d0d0d;border-top:1px solid rgba(255,255,255,0.06);border-left:1px solid rgba(255,255,255,0.06);border-radius:20px 20px 0 0;display:flex;flex-direction:column;transform:translateY(100%);transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);overflow:hidden}
-.ie-chat-sheet.open{transform:translateY(0)}
+.ie-chat-sheet{position:fixed;bottom:0;right:0;z-index:1000;width:100%;max-width:400px;height:70vh;max-height:600px;background:#0d0d0d;border-top:1px solid rgba(255,255,255,0.06);border-left:1px solid rgba(255,255,255,0.06);border-radius:20px 20px 0 0;display:flex;flex-direction:column;transform:translateY(calc(100% + 100px));transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);overflow:hidden;visibility:hidden}
+.ie-chat-sheet.open{transform:translateY(0);visibility:visible}
 @media(min-width:481px){.ie-chat-sheet{right:28px;bottom:92px;border-radius:16px;border:1px solid rgba(255,255,255,0.06);max-height:520px;height:auto;min-height:400px;box-shadow:0 12px 48px rgba(0,0,0,0.5)}}
 @media(max-width:480px){.ie-chat-sheet{max-width:100%;height:80vh;max-height:none}}
 
@@ -70,12 +70,12 @@ container.innerHTML = `
     <div class="ie-chat-avatar"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE"></div>
     <div class="ie-chat-head-info">
       <div class="ie-chat-head-title">Inviting Events</div>
-      <div class="ie-chat-head-sub">How can we help?</div>
+      <div class="ie-chat-head-sub">Concierge</div>
     </div>
     <button class="ie-chat-close" id="ie-chat-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="ie-chat-messages" id="ie-chat-messages">
-    <div class="ie-chat-msg bot">Welcome to The Inviting Events! I can help with pricing, room details, availability, and more. What would you like to know?</div>
+    <div class="ie-chat-msg bot">Hi there! Ask me anything about our spaces, pricing, or availability.</div>
   </div>
   <div class="ie-chat-input-wrap">
     <input class="ie-chat-input" id="ie-chat-input" type="text" placeholder="Ask about pricing, rooms, availability..." autocomplete="off">

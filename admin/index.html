@@ -87,11 +87,45 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 @media(max-width:900px){.sidebar{transform:translateX(-100%);transition:transform 0.3s}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%;padding:16px;padding-top:62px}.mt{display:flex}.stats{grid-template-columns:1fr 1fr}.fr{grid-template-columns:1fr}}
 @media(max-width:480px){.stats{grid-template-columns:1fr}}
 </style>
+<style>
+/* Lock screen */
+.lock-screen{position:fixed;inset:0;z-index:999;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-direction:column}
+.lock-screen.hidden{display:none}
+.lock-inner{text-align:center;max-width:340px;padding:0 20px}
+.lock-inner img{height:32px;opacity:0.85;margin-bottom:16px}
+.lock-inner .badge{font-family:var(--sub);font-size:0.42rem;letter-spacing:2px;color:var(--green);padding:4px 10px;border-radius:4px;background:rgba(122,182,72,0.08);border:1px solid rgba(122,182,72,0.12);display:inline-block;margin-bottom:32px}
+.lock-inner .lock-icon{width:48px;height:48px;margin:0 auto 20px;color:var(--cream20)}
+.lock-inner h2{font-family:var(--h);font-weight:400;font-size:1.4rem;color:var(--cream);margin-bottom:6px}
+.lock-inner p{color:var(--cream40);font-size:0.82rem;margin-bottom:24px}
+.lock-input{width:100%;padding:14px 16px;background:var(--cream04);border:1px solid var(--cream08);border-radius:4px;color:var(--cream);font-family:var(--body);font-size:0.95rem;text-align:center;letter-spacing:2px;outline:none;transition:border-color 0.3s}
+.lock-input:focus{border-color:var(--burgundy)}
+.lock-input::placeholder{color:var(--cream20);letter-spacing:0}
+.lock-err{color:var(--burgundy);font-size:0.78rem;margin-top:10px;opacity:0;transition:opacity 0.3s}
+.lock-err.show{opacity:1}
+.admin-shell.locked{display:none}
+.mt.locked{display:none !important}
+</style>
 </head>
 <body>
-<button class="mt" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<!-- Lock Screen -->
+<div class="lock-screen" id="lock-screen">
+  <div class="lock-inner">
+    <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events">
+    <br><span class="badge">Admin Panel</span>
+    <div style="margin-top:40px">
+      <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><circle cx="12" cy="16" r="1"/></svg>
+      <h2>Welcome, Bob</h2>
+      <p>Enter your password to continue</p>
+      <input type="password" class="lock-input" id="lock-pw" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+      <div class="lock-err" id="lock-err">Incorrect password</div>
+    </div>
+  </div>
+</div>
+
+<button class="mt locked" id="mt-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
 <div class="toast" id="toast"></div>
-<div class="admin-shell">
+<div class="admin-shell locked" id="admin-shell">
   <aside class="sidebar" id="sidebar">
     <div class="sb-head"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"><span class="badge">Admin Panel</span></div>
     <div class="sb-nav">
@@ -121,6 +155,29 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
   </main>
 </div>
 <script>
+// Auth
+const PW_HASH='901a8d95cbb111273179ae2a6bf546062cdc6143ddd6e4449d39a9627bedb047';
+async function sha256(str){const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(str));return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('')}
+async function checkPw(){
+  const pw=document.getElementById('lock-pw').value;
+  const hash=await sha256(pw);
+  if(hash===PW_HASH){
+    sessionStorage.setItem('ie_admin','1');
+    unlock();
+  } else {
+    document.getElementById('lock-err').classList.add('show');
+    document.getElementById('lock-pw').value='';
+    setTimeout(()=>document.getElementById('lock-err').classList.remove('show'),2000);
+  }
+}
+function unlock(){
+  document.getElementById('lock-screen').classList.add('hidden');
+  document.getElementById('admin-shell').classList.remove('locked');
+  document.getElementById('mt-btn').classList.remove('locked');
+}
+if(sessionStorage.getItem('ie_admin')==='1')unlock();
+else document.getElementById('lock-pw').focus();
+
 let af=[];
 function go(n,b){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.getElementById('sec-'+n).classList.add('active');document.querySelectorAll('.sn').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active');document.getElementById('sidebar').classList.remove('open')}
 function togEvt(){const o=document.getElementById('evt-tog').checked;document.getElementById('ts').textContent=o?'● Event is LIVE':'No Active Event';document.getElementById('ts').style.color=o?'var(--green)':'var(--cream40)';document.getElementById('tsu').textContent=o?'Guests can scan QR codes now':'QR portal shows "No active event"';toast(o?'Event is now LIVE':'Event deactivated')}

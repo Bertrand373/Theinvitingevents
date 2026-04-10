@@ -93,40 +93,43 @@ function getEasternNow() {
 }
 
 async function getActiveEvent(env, headers) {
-  // First check for manually activated events (legacy toggle)
-  let event = await env.DB.prepare('SELECT * FROM events WHERE active = 1 LIMIT 1').first();
-
-  // Then check for time-based active events
-  if (!event) {
-    const { results } = await env.DB.prepare('SELECT * FROM events WHERE start_time IS NOT NULL AND end_time IS NOT NULL ORDER BY date DESC').all();
-    const now = new Date();
-    for (const e of results) {
-      const start = new Date(e.start_time);
-      const end = new Date(e.end_time);
-      const grace = (e.grace_minutes || 120) * 60 * 1000;
-      if (now >= start && now <= new Date(end.getTime() + grace)) {
-        event = e;
-        break;
-      }
-    }
-  }
-
-  if (!event) return new Response(JSON.stringify({ error: 'No active event' }), { status: 404, headers });
-
-  // Add event status info for the portal
+  const activeEvents = [];
   const now = new Date();
-  const end = event.end_time ? new Date(event.end_time) : null;
-  const grace = (event.grace_minutes || 120) * 60 * 1000;
-  let status = 'active';
-  if (end && now > new Date(end.getTime() + grace)) {
-    status = 'ended';
-  } else if (end && now > end) {
-    status = 'grace_period';
-  } else if (event.start_time && now < new Date(event.start_time)) {
-    status = 'upcoming';
+
+  // Check manually activated events
+  const { results: manual } = await env.DB.prepare('SELECT * FROM events WHERE active = 1').all();
+  for (const e of manual) activeEvents.push({ ...e, status: 'active' });
+
+  // Check time-based events
+  const { results: timed } = await env.DB.prepare('SELECT * FROM events WHERE start_time IS NOT NULL AND end_time IS NOT NULL AND active = 0 ORDER BY date DESC').all();
+  for (const e of timed) {
+    const start = new Date(e.start_time);
+    const end = new Date(e.end_time);
+    const grace = (e.grace_minutes || 120) * 60 * 1000;
+
+    let status = null;
+    if (now >= start && now <= end) status = 'active';
+    else if (now > end && now <= new Date(end.getTime() + grace)) status = 'grace_period';
+    else if (now < start) {
+      // Show upcoming events only if they start today
+      const startDay = start.toISOString().split('T')[0];
+      const today = now.toISOString().split('T')[0];
+      if (startDay === today) status = 'upcoming';
+    }
+
+    if (status) activeEvents.push({ ...e, status });
   }
 
-  return new Response(JSON.stringify({ ...event, status }), { headers });
+  if (activeEvents.length === 0) {
+    return new Response(JSON.stringify({ error: 'No active event' }), { status: 404, headers });
+  }
+
+  // If single event, return it directly (backward compatible)
+  // If multiple, return array
+  if (activeEvents.length === 1) {
+    return new Response(JSON.stringify(activeEvents[0]), { headers });
+  }
+  return new Response(JSON.stringify({ multiple: true, events: activeEvents }), { headers });
 }
 
 async function listEvents(env, headers) {

@@ -8,7 +8,7 @@ Run from: ~/Downloads/Inviting Events /ie-site
 """
 import os, re
 
-ADMIN_LINK = '<a href="/admin/" style="opacity:0.3;display:inline-flex;align-items:center;gap:5px;margin-top:4px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>'
+ADMIN_LINK = '<a href="/admin/" style="opacity:0.3;display:inline-flex;align-items:center;gap:5px;margin-left:12px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>'
 
 CHAT_SCRIPT = '<script src="/assets/js/chat.js"></script>'
 NAV_OPEN = "document.body.classList.toggle('nav-open');"
@@ -39,19 +39,19 @@ def patch_file(filepath, content):
             content = content[:pos-1] + NAV_OPEN + content[pos-1:]
             changes.append('toggleNav scroll lock')
     
-    # 2. Admin footer link — inside the Info column, after Contact
-    # First, clean up old standalone admin column if it exists
-    old_admin_col = re.search(r'<div class="footer-col"><h5>&nbsp;</h5><a href="/admin/"[^<]*<svg[^>]*>.*?</svg>Admin</a></div>', content, re.DOTALL)
-    if old_admin_col:
-        content = content[:old_admin_col.start()] + content[old_admin_col.end():]
-        changes.append('removed old admin column')
+    # 2. Admin footer link — in the copyright bar at the bottom
+    # First, clean up old admin links anywhere in the file
+    old_admin = re.search(r'<a\s+href="/admin/"[^>]*>.*?Admin</a>', content, re.DOTALL)
+    if old_admin:
+        content = content[:old_admin.start()] + content[old_admin.end():]
+        changes.append('removed old admin link')
     
-    # Now add inline admin link after Contact if not already there
-    if 'href="/admin/"' not in content and 'footer-col' in content:
-        m = re.search(r'(<a\s+href=["\']/contact/["\']>Contact</a>)', content)
+    # Now add admin link in the copyright bar
+    if 'href="/admin/"' not in content and 'footer-bottom' in content:
+        m = re.search(r'(All rights reserved\.?)', content)
         if m:
-            content = content[:m.end()] + '\n        ' + ADMIN_LINK + content[m.end():]
-            changes.append('footer admin link')
+            content = content[:m.end()] + ' ' + ADMIN_LINK + content[m.end():]
+            changes.append('footer admin link (copyright bar)')
     
     # 3. Chat widget (skip admin and live portal)
     skip_chat = '/admin/' in filepath or '/live/' in filepath

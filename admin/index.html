@@ -9,60 +9,43 @@
 <link rel="icon" href="/assets/images/favicon.png">
 <link rel="stylesheet" href="/assets/css/global.css">
 <style>
-/* Kill global body padding and glass ::before gradient */
 body{padding:0 !important}
 .glass::before{display:none !important}
-
 body::before{content:'';position:fixed;top:-30%;left:-10%;width:600px;height:600px;background:radial-gradient(circle,var(--burg-glow) 0%,transparent 70%);pointer-events:none;z-index:0;animation:drift 20s ease-in-out infinite alternate}
 body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(122,182,72,0.08) 0%,transparent 70%);pointer-events:none;z-index:0;animation:drift 25s ease-in-out infinite alternate-reverse}
 @keyframes drift{0%{transform:translate(0,0)}100%{transform:translate(40px,30px)}}
 
 .admin-shell{display:flex;min-height:100vh;position:relative;z-index:1}
 
-/* Sidebar — fixed, contained */
-.sidebar{
-  width:220px;min-width:220px;background:var(--surface);
-  border-right:1px solid rgba(255,255,255,0.04);
-  display:flex;flex-direction:column;
-  position:fixed;top:0;left:0;height:100vh;z-index:100;
-  overflow:hidden;
-}
-.sb-head{padding:20px 16px 16px;border-bottom:1px solid rgba(255,255,255,0.04)}
-.sb-head img{height:22px;opacity:0.85;display:block;margin-bottom:8px}
-.sb-head .badge{font-family:var(--sub);font-size:0.42rem;letter-spacing:2px;color:var(--green);padding:3px 8px;border-radius:4px;background:rgba(122,182,72,0.08);border:1px solid rgba(122,182,72,0.12)}
+/* ── Sidebar ── */
+.sidebar{width:230px;min-width:230px;background:var(--surface);border-right:1px solid rgba(255,255,255,0.04);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:100;overflow:hidden}
+.sb-head{padding:28px 20px 22px;border-bottom:1px solid rgba(255,255,255,0.04)}
+.sb-head img{height:28px;opacity:0.85;display:block;margin-bottom:12px}
+.sb-head .badge{font-family:var(--sub);font-size:0.42rem;letter-spacing:2px;color:var(--green);padding:4px 10px;border-radius:4px;background:rgba(122,182,72,0.08);border:1px solid rgba(122,182,72,0.12)}
 
-.sb-nav{flex:1;padding:10px 8px;display:flex;flex-direction:column;gap:1px;overflow-y:auto}
-.sn{
-  display:flex;align-items:center;gap:9px;
-  padding:9px 10px;border-radius:4px;
-  border:none;background:transparent;color:var(--cream40);
-  font-family:var(--body);font-size:0.82rem;
-  cursor:pointer;transition:all 0.15s;text-align:left;width:100%;
-  white-space:nowrap;
-}
+.sb-nav{flex:1;padding:16px 10px;display:flex;flex-direction:column;gap:2px;overflow-y:auto}
+.sn{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:4px;border:none;background:transparent;color:var(--cream40);font-family:var(--body);font-size:0.85rem;cursor:pointer;transition:all 0.15s;text-align:left;width:100%;white-space:nowrap}
 .sn:hover{background:var(--cream04);color:var(--cream70)}
 .sn.active{background:var(--burgundy);color:var(--cream)}
-.sn svg{width:15px;height:15px;flex-shrink:0;opacity:0.5}
+.sn svg{width:16px;height:16px;flex-shrink:0;opacity:0.5}
 .sn.active svg{opacity:1}
 
-.sb-foot{padding:14px 16px;border-top:1px solid rgba(255,255,255,0.04);margin-top:auto}
-.sb-foot .nm{font-size:0.82rem;color:var(--cream)}
-.sb-foot .rl{font-size:0.68rem;color:var(--cream20);margin-top:1px}
+.sb-foot{padding:20px;border-top:1px solid rgba(255,255,255,0.04);margin-top:auto}
+.sb-foot .nm{font-size:0.88rem;color:var(--cream);font-weight:400}
+.sb-foot .rl{font-size:0.72rem;color:var(--cream20);margin-top:3px;letter-spacing:0.5px}
 
-/* Main */
-.main{margin-left:220px;padding:32px 36px;width:calc(100% - 220px);max-width:960px}
+/* ── Main ── */
+.main{margin-left:230px;padding:36px 40px;width:calc(100% - 230px)}
 .mh{margin-bottom:28px}
 .mh h1{font-family:var(--h);font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:400;color:var(--cream);margin-bottom:4px}
 .mh h1 em{font-style:italic;color:var(--cream70)}
 .mh p{font-size:0.82rem;color:var(--cream40)}
 
-/* Stats */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:24px}
 .sc{padding:18px;text-align:center}
 .sc .n{font-family:var(--sub);font-size:1.5rem;letter-spacing:2px;color:var(--cream)}
 .sc .l{font-size:0.45rem;font-family:var(--sub);letter-spacing:2px;color:var(--cream40);margin-top:4px;text-transform:uppercase}
 
-/* Toggle */
 .trow{display:flex;align-items:center;gap:14px;padding:4px 0}
 .tsw{position:relative;width:44px;height:24px;cursor:pointer;flex-shrink:0}
 .tsw input{opacity:0;width:0;height:0}
@@ -71,7 +54,6 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 .tsw input:checked+.ttr{background:var(--green)}
 .tsw input:checked+.ttr::before{transform:translateX(20px)}
 
-/* Forms */
 .fd{margin-bottom:12px}
 .fd label{font-family:var(--sub);font-size:0.48rem;letter-spacing:2px;color:var(--cream40);margin-bottom:5px;display:block}
 .fd input,.fd select,.fd textarea{width:100%;padding:10px 12px;background:var(--cream04);border:1px solid var(--cream08);border-radius:4px;color:var(--cream);font-family:var(--body);font-size:0.85rem;outline:none;transition:border-color 0.3s}
@@ -81,57 +63,37 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 .fd select option{background:var(--surface);color:var(--cream)}
 .fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 
-/* Table */
 .dt{width:100%;border-collapse:collapse;margin-top:10px}
 .dt th{text-align:left;padding:7px 10px;font-family:var(--sub);font-size:0.42rem;letter-spacing:2px;color:var(--cream40);border-bottom:1px solid rgba(255,255,255,0.04)}
 .dt td{padding:7px 10px;border-bottom:1px solid var(--cream04);font-size:0.82rem}
 
-/* Upload */
 .uarea{border:1px dashed var(--cream20);border-radius:12px;padding:36px 20px;text-align:center;cursor:pointer;transition:all 0.3s;margin-bottom:14px}
 .uarea:hover,.uarea.dragover{border-color:var(--burgundy);background:rgba(97,31,29,0.04)}
 .uarea svg{width:40px;height:40px;color:var(--cream20);margin-bottom:8px}
 .uarea p{color:var(--cream40);font-size:0.85rem}
 .uarea .sub{font-size:0.68rem;margin-top:4px;color:var(--cream20)}
 
-/* Email preview */
 .eprev{background:var(--cream04);border:1px solid var(--cream08);border-radius:4px;padding:18px;font-size:0.82rem;line-height:1.8}
 .eprev .v{color:var(--green)}
 
-/* Sections */
-.sec{display:none;animation:fi 0.3s ease}
-.sec.active{display:block}
-@keyframes fi{from{opacity:0}to{opacity:1}}
+.sec{display:none;animation:fi 0.3s ease}.sec.active{display:block}@keyframes fi{from{opacity:0}to{opacity:1}}
 .blk{margin-bottom:20px}
 .empty{text-align:center;padding:36px;color:var(--cream20);font-size:0.82rem}
 
-/* Toast */
 .toast{position:fixed;bottom:20px;right:20px;background:var(--burgundy);color:var(--cream);padding:10px 20px;border-radius:4px;font-family:var(--sub);font-size:0.48rem;letter-spacing:2px;box-shadow:0 6px 24px rgba(0,0,0,0.4);z-index:200;transform:translateY(60px);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),opacity 0.4s;text-transform:uppercase;border:1px solid rgba(255,255,240,0.1);opacity:0}
 .toast.show{transform:translateY(0);opacity:1}
 
-/* Mobile */
-.mt{display:none;position:fixed;top:12px;left:12px;z-index:200;width:38px;height:38px;border-radius:4px;background:var(--burgundy);border:1px solid rgba(255,255,240,0.1);color:var(--cream);font-size:1.1rem;cursor:pointer;align-items:center;justify-content:center}
-@media(max-width:900px){
-  .sidebar{transform:translateX(-100%);transition:transform 0.3s}
-  .sidebar.open{transform:translateX(0)}
-  .main{margin-left:0;width:100%;padding:16px;padding-top:58px}
-  .mt{display:flex}
-  .stats{grid-template-columns:1fr 1fr}
-  .fr{grid-template-columns:1fr}
-}
+.mt{display:none;position:fixed;top:14px;left:14px;z-index:200;width:40px;height:40px;border-radius:4px;background:var(--burgundy);border:1px solid rgba(255,255,240,0.1);color:var(--cream);font-size:1.2rem;cursor:pointer;align-items:center;justify-content:center}
+@media(max-width:900px){.sidebar{transform:translateX(-100%);transition:transform 0.3s}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%;padding:16px;padding-top:62px}.mt{display:flex}.stats{grid-template-columns:1fr 1fr}.fr{grid-template-columns:1fr}}
 @media(max-width:480px){.stats{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
 <button class="mt" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
 <div class="toast" id="toast"></div>
-
 <div class="admin-shell">
   <aside class="sidebar" id="sidebar">
-    <div class="sb-head">
-      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events">
-      <span class="badge">Admin Panel</span>
-    </div>
+    <div class="sb-head"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"><span class="badge">Admin Panel</span></div>
     <div class="sb-nav">
       <button class="sn active" data-s="dashboard" onclick="go('dashboard',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>Dashboard</button>
       <button class="sn" data-s="events" onclick="go('events',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Events</button>
@@ -141,12 +103,8 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
       <button class="sn" data-s="guests" onclick="go('guests',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Guest List</button>
       <button class="sn" data-s="emails" onclick="go('emails',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>Follow-Ups</button>
     </div>
-    <div class="sb-foot">
-      <div class="nm">Bob Pope</div>
-      <div class="rl">Owner / Admin</div>
-    </div>
+    <div class="sb-foot"><div class="nm">Bob Pope</div><div class="rl">Owner / Admin</div></div>
   </aside>
-
   <main class="main">
     <div class="sec active" id="sec-dashboard">
       <div class="mh"><h1>Welcome back, <em>Bob</em></h1><p>Here's what's happening at Inviting Events</p></div>
@@ -154,42 +112,14 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
       <div class="glass blk" style="padding:18px"><div class="sec-tag" style="margin-bottom:10px">Active Event</div><div class="trow"><label class="tsw"><input type="checkbox" id="evt-tog" onchange="togEvt()"><span class="ttr"></span></label><div><div id="ts" style="font-size:0.85rem;color:var(--cream40)">No Active Event</div><div id="tsu" style="font-size:0.72rem;color:var(--cream20);margin-top:1px">Go to Events to create one</div></div></div></div>
       <div class="glass blk" style="padding:18px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div class="sec-tag">Recent Guest Photos</div><button class="btn-secondary" onclick="go('photos',document.querySelector('[data-s=photos]'))">View All →</button></div><div class="empty">Photos will appear here during events</div></div>
     </div>
-
-    <div class="sec" id="sec-events">
-      <div class="mh"><h1>Event <em>Management</em></h1><p>Create and manage events for the QR guest portal</p></div>
-      <div class="glass blk" style="padding:18px"><div class="sec-tag" style="margin-bottom:14px">Create New Event</div><div class="fr"><div class="fd"><label>Event Name</label><input type="text" id="en" placeholder="e.g. Johnson Wedding Reception"></div><div class="fd"><label>Date</label><input type="date" id="ed"></div></div><div class="fr"><div class="fd"><label>Ballroom</label><select><option>Grand Ballroom</option><option>Auxiliary Ballroom</option><option>Studio 78</option><option>Private Lounge</option></select></div><div class="fd"><label>Est. Guests</label><input type="text" placeholder="e.g. 150"></div></div><div class="fd"><label>Notes</label><textarea placeholder="Any special details..."></textarea></div><button class="btn-primary" onclick="createEvt()">Create Event</button></div>
-      <div class="glass" style="padding:18px"><div class="sec-tag" style="margin-bottom:8px">Past & Upcoming</div><table class="dt"><thead><tr><th>Event</th><th>Date</th><th>Room</th><th>Guests</th><th>Photos</th><th>Status</th></tr></thead><tbody><tr><td colspan="6" class="empty">No events yet</td></tr></tbody></table></div>
-    </div>
-
-    <div class="sec" id="sec-photos">
-      <div class="mh"><h1>Guest <em>Photos</em></h1><p>Review and promote to the website gallery</p></div>
-      <div class="glass" style="padding:18px"><div style="display:flex;gap:6px;margin-bottom:12px"><button class="btn-primary" style="padding:6px 12px;font-size:0.42rem">All</button><button class="btn-primary" style="padding:6px 12px;font-size:0.42rem;background:transparent;border:1px solid var(--cream08)">Pending</button><button class="btn-primary" style="padding:6px 12px;font-size:0.42rem;background:transparent;border:1px solid var(--cream08)">In Gallery</button></div><div class="empty">Guest photos will appear here during events.</div></div>
-    </div>
-
-    <div class="sec" id="sec-gallery">
-      <div class="mh"><h1>Website <em>Gallery</em></h1><p>Photos on theinvitingevents.com/gallery</p></div>
-      <div class="glass" style="padding:18px"><div class="empty">Add photos from Guest Photos or Upload Media</div></div>
-    </div>
-
-    <div class="sec" id="sec-upload">
-      <div class="mh"><h1>Upload <em>Media</em></h1><p>Upload photos & videos. Auto-watermarked with IE logo.</p></div>
-      <div class="glass blk" style="padding:18px"><div class="sec-tag" style="margin-bottom:12px">Destination</div><div class="fr"><div class="fd"><label>Add To</label><select><option>Website Gallery</option><option>Grand Ballroom Page</option><option>Auxiliary Ballroom Page</option><option>Studio 78 Page</option><option>Private Lounge Page</option><option>Homepage Hero</option></select></div><div class="fd"><label>Watermark</label><select><option>Yes — Add IE Watermark</option><option>No Watermark</option></select></div></div></div>
-      <div class="glass" style="padding:18px"><div class="uarea" id="adrop" onclick="document.getElementById('af').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0l-4 4m4-4 4 4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg><p>Click to upload photos or videos</p><p class="sub">or drag and drop · JPG, PNG, MP4 · Up to 50MB</p></div><input type="file" id="af" accept="image/*,video/*" multiple style="display:none" onchange="aUpld(this.files)"><div id="aprev" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px"></div><button class="btn-primary" id="abtn" style="display:none;width:100%" onclick="doUp()">Upload & Publish</button></div>
-    </div>
-
-    <div class="sec" id="sec-guests">
-      <div class="mh"><div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px"><div><h1>Guest <em>List</em></h1><p>All QR portal check-ins</p></div><button class="btn-primary" style="padding:8px 16px;font-size:0.42rem" onclick="toast('CSV export available with live data')">Export CSV</button></div></div>
-      <div class="glass" style="padding:18px"><table class="dt"><thead><tr><th>Name</th><th>Email</th><th>Event</th><th>Checked In</th><th>Photos</th></tr></thead><tbody><tr><td colspan="5" class="empty">Guest data populates after events</td></tr></tbody></table></div>
-    </div>
-
-    <div class="sec" id="sec-emails">
-      <div class="mh"><h1>Follow-Up <em>Emails</em></h1><p>Automated post-event emails</p></div>
-      <div class="glass blk" style="padding:18px"><div class="sec-tag" style="margin-bottom:12px">Settings</div><div class="trow" style="margin-bottom:14px"><label class="tsw"><input type="checkbox" checked><span class="ttr"></span></label><div><div style="color:var(--cream);font-size:0.85rem">Auto-send follow-ups</div><div style="font-size:0.72rem;color:var(--cream20)">48 hours after event ends</div></div></div><div class="fd"><label>Subject Line</label><input type="text" value="Thank you for celebrating with us! Your photos are ready"></div><div class="sec-tag" style="margin:14px 0 8px">Preview</div><div class="eprev"><p style="font-family:var(--h);font-style:italic;color:var(--cream)">Dear <span class="v">[Guest Name]</span>,</p><br><p>Thank you for being part of <span class="v">[Event Name]</span> at The Inviting Events!</p><br><p><strong style="color:var(--cream)">We'd love your honest feedback:</strong></p><p class="v" style="text-decoration:underline">[Leave a Google Review ⭐]</p><br><p>Your event photos are ready:</p><p class="v" style="text-decoration:underline">[View Your Album →]</p><br><p>Warmly,<br>The Inviting Events Team</p></div></div>
-      <div class="glass" style="padding:18px"><div class="sec-tag" style="margin-bottom:8px">History</div><table class="dt"><thead><tr><th>Event</th><th>Sent</th><th>Recipients</th><th>Opens</th><th>Review Clicks</th></tr></thead><tbody><tr><td colspan="5" class="empty">No emails sent yet</td></tr></tbody></table></div>
-    </div>
+    <div class="sec" id="sec-events"><div class="mh"><h1>Event <em>Management</em></h1><p>Create and manage events for the QR guest portal</p></div><div class="glass blk" style="padding:18px"><div class="sec-tag" style="margin-bottom:14px">Create New Event</div><div class="fr"><div class="fd"><label>Event Name</label><input type="text" id="en" placeholder="e.g. Johnson Wedding Reception"></div><div class="fd"><label>Date</label><input type="date" id="ed"></div></div><div class="fr"><div class="fd"><label>Ballroom</label><select><option>Grand Ballroom</option><option>Auxiliary Ballroom</option><option>Studio 78</option><option>Private Lounge</option></select></div><div class="fd"><label>Est. Guests</label><input type="text" placeholder="e.g. 150"></div></div><div class="fd"><label>Notes</label><textarea placeholder="Any special details..."></textarea></div><button class="btn-primary" onclick="createEvt()">Create Event</button></div><div class="glass" style="padding:18px"><div class="sec-tag" style="margin-bottom:8px">Past & Upcoming</div><table class="dt"><thead><tr><th>Event</th><th>Date</th><th>Room</th><th>Guests</th><th>Photos</th><th>Status</th></tr></thead><tbody><tr><td colspan="6" class="empty">No events yet</td></tr></tbody></table></div></div>
+    <div class="sec" id="sec-photos"><div class="mh"><h1>Guest <em>Photos</em></h1><p>Review and promote to the website gallery</p></div><div class="glass" style="padding:18px"><div style="display:flex;gap:6px;margin-bottom:12px"><button class="btn-primary" style="padding:6px 12px;font-size:0.42rem">All</button><button class="btn-primary" style="padding:6px 12px;font-size:0.42rem;background:transparent;border:1px solid var(--cream08)">Pending</button><button class="btn-primary" style="padding:6px 12px;font-size:0.42rem;background:transparent;border:1px solid var(--cream08)">In Gallery</button></div><div class="empty">Guest photos will appear here during events.</div></div></div>
+    <div class="sec" id="sec-gallery"><div class="mh"><h1>Website <em>Gallery</em></h1><p>Photos on theinvitingevents.com/gallery</p></div><div class="glass" style="padding:18px"><div class="empty">Add photos from Guest Photos or Upload Media</div></div></div>
+    <div class="sec" id="sec-upload"><div class="mh"><h1>Upload <em>Media</em></h1><p>Upload photos & videos. Auto-watermarked with IE logo.</p></div><div class="glass blk" style="padding:18px"><div class="sec-tag" style="margin-bottom:12px">Destination</div><div class="fr"><div class="fd"><label>Add To</label><select><option>Website Gallery</option><option>Grand Ballroom Page</option><option>Auxiliary Ballroom Page</option><option>Studio 78 Page</option><option>Private Lounge Page</option><option>Homepage Hero</option></select></div><div class="fd"><label>Watermark</label><select><option>Yes — Add IE Watermark</option><option>No Watermark</option></select></div></div></div><div class="glass" style="padding:18px"><div class="uarea" id="adrop" onclick="document.getElementById('af').click()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0l-4 4m4-4 4 4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg><p>Click to upload photos or videos</p><p class="sub">or drag and drop · JPG, PNG, MP4 · Up to 50MB</p></div><input type="file" id="af" accept="image/*,video/*" multiple style="display:none" onchange="aUpld(this.files)"><div id="aprev" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px"></div><button class="btn-primary" id="abtn" style="display:none;width:100%" onclick="doUp()">Upload & Publish</button></div></div>
+    <div class="sec" id="sec-guests"><div class="mh"><div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px"><div><h1>Guest <em>List</em></h1><p>All QR portal check-ins</p></div><button class="btn-primary" style="padding:8px 16px;font-size:0.42rem" onclick="toast('CSV export available with live data')">Export CSV</button></div></div><div class="glass" style="padding:18px"><table class="dt"><thead><tr><th>Name</th><th>Email</th><th>Event</th><th>Checked In</th><th>Photos</th></tr></thead><tbody><tr><td colspan="5" class="empty">Guest data populates after events</td></tr></tbody></table></div></div>
+    <div class="sec" id="sec-emails"><div class="mh"><h1>Follow-Up <em>Emails</em></h1><p>Automated post-event emails</p></div><div class="glass blk" style="padding:18px"><div class="sec-tag" style="margin-bottom:12px">Settings</div><div class="trow" style="margin-bottom:14px"><label class="tsw"><input type="checkbox" checked><span class="ttr"></span></label><div><div style="color:var(--cream);font-size:0.85rem">Auto-send follow-ups</div><div style="font-size:0.72rem;color:var(--cream20)">48 hours after event ends</div></div></div><div class="fd"><label>Subject Line</label><input type="text" value="Thank you for celebrating with us! Your photos are ready"></div><div class="sec-tag" style="margin:14px 0 8px">Preview</div><div class="eprev"><p style="font-family:var(--h);font-style:italic;color:var(--cream)">Dear <span class="v">[Guest Name]</span>,</p><br><p>Thank you for being part of <span class="v">[Event Name]</span> at The Inviting Events!</p><br><p><strong style="color:var(--cream)">We'd love your honest feedback:</strong></p><p class="v" style="text-decoration:underline">[Leave a Google Review ⭐]</p><br><p>Your event photos are ready:</p><p class="v" style="text-decoration:underline">[View Your Album →]</p><br><p>Warmly,<br>The Inviting Events Team</p></div></div><div class="glass" style="padding:18px"><div class="sec-tag" style="margin-bottom:8px">History</div><table class="dt"><thead><tr><th>Event</th><th>Sent</th><th>Recipients</th><th>Opens</th><th>Review Clicks</th></tr></thead><tbody><tr><td colspan="5" class="empty">No emails sent yet</td></tr></tbody></table></div></div>
   </main>
 </div>
-
 <script>
 let af=[];
 function go(n,b){document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));document.getElementById('sec-'+n).classList.add('active');document.querySelectorAll('.sn').forEach(x=>x.classList.remove('active'));if(b)b.classList.add('active');document.getElementById('sidebar').classList.remove('open')}
@@ -198,7 +128,6 @@ function createEvt(){const n=document.getElementById('en').value.trim(),d=docume
 function aUpld(f){af=Array.from(f).slice(0,20);document.getElementById('aprev').innerHTML=af.map(f=>{if(f.type.startsWith('image/')){return`<img src="${URL.createObjectURL(f)}" style="width:60px;height:60px;object-fit:cover;border-radius:4px;border:1px solid var(--burgundy)">`}return`<div style="width:60px;height:60px;border-radius:4px;background:var(--cream04);display:flex;align-items:center;justify-content:center;font-size:0.65rem;border:1px solid var(--burgundy);color:var(--cream40)">🎥</div>`}).join('');document.getElementById('abtn').style.display=af.length?'block':'none'}
 function doUp(){const b=document.getElementById('abtn');b.textContent='Uploading...';b.disabled=true;setTimeout(()=>{toast(af.length+' files uploaded');af=[];document.getElementById('aprev').innerHTML='';b.style.display='none';b.textContent='Upload & Publish';b.disabled=false},1500)}
 const dz=document.getElementById('adrop');['dragenter','dragover'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.add('dragover')}));['dragleave','drop'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.remove('dragover')}));dz.addEventListener('drop',ev=>aUpld(ev.dataTransfer.files));
-
 let tt;function toast(m){clearTimeout(tt);const t=document.getElementById('toast');t.textContent=m;t.classList.remove('show');void t.offsetWidth;t.classList.add('show');tt=setTimeout(()=>t.classList.remove('show'),2500)}
 </script>
 </body>

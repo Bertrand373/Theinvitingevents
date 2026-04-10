@@ -58,15 +58,6 @@ nav.scrolled {
   border-bottom-color: rgba(255,255,255,0.04);
   height: 64px;
 }
-/* Soft blur edge below sticky nav */
-nav.scrolled::after {
-  content: '';
-  position: absolute;
-  bottom: -24px; left: 0; right: 0;
-  height: 24px;
-  background: linear-gradient(to bottom, rgba(6,6,6,0.25), transparent);
-  pointer-events: none;
-}
 
 .nav-logo img { height: 32px; opacity: 0.9; }
 .nav-links { display: flex; gap: 36px; list-style: none; }

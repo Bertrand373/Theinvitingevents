@@ -300,6 +300,11 @@ AMENITIES & POLICIES:
 
 LOCATION: Snellville, Georgia (about 30 minutes east of downtown Atlanta)
 CONTACT: Schedule a tour at theinvitingevents.com/contact/
+PRICING PAGE: theinvitingevents.com/pricing/ — direct people here for full pricing details
+GALLERY: theinvitingevents.com/gallery/ — photos and videos from past events
+ABOUT: theinvitingevents.com/about/ — Robert's story and the venue's history
+
+SITE PAGES THE GUEST CAN VISIT: Home, Spaces, Gallery, Reviews, Pricing, About, Contact. Always link to relevant pages when appropriate.
 
 Keep responses concise — 2-3 sentences max unless the question requires more detail. Be warm but professional. If someone asks about booking or specific dates, encourage them to schedule a tour.`;
 

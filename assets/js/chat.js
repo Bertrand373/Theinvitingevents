@@ -22,6 +22,7 @@ style.textContent = `
 
 .ie-chat-sheet{position:fixed;bottom:0;right:0;z-index:9999;width:100%;max-width:400px;height:70vh;max-height:600px;background:rgba(13,13,13,0.85);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-top:1px solid rgba(255,255,255,0.06);border-left:1px solid rgba(255,255,255,0.06);border-radius:20px 20px 0 0;display:flex;flex-direction:column;transform:translateY(calc(100% + 100px));transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);overflow:hidden;visibility:hidden}
 .ie-chat-sheet.open{transform:translateY(0);visibility:visible}
+.ie-chat-sheet.closing{transition:transform 0.3s cubic-bezier(0.4,0,1,1);transform:translateY(calc(100% + 100px));visibility:visible}
 @media(min-width:481px){.ie-chat-sheet{right:28px;bottom:92px;border-radius:16px;border:1px solid rgba(255,255,255,0.06);max-height:520px;height:auto;min-height:400px;box-shadow:0 12px 48px rgba(0,0,0,0.5)}}
 @media(max-width:480px){.ie-chat-sheet{max-width:100%;height:80vh;max-height:none}}
 
@@ -35,7 +36,6 @@ style.textContent = `
 .ie-chat-close svg{width:14px;height:14px}
 
 .ie-chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;position:relative}
-.ie-chat-messages::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:120px;height:120px;background:url('https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png') center/contain no-repeat;opacity:0.03;pointer-events:none}
 .ie-chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-family:'Questrial',sans-serif;font-size:0.88rem;line-height:1.5;animation:ie-msg-in 0.3s ease}
 @keyframes ie-msg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .ie-chat-msg.bot{align-self:flex-start;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:rgba(255,255,240,0.85);border-bottom-left-radius:4px}
@@ -91,7 +91,12 @@ document.body.appendChild(container);
 // Don't show on admin or live portal
 if (window.location.pathname.startsWith('/admin') || window.location.pathname.startsWith('/live')) {
   document.getElementById('ie-chat-fab').style.display = 'none';
-  return;
+} else {
+
+// Fix mobile nav scroll lock (universal — works on every page)
+const _navToggle = document.querySelector('.nav-toggle');
+if (_navToggle) {
+  _navToggle.addEventListener('click', () => document.body.classList.toggle('nav-open'));
 }
 
 // Elements
@@ -103,8 +108,15 @@ const msgContainer = document.getElementById('ie-chat-messages');
 const input = document.getElementById('ie-chat-input');
 const sendBtn = document.getElementById('ie-chat-send');
 
-function open() { isOpen = true; fab.classList.add('open'); overlay.classList.add('open'); sheet.classList.add('open'); setTimeout(() => input.focus(), 400); }
-function close() { isOpen = false; fab.classList.remove('open'); overlay.classList.remove('open'); sheet.classList.remove('open'); }
+function open() { isOpen = true; fab.classList.add('open'); overlay.classList.add('open'); sheet.style.visibility = 'visible'; sheet.classList.remove('closing'); sheet.classList.add('open'); setTimeout(() => input.focus(), 400); }
+function close() {
+  isOpen = false;
+  fab.classList.remove('open');
+  overlay.classList.remove('open');
+  sheet.classList.add('closing');
+  sheet.classList.remove('open');
+  setTimeout(() => { sheet.classList.remove('closing'); sheet.style.visibility = 'hidden'; }, 300);
+}
 
 fab.addEventListener('click', () => isOpen ? close() : open());
 overlay.addEventListener('click', close);
@@ -114,11 +126,27 @@ function addMsg(text, role) {
   const div = document.createElement('div');
   div.className = 'ie-chat-msg ' + role;
   if (role === 'bot') {
-    // Parse [text](url) into burgundy buttons, escape HTML otherwise
-    const safe = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    const withBtns = safe.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<br><a href="$2" class="ie-chat-btn">$1</a>');
-    const withBold = withBtns.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-    div.innerHTML = withBold;
+    // Extract [text](url) links from the response
+    const buttons = [];
+    let clean = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, label, url) => {
+      buttons.push({ label, url });
+      return '';
+    });
+    // Clean up bold markdown
+    clean = clean.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    clean = clean.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    // Remove orphaned punctuation/spaces from extracted links
+    clean = clean.replace(/,\s*$/, '').replace(/\s{2,}/g, ' ').trim();
+    let html = clean;
+    // Append buttons at the end
+    if (buttons.length) {
+      html += '<div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">';
+      buttons.forEach(b => {
+        html += `<a href="${b.url}" class="ie-chat-btn">${b.label.replace(/</g,'&lt;')}</a>`;
+      });
+      html += '</div>';
+    }
+    div.innerHTML = html;
   } else {
     div.textContent = text;
   }
@@ -167,4 +195,5 @@ async function send() {
 
 sendBtn.addEventListener('click', send);
 input.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });
+} // close else block
 })();

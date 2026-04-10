@@ -10,7 +10,7 @@ let isOpen = false;
 // Inject CSS
 const style = document.createElement('style');
 style.textContent = `
-.ie-chat-fab{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:#611f1d;border:1px solid rgba(255,255,240,0.12);color:#fffff0;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(97,31,29,0.4);transition:all 0.3s}
+.ie-chat-fab{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:#611f1d;border:1px solid rgba(255,255,240,0.12);color:#fffff0;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(97,31,29,0.4);transition:all 0.3s;opacity:1}
 .ie-chat-fab:hover{background:#7a2522;transform:scale(1.06)}
 .ie-chat-fab:active{transform:scale(0.95)}
 .ie-chat-fab svg{width:24px;height:24px;transition:transform 0.3s}
@@ -27,8 +27,8 @@ style.textContent = `
 @media(max-width:480px){.ie-chat-sheet{max-width:100%;height:80vh;max-height:none}}
 
 .ie-chat-head{padding:18px 18px 14px;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;gap:12px;flex-shrink:0}
-.ie-chat-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#611f1d,#7a2522);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 0 20px rgba(97,31,29,0.3)}
-.ie-chat-avatar img{width:20px;height:20px;filter:brightness(2)}
+.ie-chat-avatar{width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ie-chat-avatar img{width:28px;height:28px;opacity:0.85}
 .ie-chat-head-info{flex:1}
 .ie-chat-head-title{font-family:'Julius Sans One',sans-serif;font-size:0.5rem;letter-spacing:2px;color:rgba(255,255,240,0.4)}
 .ie-chat-head-sub{font-family:'Cardo',serif;font-size:0.95rem;color:#fffff0}
@@ -93,10 +93,25 @@ if (window.location.pathname.startsWith('/admin') || window.location.pathname.st
   document.getElementById('ie-chat-fab').style.display = 'none';
 } else {
 
-// Fix mobile nav scroll lock (universal — works on every page)
-const _navToggle = document.querySelector('.nav-toggle');
-if (_navToggle) {
-  _navToggle.addEventListener('click', () => document.body.classList.toggle('nav-open'));
+// Fix mobile nav scroll lock (override global toggleNav)
+if (typeof window.toggleNav === 'function') {
+  const _origToggleNav = window.toggleNav;
+  window.toggleNav = function() {
+    _origToggleNav();
+    document.body.classList.toggle('nav-open');
+  };
+}
+// Also handle nav CTA: hide until past hero fold
+const _navCta = document.querySelector('.nav-cta');
+if (_navCta) {
+  _navCta.style.opacity = '0';
+  _navCta.style.pointerEvents = 'none';
+  _navCta.style.transition = 'opacity 0.3s';
+  window.addEventListener('scroll', () => {
+    const past = window.scrollY > window.innerHeight * 0.85;
+    _navCta.style.opacity = past ? '1' : '0';
+    _navCta.style.pointerEvents = past ? 'auto' : 'none';
+  });
 }
 
 // Elements
@@ -108,14 +123,13 @@ const msgContainer = document.getElementById('ie-chat-messages');
 const input = document.getElementById('ie-chat-input');
 const sendBtn = document.getElementById('ie-chat-send');
 
-function open() { isOpen = true; fab.classList.add('open'); overlay.classList.add('open'); sheet.style.visibility = 'visible'; sheet.classList.remove('closing'); sheet.classList.add('open'); setTimeout(() => input.focus(), 400); }
+function open() { isOpen = true; fab.style.opacity = '0'; fab.style.pointerEvents = 'none'; overlay.classList.add('open'); sheet.style.visibility = 'visible'; sheet.classList.remove('closing'); sheet.classList.add('open'); setTimeout(() => input.focus(), 400); }
 function close() {
   isOpen = false;
-  fab.classList.remove('open');
   overlay.classList.remove('open');
   sheet.classList.add('closing');
   sheet.classList.remove('open');
-  setTimeout(() => { sheet.classList.remove('closing'); sheet.style.visibility = 'hidden'; }, 300);
+  setTimeout(() => { sheet.classList.remove('closing'); sheet.style.visibility = 'hidden'; fab.style.opacity = '1'; fab.style.pointerEvents = 'auto'; }, 300);
 }
 
 fab.addEventListener('click', () => isOpen ? close() : open());

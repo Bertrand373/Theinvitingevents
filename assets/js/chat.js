@@ -101,12 +101,12 @@ if (typeof window.toggleNav === 'function') {
     document.body.classList.toggle('nav-open');
   };
 }
-// Also handle nav CTA: hide until past hero fold
+// Hide duplicate "Schedule a Tour" text link permanently, show button after fold
 const _navCta = document.querySelector('.nav-cta');
+const _navLinks = document.querySelectorAll('.nav-links a');
+_navLinks.forEach(a => { if (a.textContent.trim().toLowerCase().includes('schedule')) a.parentElement.style.display = 'none'; });
 if (_navCta) {
-  _navCta.style.opacity = '0';
-  _navCta.style.pointerEvents = 'none';
-  _navCta.style.transition = 'opacity 0.3s';
+  _navCta.style.opacity = '0'; _navCta.style.pointerEvents = 'none'; _navCta.style.transition = 'opacity 0.3s';
   window.addEventListener('scroll', () => {
     const past = window.scrollY > window.innerHeight * 0.85;
     _navCta.style.opacity = past ? '1' : '0';

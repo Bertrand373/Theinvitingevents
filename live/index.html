@@ -2,132 +2,273 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inviting Events — Guest Portal</title>
-<link rel="icon" type="image/png" href="/assets/images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Guest Portal — Inviting Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<link rel="icon" href="/assets/images/favicon.png">
 <link rel="stylesheet" href="/assets/css/global.css">
 <style>
-.portal{
-  min-height:100vh;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;
-  padding:40px 24px;
-}
-.portal-logo{margin-bottom:32px;}
-.portal-logo img{height:36px;filter:brightness(0) invert(1);opacity:0.9;}
-.portal h1{
-  font-family:var(--h);font-size:2rem;font-weight:400;
-  color:var(--cream);margin-bottom:12px;
-}
-.portal p{font-size:0.92rem;color:var(--cream40);line-height:1.7;max-width:400px;margin:0 auto 32px;}
-.portal-card{
-  background:var(--glass);border:1px solid var(--glass-b);
-  border-radius:16px;padding:48px 40px;max-width:480px;width:100%;
-  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
-}
-.portal-card h2{
-  font-family:var(--sub);font-size:0.7rem;letter-spacing:3px;
-  color:var(--green);margin-bottom:20px;
-}
-.portal-card .event-name{
-  font-family:var(--h);font-size:1.6rem;color:var(--cream);
-  margin-bottom:8px;
-}
-.portal-card .event-date{
-  font-size:0.85rem;color:var(--cream40);margin-bottom:32px;
-}
-.upload-area{
-  border:2px dashed rgba(255,255,255,0.1);border-radius:12px;
-  padding:40px 24px;margin-bottom:24px;cursor:pointer;
-  transition:all 0.3s;
-}
-.upload-area:hover{border-color:var(--burgundy);background:rgba(97,31,29,0.06);}
-.upload-area p{font-size:0.85rem;color:var(--cream40);margin:0;}
-.upload-area .upload-icon{font-size:2rem;margin-bottom:12px;opacity:0.3;}
-.gallery-link{
-  font-family:var(--sub);font-size:0.6rem;letter-spacing:2px;
-  color:var(--cream40);transition:color 0.3s;display:block;margin-top:16px;
-}
-.gallery-link:hover{color:var(--cream);}
-.no-event{color:var(--cream40);font-size:0.92rem;line-height:1.7;}
-.no-event a{color:var(--green);}
+/* ═══ GUEST PORTAL — page-specific ═══ */
 
-/* When no event is active */
-.portal-inactive .portal-card{border-color:rgba(255,255,255,0.04);}
+body::before {
+  content:''; position:fixed; top:-30%; left:-10%;
+  width:600px; height:600px;
+  background:radial-gradient(circle, var(--burg-glow) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+  animation:drift 20s ease-in-out infinite alternate;
+}
+body::after {
+  content:''; position:fixed; bottom:-20%; right:-10%;
+  width:500px; height:500px;
+  background:radial-gradient(circle, rgba(122,182,72,0.08) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+  animation:drift 25s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift{0%{transform:translate(0,0)}100%{transform:translate(40px,30px)}}
+
+.portal-wrap{max-width:480px;margin:0 auto;padding:140px 20px 120px;min-height:100vh;display:flex;flex-direction:column;position:relative;z-index:1}
+.screen{display:none;flex-direction:column;flex:1;animation:fadeUp 0.5s ease}
+.screen.active{display:flex}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+/* Check-in */
+.checkin-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--burgundy),var(--burg-light));display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-size:1.8rem;box-shadow:0 0 60px var(--burg-glow)}
+.checkin-title{font-family:var(--h);font-weight:400;font-size:clamp(1.6rem,4vw,2rem);text-align:center;color:var(--cream);margin-bottom:4px}
+.checkin-sub{text-align:center;color:var(--cream40);font-size:0.88rem;line-height:1.6;margin-bottom:24px}
+.event-badge{text-align:center;padding:12px 16px;border-radius:4px;background:rgba(122,182,72,0.06);border:1px solid rgba(122,182,72,0.12);font-family:var(--h);font-style:italic;font-size:0.95rem;color:var(--green);margin-bottom:24px}
+.form-group{margin-bottom:16px}
+.form-group label{font-family:var(--sub);font-size:0.55rem;letter-spacing:3px;color:var(--cream40);margin-bottom:8px;display:block}
+.form-group label span{font-family:var(--body);letter-spacing:0;font-size:0.72rem;opacity:0.6}
+.form-input{width:100%;padding:14px 16px;background:var(--cream04);border:1px solid var(--cream08);border-radius:4px;color:var(--cream);font-family:var(--body);font-size:0.95rem;transition:border-color 0.3s;outline:none}
+.form-input:focus{border-color:var(--green)}
+.form-input::placeholder{color:var(--cream20)}
+.consent-row{display:flex;align-items:flex-start;gap:10px;margin:20px 0 24px}
+.consent-row input[type="checkbox"]{margin-top:2px;accent-color:var(--green);width:16px;height:16px;flex-shrink:0}
+.consent-row label{font-size:0.78rem;color:var(--cream40);line-height:1.5;cursor:pointer;font-family:var(--body);letter-spacing:0;text-transform:none}
+
+/* Feed */
+.feed-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.feed-header h2{font-family:var(--h);font-weight:400;font-size:1.3rem}
+.feed-tabs{display:flex;border:1px solid var(--glass-b);border-radius:4px;overflow:hidden}
+.feed-tab{padding:8px 16px;font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;background:transparent;border:none;color:var(--cream40);cursor:pointer;transition:all 0.3s}
+.feed-tab.active{background:var(--burgundy);color:var(--cream)}
+
+.upload-zone{border:1px dashed var(--cream20);border-radius:12px;padding:36px 20px;text-align:center;cursor:pointer;transition:all 0.3s;margin-bottom:20px}
+.upload-zone:hover,.upload-zone.dragover{border-color:var(--green);background:rgba(122,182,72,0.03)}
+.upload-zone svg{width:40px;height:40px;color:var(--cream20);margin-bottom:10px}
+.upload-zone p{color:var(--cream40);font-size:0.88rem}
+.upload-zone .hint{font-size:0.72rem;margin-top:6px;color:var(--cream20)}
+.upload-preview{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.thumb-wrap{position:relative}
+.thumb-wrap img{width:64px;height:64px;border-radius:4px;object-fit:cover;border:1px solid var(--green)}
+.thumb-wrap .remove{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:var(--burgundy);color:var(--cream);border:none;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.upload-progress{height:3px;background:var(--cream08);border-radius:2px;overflow:hidden;margin-bottom:16px}
+.upload-progress .bar{height:100%;background:var(--green);border-radius:2px;transition:width 0.3s;width:0%}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.photo-grid img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:4px;border:1px solid var(--glass-b);cursor:pointer;transition:transform 0.3s,box-shadow 0.3s}
+.photo-grid img:hover{transform:scale(1.02);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
+.empty-state{text-align:center;padding:48px 20px;color:var(--cream20)}
+.empty-state svg{width:56px;height:56px;margin-bottom:16px;opacity:0.3}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(6,6,6,0.94);z-index:200;display:none;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:85dvh;border-radius:4px;object-fit:contain}
+.lightbox .close-lb{position:absolute;top:16px;right:16px;width:44px;height:44px;border-radius:50%;background:var(--glass);border:1px solid var(--glass-b);color:var(--cream);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center}
+
+/* Bottom nav */
+.portal-nav{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(6,6,6,0.88);border:1px solid var(--glass-b);border-radius:40px;padding:5px;display:none;gap:2px;z-index:100;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.portal-nav.visible{display:flex}
+.pnav-btn{padding:10px 20px;border:none;border-radius:30px;background:transparent;color:var(--cream40);font-family:var(--sub);font-size:0.5rem;letter-spacing:2px;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;gap:6px}
+.pnav-btn.active{background:var(--burgundy);color:var(--cream)}
+.pnav-btn svg{width:14px;height:14px}
+
+/* Toast */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--green);color:var(--bg);padding:12px 24px;border-radius:4px;font-family:var(--sub);font-size:0.55rem;letter-spacing:2px;box-shadow:0 8px 30px rgba(0,0,0,0.4);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);z-index:300;pointer-events:none;text-transform:uppercase}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* No-event */
+.no-event-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;text-align:center}
+.no-event-wrap h2{font-family:var(--h);font-weight:400;font-size:1.4rem;color:var(--cream40)}
+.no-event-wrap p{color:var(--cream20);max-width:280px;line-height:1.7;font-size:0.88rem}
+
+.spinner{width:18px;height:18px;border:2px solid var(--cream20);border-top-color:var(--cream);border-radius:50%;animation:spin 0.6s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:480px){.portal-wrap{padding:100px 16px 100px}}
 </style>
 </head>
 <body>
 
-<div class="portal" id="portal">
-  <div class="portal-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></div>
+<!-- NAV -->
+<nav id="navbar">
+  <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
+  <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/#ballrooms">Spaces</a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/#reviews">Reviews</a></li>
+    <li><a href="/pricing/">Pricing</a></li>
+    <li><a href="/about/">About</a></li>
+    <li class="nav-divider"></li>
+    <li class="nav-mobile-cta"><a href="/contact/">Schedule a Tour</a></li>
+  </ul>
+  <a href="/contact/" class="nav-cta">Schedule a Tour</a>
+</nav>
 
-  <!-- ACTIVE EVENT STATE (shown when an event is live) -->
-  <div id="activeEvent" style="display:none;">
-    <h1>Welcome to the Event</h1>
-    <p>Share your photos and videos from tonight — they'll be added to the event's shared album.</p>
-    <div class="portal-card">
-      <h2>Now Hosting</h2>
-      <div class="event-name" id="eventName">The Smith Wedding</div>
-      <div class="event-date" id="eventDate">March 28, 2026</div>
-      <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-        <div class="upload-icon">↑</div>
-        <p>Tap to upload photos or videos</p>
-      </div>
-      <input type="file" id="fileInput" accept="image/*,video/*" multiple style="display:none;">
-      <a href="#" class="btn-primary" style="width:100%;text-align:center;display:block;font-size:0.55rem;">Browse Event Photos</a>
-      <a href="#" class="gallery-link">View shared album →</a>
+<div class="toast" id="toast"></div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="close-lb" onclick="closeLightbox()">&times;</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<div class="portal-wrap">
+  <!-- No Active Event -->
+  <div class="screen" id="screen-inactive">
+    <div class="no-event-wrap">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="color:var(--cream20)"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      <h2>No Active Event</h2>
+      <p>There's no event happening right now. Check back when your celebration begins!</p>
+      <div class="sec-divider" style="margin:0 auto"></div>
+      <a href="/" class="btn-primary" style="margin-top:8px">Visit Our Website</a>
     </div>
   </div>
 
-  <!-- INACTIVE STATE (shown when no event is live) -->
-  <div id="inactiveEvent">
-    <h1>Welcome</h1>
-    <div class="portal-card portal-inactive">
-      <p class="no-event">There's no event currently live at our venue. If you're planning an event with us, <a href="/contact/">get in touch</a> — we'd love to hear from you.</p>
-      <div style="margin-top:24px;"><a href="/" class="btn-secondary">Visit Our Website</a></div>
+  <!-- Check-in -->
+  <div class="screen" id="screen-checkin">
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center">
+      <div class="checkin-icon"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE" style="width:40px;height:40px;object-fit:contain;opacity:0.9"></div>
+      <div class="sec-tag" style="text-align:center;margin-bottom:16px">Guest Portal</div>
+      <h1 class="checkin-title">Welcome to <em style="font-style:italic;color:var(--cream70)">Your Event</em></h1>
+      <p class="checkin-sub">Check in to share photos and browse the live event feed</p>
+      <div class="event-badge" id="event-badge">Loading event...</div>
+      <div class="glass" style="padding:28px 24px">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" class="form-input" id="guest-name" placeholder="First & Last Name" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label>Email <span>(for your photo album)</span></label>
+          <input type="email" class="form-input" id="guest-email" placeholder="you@email.com" autocomplete="email">
+        </div>
+        <div class="consent-row">
+          <input type="checkbox" id="consent">
+          <label for="consent">I agree to receive my event album and allow my photos to be shared in the event feed.</label>
+        </div>
+        <button class="btn-primary" id="checkin-btn" onclick="handleCheckin()" style="width:100%;text-align:center">Check In &amp; Start Sharing</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feed + Upload -->
+  <div class="screen" id="screen-feed">
+    <div class="glass" id="upload-section" style="padding:24px;margin-bottom:20px">
+      <div class="sec-tag" style="margin-bottom:12px">Share Your Photos</div>
+      <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0l-4 4m4-4 4 4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
+        <p>Tap to add photos</p>
+        <p class="hint">or drag & drop · up to 10 at a time</p>
+      </div>
+      <input type="file" id="file-input" accept="image/*" multiple style="display:none" onchange="handleFiles(this.files)">
+      <div class="upload-preview" id="upload-preview"></div>
+      <div class="upload-progress" id="upload-progress" style="display:none"><div class="bar" id="upload-bar"></div></div>
+      <button class="btn-primary" id="upload-btn" style="display:none;width:100%;text-align:center;background:var(--green);color:var(--bg)" onclick="uploadPhotos()">Upload Photos</button>
+    </div>
+    <div style="flex:1">
+      <div class="feed-header">
+        <h2>Event Feed</h2>
+        <div class="feed-tabs">
+          <button class="feed-tab active" data-tab="all" onclick="switchTab('all',this)">All</button>
+          <button class="feed-tab" data-tab="mine" onclick="switchTab('mine',this)">Mine</button>
+        </div>
+      </div>
+      <div class="photo-grid" id="photo-grid"></div>
+      <div class="empty-state" id="empty-feed" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        <p>No photos yet — be the first to share!</p>
+      </div>
     </div>
   </div>
 </div>
 
+<nav class="portal-nav" id="portal-nav">
+  <button class="pnav-btn active" onclick="navTo('screen-feed',this)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Feed
+  </button>
+  <button class="pnav-btn" onclick="scrollToUpload()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 16V4m0 0l-4 4m4-4 4 4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>Upload
+  </button>
+</nav>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE">
+      <p>Snellville's premier event hall.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/invitingevents2/" target="_blank">f</a>
+        <a href="https://www.instagram.com/invitingevents/" target="_blank">ig</a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div>
+      <div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a><a href="/contact/">Contact</a></div>
+    </div>
+  </div>
+  <div class="footer-bottom">Inviting Events © 2026. All rights reserved.</div>
+</footer>
+
 <script>
-/*
-  QR PORTAL LOGIC
-  ===============
-  This page is the permanent QR code destination.
-  Bob sets the active event via the admin dashboard.
-  The portal checks for an active event and shows the appropriate state.
+function toggleNav(){document.querySelector('.nav-toggle').classList.toggle('open');document.querySelector('.nav-links').classList.toggle('open')}
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40)});
 
-  In production, this will fetch from:
-  - Cloudflare D1 database (event records)
-  - Cloudflare R2 (uploaded photos/videos)
+const API_BASE='/api';let currentEvent=null,guestToken=null,guestId=null,selectedFiles=[],currentTab='all';
 
-  For now, this is the static scaffold.
-  The admin dashboard will have a simple toggle:
-  "Set Active Event" → picks from upcoming events list.
-*/
+document.addEventListener('DOMContentLoaded',()=>{
+  const s=localStorage.getItem('ie_guest');
+  if(s){try{const g=JSON.parse(s);guestToken=g.token;guestId=g.id}catch(e){}}
+  checkActiveEvent();setupDragDrop();
+});
 
-// TODO: Replace with actual API call to Cloudflare Worker
-async function checkActiveEvent() {
-  try {
-    // const res = await fetch('/api/live-event');
-    // const data = await res.json();
-    // if (data.active) { showEvent(data); }
+async function checkActiveEvent(){
+  try{const r=await fetch(`${API_BASE}/event/active`);if(!r.ok)throw 0;currentEvent=await r.json();document.getElementById('event-badge').textContent=currentEvent.name;
+    if(guestToken){showScreen('screen-feed');document.getElementById('portal-nav').classList.add('visible');loadFeed()}else showScreen('screen-checkin');
+  }catch(e){demoMode()}
+}
+function demoMode(){currentEvent={id:'demo',name:'Smith Wedding Reception — Grand Ballroom'};document.getElementById('event-badge').textContent=currentEvent.name;showScreen('screen-checkin')}
 
-    // DEMO: Toggle this to test both states
-    const demoActive = false;
-
-    if (demoActive) {
-      document.getElementById('activeEvent').style.display = 'block';
-      document.getElementById('inactiveEvent').style.display = 'none';
-      document.getElementById('eventName').textContent = 'The Smith Wedding';
-      document.getElementById('eventDate').textContent = 'March 28, 2026';
-    }
-  } catch (e) {
-    console.log('Portal: no active event');
-  }
+async function handleCheckin(){
+  const n=document.getElementById('guest-name').value.trim(),e=document.getElementById('guest-email').value.trim(),c=document.getElementById('consent').checked,b=document.getElementById('checkin-btn');
+  if(!n)return showToast('Please enter your name');if(!e||!e.includes('@'))return showToast('Please enter a valid email');if(!c)return showToast('Please agree to continue');
+  b.innerHTML='<span class="spinner"></span>';b.disabled=true;
+  try{const r=await fetch(`${API_BASE}/guest/checkin`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n,email:e,event_id:currentEvent.id})});if(!r.ok)throw 0;const d=await r.json();guestToken=d.token;guestId=d.guest_id}
+  catch(err){guestToken='demo-token';guestId='demo-guest'}
+  localStorage.setItem('ie_guest',JSON.stringify({token:guestToken,id:guestId}));
+  showScreen('screen-feed');document.getElementById('portal-nav').classList.add('visible');loadFeed();showToast(`Welcome, ${n.split(' ')[0]}!`);
+  b.innerHTML='Check In &amp; Start Sharing';b.disabled=false;
 }
 
-checkActiveEvent();
+async function loadFeed(){
+  const g=document.getElementById('photo-grid'),em=document.getElementById('empty-feed');let p=[];
+  try{const ep=currentTab==='mine'?`${API_BASE}/photos?event_id=${currentEvent.id}&guest_id=${guestId}`:`${API_BASE}/photos?event_id=${currentEvent.id}`;const r=await fetch(ep,{headers:{'Authorization':`Bearer ${guestToken}`}});if(r.ok)p=await r.json()}catch(e){}
+  if(!p.length){g.innerHTML='';em.style.display='block'}else{em.style.display='none';g.innerHTML=p.map((ph,i)=>`<img src="${ph.thumbnail_url||ph.url}" alt="Event photo" loading="lazy" onclick="openLightbox('${ph.url}')" style="animation:fadeUp 0.4s ease ${i*0.05}s both">`).join('')}
+}
+function switchTab(t,el){currentTab=t;document.querySelectorAll('.feed-tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');loadFeed()}
+
+function setupDragDrop(){const z=document.getElementById('upload-zone');if(!z)return;['dragenter','dragover'].forEach(e=>z.addEventListener(e,ev=>{ev.preventDefault();z.classList.add('dragover')}));['dragleave','drop'].forEach(e=>z.addEventListener(e,ev=>{ev.preventDefault();z.classList.remove('dragover')}));z.addEventListener('drop',ev=>handleFiles(ev.dataTransfer.files))}
+function handleFiles(f){const nf=Array.from(f).filter(x=>x.type.startsWith('image/')).slice(0,10);if(!nf.length)return showToast('Please select image files');selectedFiles=[...selectedFiles,...nf].slice(0,10);renderPreviews();document.getElementById('upload-btn').style.display='block'}
+function renderPreviews(){document.getElementById('upload-preview').innerHTML=selectedFiles.map((f,i)=>{const u=URL.createObjectURL(f);return`<div class="thumb-wrap"><img src="${u}" alt="preview"><button class="remove" onclick="removeFile(${i})">&times;</button></div>`}).join('')}
+function removeFile(i){selectedFiles.splice(i,1);renderPreviews();if(!selectedFiles.length)document.getElementById('upload-btn').style.display='none'}
+async function uploadPhotos(){if(!selectedFiles.length)return;const b=document.getElementById('upload-btn'),bar=document.getElementById('upload-bar'),pr=document.getElementById('upload-progress');b.innerHTML='<span class="spinner"></span>';b.disabled=true;pr.style.display='block';let d=0;for(const f of selectedFiles){try{const fd=new FormData();fd.append('photo',f);fd.append('event_id',currentEvent.id);fd.append('guest_id',guestId);await fetch(`${API_BASE}/photos/upload`,{method:'POST',headers:{'Authorization':`Bearer ${guestToken}`},body:fd})}catch(e){}d++;bar.style.width=`${(d/selectedFiles.length)*100}%`}showToast(`${d} photo${d>1?'s':''} uploaded!`);selectedFiles=[];document.getElementById('upload-preview').innerHTML='';b.style.display='none';b.innerHTML='Upload Photos';b.disabled=false;pr.style.display='none';bar.style.width='0%';loadFeed()}
+
+function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active')}
+function navTo(s,el){document.querySelectorAll('.pnav-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');showScreen(s);window.scrollTo({top:0,behavior:'smooth'})}
+function scrollToUpload(){showScreen('screen-feed');document.querySelectorAll('.pnav-btn').forEach(b=>b.classList.remove('active'));document.querySelector('.pnav-btn').classList.add('active');document.getElementById('upload-section').scrollIntoView({behavior:'smooth'})}
+function openLightbox(u){document.getElementById('lightbox-img').src=u;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden'}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow=''}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
 </script>
 </body>
 </html>

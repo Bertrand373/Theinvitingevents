@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Inviting Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<link rel="icon" href="/assets/images/favicon.png">
+<link rel="stylesheet" href="/assets/css/global.css">
+<style>
+/* ═══ ADMIN — page-specific ═══ */
+
+/* Override body padding from global if any */
+body { padding:0 !important; }
+
+/* Ambient glow (same as all pages) */
+body::before {
+  content:''; position:fixed; top:-30%; left:-10%;
+  width:600px; height:600px;
+  background:radial-gradient(circle, var(--burg-glow) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+  animation:drift 20s ease-in-out infinite alternate;
+}
+body::after {
+  content:''; position:fixed; bottom:-20%; right:-10%;
+  width:500px; height:500px;
+  background:radial-gradient(circle, rgba(122,182,72,0.08) 0%, transparent 70%);
+  pointer-events:none; z-index:0;
+  animation:drift 25s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift{0%{transform:translate(0,0)}100%{transform:translate(40px,30px)}}
+
+/* Layout */
+.admin-shell { display:flex; min-height:100vh; position:relative; z-index:1; }
+
+/* Sidebar */
+.sidebar {
+  width:252px; background:var(--surface);
+  border-right:1px solid rgba(255,255,255,0.04);
+  padding:0; display:flex; flex-direction:column;
+  position:fixed; top:0; left:0; height:100vh; z-index:100;
+}
+.sidebar-logo {
+  padding:28px 24px 24px;
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.sidebar-logo img { height:28px; opacity:0.85; margin-bottom:10px; }
+.sidebar-logo .admin-label {
+  font-family:var(--sub); font-size:0.5rem; letter-spacing:3px;
+  color:var(--green); display:inline-block;
+  padding:4px 12px; border-radius:4px;
+  background:rgba(122,182,72,0.08); border:1px solid rgba(122,182,72,0.12);
+}
+
+.sidebar nav { flex:1; padding:16px 12px; display:flex; flex-direction:column; gap:2px; }
+.snav {
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px; border-radius:4px;
+  border:none; background:transparent; color:var(--cream40);
+  font-family:var(--body); font-size:0.88rem;
+  cursor:pointer; transition:all 0.2s; text-align:left; width:100%;
+}
+.snav:hover { background:var(--cream04); color:var(--cream70); }
+.snav.active { background:var(--burgundy); color:var(--cream); }
+.snav svg { width:18px; height:18px; flex-shrink:0; opacity:0.7; }
+.snav.active svg { opacity:1; }
+
+.sidebar-footer {
+  padding:16px 24px; border-top:1px solid rgba(255,255,255,0.04);
+}
+.sidebar-footer .user-name {
+  font-family:var(--body); font-size:0.88rem; color:var(--cream);
+}
+.sidebar-footer .user-role {
+  font-size:0.72rem; color:var(--cream20); margin-top:2px;
+}
+
+/* Main */
+.main { flex:1; margin-left:252px; padding:40px 48px; max-width:1100px; }
+.main-head { margin-bottom:36px; }
+.main-head h1 {
+  font-family:var(--h); font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:400; color:var(--cream); margin-bottom:6px;
+}
+.main-head h1 em { font-style:italic; color:var(--cream70); }
+.main-head p { font-size:0.88rem; color:var(--cream40); }
+
+/* Stats */
+.stats-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-bottom:32px; }
+.stat-card { padding:24px; text-align:center; }
+.stat-card .num { font-family:var(--sub); font-size:1.8rem; letter-spacing:2px; color:var(--cream); }
+.stat-card .lbl { font-size:0.55rem; font-family:var(--sub); letter-spacing:3px; color:var(--cream40); margin-top:6px; text-transform:uppercase; }
+
+/* Event toggle */
+.event-toggle-row { display:flex; align-items:center; gap:20px; padding:8px 0; }
+.toggle-sw { position:relative; width:56px; height:30px; cursor:pointer; }
+.toggle-sw input { opacity:0; width:0; height:0; }
+.toggle-track {
+  position:absolute; inset:0; background:var(--cream08);
+  border-radius:30px; transition:0.3s;
+}
+.toggle-track::before {
+  content:''; position:absolute; width:22px; height:22px;
+  left:4px; bottom:4px; background:var(--cream);
+  border-radius:50%; transition:0.3s;
+}
+.toggle-sw input:checked + .toggle-track { background:var(--green); }
+.toggle-sw input:checked + .toggle-track::before { transform:translateX(26px); }
+.toggle-label { font-size:0.92rem; }
+.toggle-label.live { color:var(--green); font-weight:600; }
+.toggle-label.off { color:var(--cream40); }
+.toggle-sub { font-size:0.78rem; color:var(--cream20); margin-top:2px; }
+
+/* Form elements */
+.field { margin-bottom:16px; }
+.field label {
+  font-family:var(--sub); font-size:0.55rem; letter-spacing:3px;
+  color:var(--cream40); margin-bottom:8px; display:block;
+}
+.field input, .field select, .field textarea {
+  width:100%; padding:12px 14px;
+  background:var(--cream04); border:1px solid var(--cream08);
+  border-radius:4px; color:var(--cream);
+  font-family:var(--body); font-size:0.92rem;
+  transition:border-color 0.3s; outline:none;
+}
+.field input:focus, .field select:focus, .field textarea:focus { border-color:var(--green); }
+.field input::placeholder { color:var(--cream20); }
+.field textarea { resize:vertical; min-height:80px; }
+.field select { cursor:pointer; }
+.field select option { background:var(--surface); color:var(--cream); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+/* Data table */
+.dtable { width:100%; border-collapse:collapse; margin-top:16px; }
+.dtable th {
+  text-align:left; padding:10px 14px;
+  font-family:var(--sub); font-size:0.5rem; letter-spacing:2px;
+  color:var(--cream40); border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.dtable td { padding:10px 14px; border-bottom:1px solid var(--cream04); font-size:0.88rem; }
+.dtable tr:hover td { background:var(--cream04); }
+
+/* Photo grid admin */
+.admin-photos { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; margin-top:16px; }
+.aphoto { position:relative; border-radius:4px; overflow:hidden; aspect-ratio:1; cursor:pointer; }
+.aphoto img { width:100%; height:100%; object-fit:cover; transition:transform 0.3s; }
+.aphoto:hover img { transform:scale(1.05); }
+.aphoto .overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(transparent 50%,rgba(0,0,0,0.7));
+  display:flex; align-items:flex-end; padding:8px; opacity:0; transition:opacity 0.3s;
+}
+.aphoto:hover .overlay { opacity:1; }
+.aphoto .badge {
+  position:absolute; top:6px; right:6px; padding:3px 8px; border-radius:4px;
+  font-family:var(--sub); font-size:0.45rem; letter-spacing:1px;
+}
+.badge-gallery { background:var(--green); color:var(--bg); }
+.badge-new { background:var(--burgundy); color:var(--cream); }
+
+/* Upload area */
+.upload-area {
+  border:1px dashed var(--cream20); border-radius:12px;
+  padding:48px 24px; text-align:center; cursor:pointer; transition:all 0.3s;
+  margin-bottom:20px;
+}
+.upload-area:hover, .upload-area.dragover { border-color:var(--green); background:rgba(122,182,72,0.03); }
+.upload-area svg { width:48px; height:48px; color:var(--cream20); margin-bottom:10px; }
+.upload-area p { color:var(--cream40); font-size:0.92rem; }
+.upload-area .sub { font-size:0.72rem; margin-top:6px; color:var(--cream20); }
+
+/* Sections */
+.section { display:none; animation:fadeIn 0.4s ease; }
+.section.active { display:block; }
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.block { margin-bottom:28px; }
+.block-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+.block-head h3 { font-family:var(--sub); font-size:0.55rem; letter-spacing:3px; color:var(--cream40); }
+
+/* Email preview */
+.email-preview {
+  background:var(--cream04); border:1px solid var(--cream08);
+  border-radius:4px; padding:24px; font-size:0.88rem; line-height:1.8;
+}
+.email-preview .var { color:var(--green); }
+
+/* Toast */
+.toast {
+  position:fixed; bottom:24px; right:24px;
+  background:var(--green); color:var(--bg); padding:12px 24px;
+  border-radius:4px; font-family:var(--sub); font-size:0.55rem;
+  letter-spacing:2px; box-shadow:0 8px 30px rgba(0,0,0,0.4); z-index:200;
+  transform:translateY(60px); transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  text-transform:uppercase;
+}
+.toast.show { transform:translateY(0); }
+
+/* Empty states */
+.empty { text-align:center; padding:48px; color:var(--cream20); font-size:0.88rem; }
+
+/* Mobile toggle */
+.mobile-toggle {
+  display:none; position:fixed; top:16px; left:16px; z-index:200;
+  width:44px; height:44px; border-radius:4px; background:var(--burgundy);
+  border:1px solid rgba(255,255,240,0.1);
+  color:var(--cream); font-size:1.3rem; cursor:pointer;
+  align-items:center; justify-content:center;
+}
+
+/* Responsive */
+@media(max-width:900px) {
+  .sidebar { transform:translateX(-100%); transition:transform 0.3s; }
+  .sidebar.open { transform:translateX(0); }
+  .main { margin-left:0; padding:24px 20px; padding-top:72px; }
+  .mobile-toggle { display:flex; }
+  .stats-row { grid-template-columns:1fr 1fr; }
+  .admin-photos { grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); }
+  .form-row { grid-template-columns:1fr; }
+}
+@media(max-width:480px) {
+  .main { padding:16px; padding-top:68px; }
+  .stats-row { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<button class="mobile-toggle" id="mobile-toggle" onclick="toggleSidebar()">☰</button>
+<div class="toast" id="toast"></div>
+
+<div class="admin-shell">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events">
+      <br>
+      <span class="admin-label">Admin Panel</span>
+    </div>
+
+    <nav>
+      <button class="snav active" data-s="dashboard" onclick="go('dashboard',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Dashboard
+      </button>
+      <button class="snav" data-s="events" onclick="go('events',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Events
+      </button>
+      <button class="snav" data-s="photos" onclick="go('photos',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+        Guest Photos
+      </button>
+      <button class="snav" data-s="gallery" onclick="go('gallery',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        Website Gallery
+      </button>
+      <button class="snav" data-s="upload" onclick="go('upload',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0l-4 4m4-4 4 4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
+        Upload Media
+      </button>
+      <button class="snav" data-s="guests" onclick="go('guests',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Guest List
+      </button>
+      <button class="snav" data-s="emails" onclick="go('emails',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Follow-Ups
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-name">Bob Pope</div>
+      <div class="user-role">Owner / Admin</div>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <main class="main">
+
+    <!-- Dashboard -->
+    <div class="section active" id="sec-dashboard">
+      <div class="main-head">
+        <h1>Welcome back, <em>Bob</em></h1>
+        <p>Here's what's happening at Inviting Events</p>
+      </div>
+
+      <div class="stats-row">
+        <div class="glass stat-card"><div class="num" id="s-events">0</div><div class="lbl">Events</div></div>
+        <div class="glass stat-card"><div class="num" id="s-photos">0</div><div class="lbl">Guest Photos</div></div>
+        <div class="glass stat-card"><div class="num" id="s-guests">0</div><div class="lbl">Email Contacts</div></div>
+        <div class="glass stat-card"><div class="num" id="s-reviews">47</div><div class="lbl">Google Reviews</div></div>
+      </div>
+
+      <div class="glass block" style="padding:24px">
+        <div class="sec-tag" style="margin-bottom:14px">Active Event</div>
+        <div class="event-toggle-row">
+          <label class="toggle-sw"><input type="checkbox" id="event-toggle" onchange="toggleEvent()"><span class="toggle-track"></span></label>
+          <div>
+            <div class="toggle-label off" id="toggle-text">No Active Event</div>
+            <div class="toggle-sub" id="toggle-sub">Go to Events to create one</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass block" style="padding:24px">
+        <div class="block-head">
+          <h3>Recent Guest Photos</h3>
+          <button class="btn-secondary" onclick="go('photos',document.querySelector('[data-s=photos]'))">View All →</button>
+        </div>
+        <div class="admin-photos" id="recent-photos">
+          <div class="empty" style="grid-column:1/-1">Photos will appear here during events</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Events -->
+    <div class="section" id="sec-events">
+      <div class="main-head">
+        <h1>Event <em>Management</em></h1>
+        <p>Create and manage events for the QR guest portal</p>
+      </div>
+
+      <div class="glass block" style="padding:24px">
+        <div class="sec-tag" style="margin-bottom:20px">Create New Event</div>
+        <div class="form-row">
+          <div class="field"><label>Event Name</label><input type="text" id="evt-name" placeholder="e.g. Johnson Wedding Reception"></div>
+          <div class="field"><label>Date</label><input type="date" id="evt-date"></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Ballroom</label>
+            <select id="evt-room">
+              <option value="grand">Grand Ballroom</option>
+              <option value="auxiliary">Auxiliary Ballroom</option>
+              <option value="studio78">Studio 78</option>
+              <option value="lounge">Private Lounge</option>
+            </select>
+          </div>
+          <div class="field"><label>Estimated Guests</label><input type="text" id="evt-count" placeholder="e.g. 150"></div>
+        </div>
+        <div class="field"><label>Client Notes</label><textarea id="evt-notes" placeholder="Any special details about this event..."></textarea></div>
+        <button class="btn-primary" onclick="createEvent()">Create Event</button>
+      </div>
+
+      <div class="glass" style="padding:24px">
+        <div class="sec-tag" style="margin-bottom:12px">Past & Upcoming</div>
+        <table class="dtable">
+          <thead><tr><th>Event</th><th>Date</th><th>Room</th><th>Guests</th><th>Photos</th><th>Status</th></tr></thead>
+          <tbody id="events-tbody"><tr><td colspan="6" class="empty">No events created yet</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Guest Photos -->
+    <div class="section" id="sec-photos">
+      <div class="main-head">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+          <div><h1>Guest <em>Photos</em></h1><p>Review, approve, and promote photos to the website gallery</p></div>
+          <button class="btn-primary" onclick="approveSelected()" style="background:var(--green);color:var(--bg)">✓ Add Selected to Gallery</button>
+        </div>
+      </div>
+      <div class="glass" style="padding:24px">
+        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+          <button class="btn-primary" onclick="filterPhotos('all')" style="padding:8px 16px;font-size:0.5rem">All Photos</button>
+          <button class="btn-primary" onclick="filterPhotos('pending')" style="padding:8px 16px;font-size:0.5rem;background:transparent;border:1px solid var(--cream08)">Pending</button>
+          <button class="btn-primary" onclick="filterPhotos('approved')" style="padding:8px 16px;font-size:0.5rem;background:transparent;border:1px solid var(--cream08)">In Gallery</button>
+        </div>
+        <div class="admin-photos" id="all-photos">
+          <div class="empty" style="grid-column:1/-1">Guest photos will appear here during events.<br>Cherry-pick the best ones for your website gallery.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Website Gallery -->
+    <div class="section" id="sec-gallery">
+      <div class="main-head">
+        <h1>Website <em>Gallery</em></h1>
+        <p>These photos appear on theinvitingevents.com/gallery</p>
+      </div>
+      <div class="glass" style="padding:24px">
+        <div class="admin-photos" id="gallery-photos">
+          <div class="empty" style="grid-column:1/-1">Add photos from Guest Photos or Upload Media</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Upload Media -->
+    <div class="section" id="sec-upload">
+      <div class="main-head">
+        <h1>Upload <em>Media</em></h1>
+        <p>Upload photos & videos directly. Auto-watermarked with the IE logo.</p>
+      </div>
+
+      <div class="glass block" style="padding:24px">
+        <div class="sec-tag" style="margin-bottom:16px">Destination</div>
+        <div class="form-row">
+          <div class="field"><label>Add To</label>
+            <select id="upload-dest">
+              <option value="gallery">Website Gallery</option>
+              <option value="grand">Grand Ballroom Page</option>
+              <option value="auxiliary">Auxiliary Ballroom Page</option>
+              <option value="studio78">Studio 78 Page</option>
+              <option value="lounge">Private Lounge Page</option>
+              <option value="homepage">Homepage Hero</option>
+            </select>
+          </div>
+          <div class="field"><label>Watermark</label>
+            <select id="upload-wm">
+              <option value="yes">Yes — Add IE Watermark</option>
+              <option value="no">No Watermark</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass" style="padding:24px">
+        <div class="upload-area" id="admin-drop" onclick="document.getElementById('admin-files').click()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16V4m0 0l-4 4m4-4 4 4"/><path d="M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/></svg>
+          <p>Click to upload photos or videos</p>
+          <p class="sub">or drag and drop · JPG, PNG, MP4 · Up to 50MB each</p>
+        </div>
+        <input type="file" id="admin-files" accept="image/*,video/*" multiple style="display:none" onchange="handleAdminUpload(this.files)">
+        <div id="admin-preview" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px"></div>
+        <button class="btn-primary" id="admin-upload-btn" style="display:none;width:100%;text-align:center;background:var(--green);color:var(--bg)" onclick="doAdminUpload()">Upload & Publish</button>
+      </div>
+    </div>
+
+    <!-- Guest List -->
+    <div class="section" id="sec-guests">
+      <div class="main-head">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+          <div><h1>Guest <em>List</em></h1><p>All guests who checked in via the QR portal</p></div>
+          <button class="btn-primary" onclick="exportCSV()" style="padding:10px 20px;font-size:0.5rem">Export CSV</button>
+        </div>
+      </div>
+      <div class="glass" style="padding:24px">
+        <table class="dtable">
+          <thead><tr><th>Name</th><th>Email</th><th>Event</th><th>Checked In</th><th>Photos</th></tr></thead>
+          <tbody id="guests-tbody"><tr><td colspan="5" class="empty">Guest data will populate after events</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Follow-Up Emails -->
+    <div class="section" id="sec-emails">
+      <div class="main-head">
+        <h1>Follow-Up <em>Emails</em></h1>
+        <p>Automated post-event emails with album links & review requests</p>
+      </div>
+
+      <div class="glass block" style="padding:24px">
+        <div class="sec-tag" style="margin-bottom:16px">Settings</div>
+        <div class="event-toggle-row" style="margin-bottom:20px">
+          <label class="toggle-sw"><input type="checkbox" checked id="email-auto"><span class="toggle-track"></span></label>
+          <div>
+            <div style="color:var(--cream);font-size:0.92rem">Auto-send follow-ups</div>
+            <div class="toggle-sub">48 hours after event ends</div>
+          </div>
+        </div>
+        <div class="field"><label>Email Subject</label><input type="text" id="email-subj" value="Thank you for celebrating with us! Your event photos are ready"></div>
+        <div class="sec-tag" style="margin:20px 0 12px">Preview</div>
+        <div class="email-preview">
+          <p style="font-family:var(--h);font-style:italic;color:var(--cream)">Dear <span class="var">[Guest Name]</span>,</p>
+          <br>
+          <p>Thank you for being part of <span class="var">[Event Name]</span> at The Inviting Events!</p>
+          <br>
+          <p>Your event photos are ready to view and download:</p>
+          <p class="var" style="text-decoration:underline">[View Your Album →]</p>
+          <br>
+          <p>Loved your experience? We'd be honored if you left us a quick review:</p>
+          <p class="var" style="text-decoration:underline">[Leave a Google Review ⭐]</p>
+          <br>
+          <p>Warmly,<br>The Inviting Events Team</p>
+        </div>
+      </div>
+
+      <div class="glass" style="padding:24px">
+        <div class="sec-tag" style="margin-bottom:12px">Email History</div>
+        <table class="dtable">
+          <thead><tr><th>Event</th><th>Sent</th><th>Recipients</th><th>Opens</th><th>Review Clicks</th></tr></thead>
+          <tbody id="emails-tbody"><tr><td colspan="5" class="empty">No emails sent yet</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const API_BASE='/api';let adminFiles=[];
+
+function go(name,btn){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+  document.querySelectorAll('.snav').forEach(n=>n.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  document.getElementById('sidebar').classList.remove('open');
+}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
+
+function toggleEvent(){
+  const on=document.getElementById('event-toggle').checked;
+  const t=document.getElementById('toggle-text'),s=document.getElementById('toggle-sub');
+  if(on){t.textContent='● Event is LIVE';t.className='toggle-label live';s.textContent='Guests can scan QR codes and upload photos';showToast('Event is now LIVE')}
+  else{t.textContent='No Active Event';t.className='toggle-label off';s.textContent='QR portal shows "No active event" message';showToast('Event deactivated')}
+}
+
+function createEvent(){
+  const n=document.getElementById('evt-name').value.trim(),d=document.getElementById('evt-date').value;
+  if(!n)return showToast('Enter an event name');if(!d)return showToast('Select a date');
+  showToast(`Event "${n}" created`);
+  document.getElementById('evt-name').value='';document.getElementById('evt-date').value='';document.getElementById('evt-notes').value='';
+}
+
+function handleAdminUpload(files){
+  adminFiles=Array.from(files).slice(0,20);
+  document.getElementById('admin-preview').innerHTML=adminFiles.map(f=>{
+    if(f.type.startsWith('image/')){const u=URL.createObjectURL(f);return`<div style="position:relative"><img src="${u}" style="width:72px;height:72px;object-fit:cover;border-radius:4px;border:1px solid var(--green)"><div style="position:absolute;bottom:2px;left:2px;right:2px;font-size:0.55rem;text-align:center;background:rgba(0,0,0,0.7);border-radius:2px;padding:1px;color:var(--cream40)">${(f.size/1024/1024).toFixed(1)}MB</div></div>`}
+    return`<div style="width:72px;height:72px;border-radius:4px;background:var(--cream04);display:flex;align-items:center;justify-content:center;font-size:0.7rem;border:1px solid var(--green);color:var(--cream40)">🎥</div>`;
+  }).join('');
+  document.getElementById('admin-upload-btn').style.display=adminFiles.length?'block':'none';
+}
+function doAdminUpload(){
+  const b=document.getElementById('admin-upload-btn');b.innerHTML='Uploading...';b.disabled=true;
+  setTimeout(()=>{showToast(`${adminFiles.length} files uploaded & watermarked`);adminFiles=[];document.getElementById('admin-preview').innerHTML='';b.style.display='none';b.innerHTML='Upload & Publish';b.disabled=false},2000);
+}
+
+// Drag/drop
+const dz=document.getElementById('admin-drop');
+['dragenter','dragover'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.add('dragover')}));
+['dragleave','drop'].forEach(e=>dz.addEventListener(e,ev=>{ev.preventDefault();dz.classList.remove('dragover')}));
+dz.addEventListener('drop',ev=>handleAdminUpload(ev.dataTransfer.files));
+
+function filterPhotos(f){showToast('Filter: '+f)}
+function approveSelected(){showToast('Select photos first by clicking them')}
+function exportCSV(){showToast('CSV export available with live data')}
+function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+</script>
+</body>
+</html>

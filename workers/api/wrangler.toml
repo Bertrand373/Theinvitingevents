@@ -1,0 +1,20 @@
+name = "ie-api"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+
+# ── D1 Database ──
+[[d1_databases]]
+binding = "DB"
+database_name = "ie-db"
+database_id = "" # Fill after: wrangler d1 create ie-db
+
+# ── R2 Bucket ──
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "ie-media"
+# Create with: wrangler r2 bucket create ie-media
+
+# ── Routes ──
+# After DNS cutover, route to theinvitingevents.com/api/*
+# For now, deploy as standalone worker
+# routes = [{ pattern = "theinvitingevents.com/api/*", zone_name = "theinvitingevents.com" }]

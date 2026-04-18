@@ -60,7 +60,11 @@ nav.scrolled {
 }
 
 .nav-logo img { height: 32px; opacity: 0.9; }
-.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links {
+  display: flex; gap: 36px; list-style: none;
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+}
 .nav-links a {
   font-family: var(--sub); font-size: 0.6rem; letter-spacing: 3px;
   color: var(--cream40); transition: color 0.3s; position: relative;
@@ -203,21 +207,29 @@ footer {
 
 /* ═══ RESPONSIVE ═══ */
 @media(max-width:900px) {
-  nav { padding: 0 24px; }
+  nav { padding: 0 24px; transition: height 0.3s, background 0.3s, border-bottom-color 0.3s; }
+  nav.scrolled {
+    background: rgba(6,6,6,0.95);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
   .nav-toggle { display: block; }
   .nav-cta { display: none; }
 
   /* Full-screen overlay nav */
   .nav-links {
     display: flex; flex-direction: column; position: fixed; inset: 0;
-    z-index: 101; background: rgba(6,6,6,0.97);
-    backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
+    left: 0; top: 0; transform: none;
+    z-index: 101; background: #060606;
     padding: 0; gap: 0; list-style: none;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.4s cubic-bezier(0.4,0,0.2,1);
+    visibility: hidden; opacity: 0; pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0s linear 0.2s;
     justify-content: center; align-items: center;
   }
-  .nav-links.open { opacity: 1; pointer-events: all; }
+  .nav-links.open {
+    visibility: visible; opacity: 1; pointer-events: all;
+    transition: opacity 0.2s ease, visibility 0s linear 0s;
+  }
   .nav-links::before {
     content: ''; position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%); width: 220px; height: 220px;

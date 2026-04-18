@@ -100,19 +100,6 @@ if (typeof window.toggleNav === 'function') {
     _origToggleNav();
     const navOpen = document.querySelector('.nav-links').classList.contains('open');
     document.body.classList.toggle('nav-open', navOpen);
-    // Disable backdrop-filter on nav when menu is open — it breaks position:fixed on children
-    const nav = document.querySelector('nav');
-    if (nav) {
-      if (navOpen) {
-        nav.style.backdropFilter = 'none';
-        nav.style.webkitBackdropFilter = 'none';
-        nav.style.background = 'transparent';
-      } else {
-        nav.style.backdropFilter = '';
-        nav.style.webkitBackdropFilter = '';
-        nav.style.background = '';
-      }
-    }
   };
 }
 // Hide duplicate "Schedule a Tour" text link permanently, show button after fold

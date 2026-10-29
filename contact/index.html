@@ -1,193 +1,309 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact — Inviting Events</title>
-<link rel="icon" type="image/png" href="/assets/images/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact and Tours | Inviting Events, Snellville GA</title>
+<meta name="description" content="Schedule a tour of Inviting Events in Snellville, Georgia. Send Robert a message or call or text (678) 517-8963. Rooms are shown by appointment only.">
+<link rel="canonical" href="https://theinvitingevents.com/contact/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact and Tours | Inviting Events">
+<meta property="og:description" content="Schedule a tour of our ballrooms and private lounge in Snellville, Georgia.">
+<meta property="og:image" content="https://theinvitingevents.com/assets/media/brand/og.jpg">
+<meta property="og:url" content="https://theinvitingevents.com/contact/">
+<meta name="theme-color" content="#0d0b0a">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/media/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/media/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/global.css">
 <style>
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:1000px;margin:0 auto;}
-.contact-info{padding-top:20px;}
-.contact-info .info-item{margin-bottom:28px;}
-.contact-info h4{font-family:var(--sub);font-size:0.6rem;letter-spacing:2px;color:var(--cream);margin-bottom:8px;}
-.contact-info p,.contact-info a{font-size:0.88rem;color:var(--cream40);line-height:1.6;}
-.contact-info a:hover{color:var(--cream);}
-.contact-form{border-radius:16px;padding:40px;position:relative;}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
-.form-row.full{grid-template-columns:1fr;}
-.form-field label{font-family:var(--sub);font-size:0.55rem;letter-spacing:2px;color:var(--cream40);display:block;margin-bottom:8px;}
-.form-field input,.form-field select,.form-field textarea{
-  width:100%;padding:14px 16px;
-  background:rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:6px;
-  color:var(--cream);font-family:var(--body);font-size:0.88rem;
-  transition:all 0.3s;outline:none;
+.contact { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(48px, 8vw, 128px); align-items: start; }
+.contact__aside { display: grid; gap: 36px; padding-top: 6px; }
+.contact__aside h3 { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory-40); margin-bottom: 10px; }
+.contact__aside .big { font-family: var(--serif); font-size: clamp(1.6rem, 2.4vw, 2rem); line-height: 1.2; color: var(--ivory); }
+.contact__aside .big:hover { color: var(--gold); }
+.contact__aside address { font-style: normal; color: var(--ivory-80); }
+.form__foot { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; margin-top: 8px; }
+.form__foot p { font-size: 0.875rem; color: var(--ivory-60); max-width: 28em; }
+.form__error { grid-column: 1 / -1; display: none; padding: 18px 20px; border: 1px solid rgba(201,169,120,0.4); color: var(--ivory-80); font-size: 0.95rem; }
+.form__error.is-shown { display: block; }
+.form__error a { color: var(--ivory); border-bottom: 1px solid var(--line-2); }
+.btn[disabled] { opacity: 0.55; cursor: progress; }
+.thanks { display: none; padding: clamp(36px, 5vw, 56px) 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.thanks.is-shown { display: block; }
+.thanks p { margin-top: 18px; max-width: 32em; color: var(--ivory-80); }
+.thanks a { color: var(--ivory); border-bottom: 1px solid var(--line-2); }
+@media (max-width: 900px) {
+  .contact { grid-template-columns: 1fr; }
+  .contact__aside { grid-template-columns: 1fr 1fr; gap: 32px 24px; padding-top: 0; }
 }
-.form-field input:focus,.form-field select:focus,.form-field textarea:focus{
-  border-color:var(--burgundy);
-  background:rgba(255,255,255,0.05);
-  box-shadow:0 0 20px rgba(97,31,29,0.15);
-}
-.form-field select{cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='rgba(255,255,240,0.3)' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;}
-.form-field select option{background:var(--surface);color:var(--cream);}
-.form-field textarea{resize:vertical;min-height:120px;}
-.form-submit{margin-top:24px;text-align:right;}
-.form-submit button{font-family:var(--sub);font-size:0.6rem;letter-spacing:3px;padding:16px 44px;background:var(--burgundy);color:var(--cream);border:1px solid rgba(255,255,240,0.1);border-radius:4px;cursor:pointer;transition:all 0.3s;}
-.form-submit button:hover{background:var(--burg-light);box-shadow:0 8px 40px var(--burg-glow);}
-.form-note{font-size:0.75rem;color:var(--cream20);margin-top:12px;text-align:right;}
-@media(max-width:900px){
-  .contact-grid{grid-template-columns:1fr;gap:40px;}
-  .form-row{grid-template-columns:1fr;}
-  .contact-form{padding:28px 20px;}
+@media (max-width: 560px) {
+  .contact__aside { grid-template-columns: 1fr; }
+  .form__foot .btn { width: 100%; }
 }
 </style>
 </head>
 <body>
-<nav id="navbar">
-  <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
-  <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
-  <ul class="nav-links">
+
+<header class="nav" data-solid>
+  <div class="wrap nav__inner">
+    <a href="/" class="nav__logo" aria-label="Inviting Events home"><img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260"></a>
+    <ul class="nav__links">
+      <li><a href="/#spaces">Spaces</a></li>
+      <li><a href="/gallery/">Gallery</a></li>
+      <li><a href="/pricing/">Pricing</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/contact/" class="btn btn--line btn--sm">Schedule a tour</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  </div>
+</header>
+<div class="menu" id="menu">
+  <ul>
     <li><a href="/">Home</a></li>
-    <li><a href="/#ballrooms">Spaces</a></li>
+    <li><a href="/#spaces">Spaces <small>4 rooms</small></a></li>
     <li><a href="/gallery/">Gallery</a></li>
-    <li><a href="/#reviews">Reviews</a></li>
     <li><a href="/pricing/">Pricing</a></li>
     <li><a href="/about/">About</a></li>
-      <li class="nav-divider"></li>
-    <li class="nav-mobile-cta"><a href="/contact/">Schedule a Tour</a></li>
+    <li><a href="/contact/" aria-current="page">Contact</a></li>
   </ul>
-  <a href="/contact/" class="nav-cta active">Schedule a Tour</a>
-</nav>
-
-<div class="page-header">
-  <span class="sec-tag" style="margin-bottom:12px;">Get In Touch</span>
-  <h1>Contact Us</h1>
-  <p>Send us a message or give us a call to schedule a tour. Our facilities are shown by appointment only.</p>
+  <div class="menu__foot">
+    <a href="/contact/" class="btn btn--wine">Schedule a tour</a>
+    <div class="menu__contact"><span>Call or text</span><a href="tel:+16785178963">(678) 517-8963</a></div>
+  </div>
 </div>
 
-<section>
-  <!-- Quote builder banner -->
-  <div style="max-width:1000px;margin:0 auto 40px;">
-    <div style="background:rgba(97,31,29,0.08);border:1px solid rgba(97,31,29,0.2);border-radius:10px;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-      <div><span style="font-family:var(--sub);font-size:0.55rem;letter-spacing:2px;color:var(--green);">Quick Estimate</span><p style="font-size:0.85rem;color:var(--cream40);margin-top:4px;">Want to see pricing before reaching out?</p></div>
-      <a href="/quote/" class="btn-secondary" style="flex-shrink:0;">Try Our Quote Builder</a>
-    </div>
-  </div>
+<main>
 
-  <div class="contact-grid">
-    <div class="contact-form glass reveal">
-      <form id="contactForm" action="#" method="POST">
-        <div class="form-row">
-          <div class="form-field">
-            <label>Your Name</label>
-            <input type="text" name="name" required placeholder="Full name">
-          </div>
-          <div class="form-field">
-            <label>Email Address</label>
-            <input type="email" name="email" required placeholder="you@email.com">
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label>Phone Number</label>
-            <input type="tel" name="phone" placeholder="(xxx) xxx-xxxx">
-          </div>
-          <div class="form-field">
-            <label>Event Type</label>
-            <select name="event_type">
-              <option value="">Select event type</option>
-              <option>Wedding</option>
-              <option>Birthday</option>
-              <option>Corporate</option>
-              <option>Graduation</option>
-              <option>Baby Shower</option>
-              <option>Repass</option>
-              <option>Anniversary</option>
-              <option>Reunion</option>
-              <option>Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-field">
-            <label>Estimated Guest Count</label>
-            <select name="guests">
-              <option value="">How many guests?</option>
-              <option>Under 50</option>
-              <option>50 – 80</option>
-              <option>80 – 150</option>
-              <option>150 – 250</option>
-              <option>250+</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label>Preferred Ballroom</label>
-            <select name="ballroom">
-              <option value="">Select a ballroom</option>
-              <option>Grand Ballroom</option>
-              <option>Auxiliary Ballroom</option>
-              <option>Studio 78</option>
-              <option>Not sure yet</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row full">
-          <div class="form-field">
-            <label>Preferred Date Range</label>
-            <input type="text" name="dates" placeholder="e.g. June 2026, flexible on weekdays">
-          </div>
-        </div>
-        <div class="form-row full">
-          <div class="form-field">
-            <label>Message</label>
-            <textarea name="message" placeholder="Tell us about your vision for your event..."></textarea>
-          </div>
-        </div>
-        <div class="form-submit">
-          <button type="submit">Send Message</button>
-          <p class="form-note">Robert will personally reach out within 24 hours.</p>
-        </div>
-      </form>
-    </div>
-
-    <div class="contact-info reveal">
-      <div class="info-item">
-        <h4>Address</h4>
-        <p>3485 Stone Mountain Hwy<br>Snellville, GA 30078</p>
-      </div>
-      <div class="info-item">
-        <h4>Phone</h4>
-        <a href="tel:6785178963">(678) 517-8963</a>
-      </div>
-      <div class="info-item">
-        <h4>Email</h4>
-        <a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a>
-      </div>
-      <div class="info-item">
-        <h4>Hours</h4>
-        <p>By appointment only.<br>If inquiring after business hours, leave a message here and we will get back to you.</p>
-      </div>
+<section class="page-hero page-hero--plain">
+  <div class="hero__content">
+    <div class="wrap">
+      <span class="eyebrow">Contact</span>
+      <h1 class="h1">Let's plan your <em>event.</em></h1>
+      <p class="lede" style="margin-top:24px">Our rooms are shown by appointment only. Send a note and Robert will reach out to set up your walkthrough, or call or text him directly.</p>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE">
-      <p>Snellville's premier event hall.</p>
+<section class="section" style="padding-top:clamp(56px,7vw,96px)">
+  <div class="wrap contact">
+
+    <div>
+      <form class="form" id="contactForm" novalidate>
+        <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+        <div class="field">
+          <label for="f-type">Type of event</label>
+          <select id="f-type" name="event_type">
+            <option value="">Select</option>
+            <option>Wedding</option>
+            <option>Birthday</option>
+            <option>Sweet 16 or Quinceañera</option>
+            <option>Baby or bridal shower</option>
+            <option>Anniversary</option>
+            <option>Reunion</option>
+            <option>Graduation</option>
+            <option>Corporate</option>
+            <option>Repass</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field"><label for="f-date">Event date</label><input id="f-date" name="event_date" type="date"></div>
+        <div class="field">
+          <label for="f-guests">Guests</label>
+          <select id="f-guests" name="guests">
+            <option value="">Select</option>
+            <option>Under 50</option>
+            <option>50 to 80</option>
+            <option>80 to 150</option>
+            <option>150 to 250</option>
+            <option>Over 250</option>
+          </select>
+        </div>
+        <div class="field field--full">
+          <label for="f-room">Room</label>
+          <select id="f-room" name="room">
+            <option value="">Not sure yet</option>
+            <option>Grand Ballroom</option>
+            <option>Studio 78</option>
+            <option>Auxiliary Ballroom</option>
+            <option>Private Lounge &amp; Bar</option>
+          </select>
+        </div>
+        <div class="field field--full"><label for="f-msg">Tell us about your event</label><textarea id="f-msg" name="message" rows="5" placeholder="Your theme, colors, timing, anything you're picturing."></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="f-company">Company</label><input id="f-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="form__error" id="formError" role="alert"></div>
+        <div class="form__foot">
+          <p>Goes straight to Robert's inbox. For dates in the next two weeks, calling or texting is fastest.</p>
+          <button class="btn btn--wine" type="submit">Send message</button>
+        </div>
+      </form>
+
+      <div class="thanks" id="thanks" tabindex="-1">
+        <span class="eyebrow">Message sent</span>
+        <h2 class="h2" style="margin-top:20px">Thank you<span id="thanksName"></span>.</h2>
+        <p>Robert has your message and will reach out soon to set up your tour. If your date is close, call or text <a href="tel:+16785178963">(678) 517-8963</a>.</p>
+        <p><a href="/gallery/">Browse the gallery</a> while you wait.</p>
+      </div>
     </div>
-    <div class="footer-links">
-      <div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div>
-      <div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a></div>
+
+    <aside class="contact__aside">
+      <div><h3>Call or text</h3><a class="big" href="tel:+16785178963">(678) 517-8963</a></div>
+      <div><h3>Email</h3><a class="big" href="mailto:contact@theinvitingevents.com" style="font-size:clamp(1.2rem,1.7vw,1.45rem)">contact@theinvitingevents.com</a></div>
+      <div>
+        <h3>Visit</h3>
+        <address>3485 Stone Mountain Hwy<br>Snellville, GA 30078</address>
+        <a class="link" style="margin-top:16px" href="https://www.google.com/maps/search/?api=1&amp;query=Inviting+Events+3485+Stone+Mountain+Hwy+Snellville+GA+30078" target="_blank" rel="noopener">Directions</a>
+      </div>
+      <div><h3>Hours</h3><p>By appointment only. Messages sent after hours are answered the next day.</p></div>
+      <div><h3>Pricing first?</h3><a class="link" href="/quote/">Build an estimate</a></div>
+    </aside>
+
+  </div>
+</section>
+
+<section class="section section--ink2">
+  <div class="wrap wrap--narrow">
+    <span class="eyebrow reveal">Questions</span>
+    <h2 class="h2 reveal" style="margin:20px 0 48px">We have a few <em>answers.</em></h2>
+    <div class="faq reveal">
+      <details><summary>How much time do I get for an event?</summary><p>Six hours in total, with two additional hours for a wedding ceremony. Additional hours may be purchased, so reach out to us for details.</p></details>
+      <details><summary>Can I bring my own food?</summary><p>Yes. You may bring your own food and beverages, including alcohol.</p></details>
+      <details><summary>Can I rent a hall without decorations and service?</summary><p>No. We provide the full setup, service and clean-up for every event.</p></details>
+      <details><summary>How late can an event last?</summary><p>All events end no later than 1:00 AM. Additional hours cannot be purchased past that time.</p></details>
+      <details><summary>Is there enough parking?</summary><p>Yes.</p></details>
+      <details><summary>Can I stop by anytime to see the facility?</summary><p>The rooms are shown by appointment only. Call Robert at <a href="tel:+16785178963" style="color:var(--ivory)">(678) 517-8963</a> to set a time.</p></details>
+      <details><summary>Will I have a choice of linen colors?</summary><p>Yes. We have two warehouses with your choice of color and décor.</p></details>
     </div>
   </div>
-  <div class="footer-bottom">Inviting Events &copy; 2026. All rights reserved. <a href="/admin/" style="opacity:0.6;display:inline-flex;align-items:center;gap:5px;margin-left:12px;transition:opacity 0.3s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>   </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260" loading="lazy">
+        <p>A full-service event hall in Snellville, Georgia. Three ballrooms, a private lounge and every detail in house.</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <address>3485 Stone Mountain Hwy<br>Snellville, GA 30078</address>
+        <p class="muted" style="margin-top:10px">By appointment only</p>
+      </div>
+      <div>
+        <h4>Spaces</h4>
+        <ul>
+          <li><a href="/grand-ballroom/">Grand Ballroom</a></li>
+          <li><a href="/studio-78/">Studio 78</a></li>
+          <li><a href="/auxiliary-ballroom/">Auxiliary Ballroom</a></li>
+          <li><a href="/private-lounge/">Private Lounge &amp; Bar</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+16785178963">(678) 517-8963</a></li>
+          <li><a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a></li>
+          <li><a href="/contact/">Schedule a tour</a></li>
+          <li><a href="/pricing/">Pricing</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Inviting Events. All rights reserved.</span>
+      <nav aria-label="Social">
+        <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">Facebook</a>
+        <a href="/admin/" aria-label="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>
+      </nav>
+    </div>
+  </div>
 </footer>
+
 <script src="/assets/js/global.js"></script>
-<script src="/assets/js/chat.js"></script>
+<script>
+// Contact form. Emails go to contact@ through the Google Apps Script relay in tools/contact-relay.gs.
+// Every inquiry is also saved to the site database as a backup (visible in /admin/).
+(function () {
+  const CONTACT_RELAY = ''; // Apps Script web app URL (ends in /exec)
+  const BACKUP = 'https://ie-api.fancy-brook-a8e8.workers.dev/api/contact';
+
+  const form = document.getElementById('contactForm');
+  const err = document.getElementById('formError');
+  const btn = form.querySelector('button[type="submit"]');
+  const started = Date.now();
+  const nameEl = document.getElementById('f-name'), emailEl = document.getElementById('f-email'), roomEl = document.getElementById('f-room');
+
+  // Room pages and the estimate builder prefill the form: /contact/?room=Grand%20Ballroom&type=Wedding&guests=120&msg=...
+  const params = new URLSearchParams(location.search);
+  function pick(sel, text) {
+    if (!text) return;
+    const t = text.toLowerCase();
+    const opt = [...sel.options].find(o => o.text.toLowerCase() === t || o.text.toLowerCase().includes(t.split(' ')[0]));
+    if (opt) sel.value = opt.value;
+  }
+  pick(roomEl, params.get('room'));
+  pick(document.getElementById('f-type'), params.get('type'));
+  const g = parseInt(params.get('guests'), 10);
+  if (g) document.getElementById('f-guests').value = g < 50 ? 'Under 50' : g <= 80 ? '50 to 80' : g <= 150 ? '80 to 150' : g <= 250 ? '150 to 250' : 'Over 250';
+  if (params.get('msg')) document.getElementById('f-msg').value = params.get('msg').slice(0, 300) + '\n\n';
+
+  function fail(msg, offerContact) {
+    err.innerHTML = msg + (offerContact ? ' Please call or text <a href="tel:+16785178963">(678) 517-8963</a> or email <a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a>.' : '');
+    err.classList.add('is-shown');
+  }
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    err.classList.remove('is-shown');
+    if (!nameEl.value.trim() || !emailEl.value.trim() || !emailEl.checkValidity()) {
+      fail('Please add your name and a valid email so Robert can reply.');
+      (nameEl.value.trim() ? emailEl : nameEl).focus();
+      return;
+    }
+
+    const d = Object.fromEntries(new FormData(form).entries());
+    d.elapsed = Date.now() - started;
+    d.page = location.href;
+    btn.disabled = true;
+    btn.textContent = 'Sending';
+
+    const backupMessage = [d.guests && 'Guests: ' + d.guests, d.room && 'Room: ' + d.room, d.message].filter(Boolean).join('\n');
+    const backup = d.company ? Promise.resolve(false) : fetch(BACKUP, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: d.name, email: d.email, phone: d.phone, event_type: d.event_type, event_date: d.event_date, message: backupMessage })
+    }).then(r => r.ok).catch(() => false);
+
+    const relay = CONTACT_RELAY ? fetch(CONTACT_RELAY, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(d)
+    }).then(r => r.json()).then(j => !!j.ok).catch(() => false) : null;
+
+    // Success means the email went out. Until the relay is configured, the backup save counts.
+    const sent = relay ? await relay : await backup;
+    await backup;
+
+    if (sent) {
+      document.getElementById('thanksName').textContent = d.name ? ', ' + d.name.trim().split(/\s+/)[0] : '';
+      form.style.display = 'none';
+      const t = document.getElementById('thanks');
+      t.classList.add('is-shown');
+      t.focus();
+    } else {
+      btn.disabled = false;
+      btn.textContent = 'Send message';
+      fail('Sorry, your message did not go through.', true);
+    }
+  });
+})();
+</script>
+<script src="/assets/js/chat.js" defer></script>
 </body>
 </html>

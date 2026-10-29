@@ -1,116 +1,312 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gallery — Inviting Events</title>
-<link rel="icon" type="image/png" href="/assets/images/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gallery | Inviting Events, Snellville, GA</title>
+<meta name="description" content="Photos and films from weddings, quinceañeras, milestone birthdays and showers at Inviting Events in Snellville, Georgia, plus a video tour of every room.">
+<link rel="canonical" href="https://theinvitingevents.com/gallery/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gallery | Inviting Events">
+<meta property="og:description" content="Photos and films from events we have hosted, and a video tour of every room.">
+<meta property="og:image" content="https://theinvitingevents.com/assets/media/brand/og.jpg">
+<meta property="og:url" content="https://theinvitingevents.com/gallery/">
+<meta name="theme-color" content="#0d0b0a">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/media/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/media/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/global.css">
 <style>
-.tabs{display:flex;justify-content:center;gap:8px;margin-bottom:56px;}
-.tab{font-family:var(--sub);font-size:0.55rem;letter-spacing:2px;padding:12px 32px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:40px;color:rgba(255,255,240,0.4);cursor:pointer;transition:all 0.3s;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
-.tab:hover{border-color:rgba(255,255,255,0.15);color:rgba(255,255,240,0.7);}
-.tab.active{border-color:var(--burgundy);color:var(--cream);background:rgba(97,31,29,0.15);}
-.tab-count{font-family:var(--body);font-size:0.65rem;color:rgba(255,255,240,0.25);margin-left:6px;}
-.tab-panel{display:none;}.tab-panel.active{display:block;}
-.photo-grid{columns:3;column-gap:14px;}
-.photo-item{break-inside:avoid;margin-bottom:14px;border-radius:10px;overflow:hidden;-webkit-border-radius:10px;position:relative;cursor:pointer;transition:all 0.3s;}
-.photo-item img{width:100%;display:block;opacity:0.85;transition:all 0.4s;border-radius:10px;}
-.photo-item:hover img{opacity:1;transform:scale(1.02);}
-.vid-section{margin-bottom:64px;}
-.vid-section-title{font-family:var(--sub);font-size:0.6rem;letter-spacing:3px;color:rgba(255,255,240,0.4);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.06);}
-.vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
-.vid-card{border-radius:12px;overflow:hidden;aspect-ratio:16/9;box-shadow:0 12px 40px rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s;}
-.vid-card:hover{border-color:rgba(255,255,255,0.12);transform:translateY(-2px);}
-.vid-card iframe{width:100%;height:100%;border:none;}
-.lightbox{display:none;position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.96);align-items:center;justify-content:center;padding:40px;}
-.lightbox.open{display:flex;}
-.lightbox img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:8px;}
-.lb-close{position:absolute;top:24px;right:32px;font-size:1.5rem;color:rgba(255,255,240,0.4);cursor:pointer;background:none;border:none;transition:color 0.3s;}
-.lb-close:hover{color:var(--cream);}
-.lb-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:2rem;color:rgba(255,255,240,0.3);cursor:pointer;background:none;border:none;padding:20px;transition:color 0.3s;}
-.lb-nav:hover{color:var(--cream);}
-.lb-prev{left:16px;}.lb-next{right:16px;}
-.lb-counter{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:var(--sub);font-size:0.55rem;letter-spacing:2px;color:rgba(255,255,240,0.3);}
-@media(max-width:900px){.photo-grid{columns:2;}.vid-grid{grid-template-columns:1fr;}.tab{padding:10px 20px;font-size:0.5rem;}}
-@media(max-width:480px){.photo-grid{columns:1;}.tab{padding:8px 16px;}}
+/* Gallery page */
+.g-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px; align-items: end; }
+.g-index { display: grid; min-width: 260px; border-top: 1px solid var(--line); }
+.g-index a { display: flex; justify-content: space-between; align-items: baseline; gap: 32px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.g-index span { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); transition: color 0.3s; }
+.g-index strong { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; line-height: 1; color: var(--ivory); font-variant-numeric: lining-nums; }
+.g-index a:hover span { color: var(--ivory); }
+
+.g { --g: clamp(8px, 1.2vw, 16px); }
+.g a { display: block; cursor: zoom-in; }
+
+/* Opening spread: the strongest frames, set deliberately */
+.spread { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: clamp(240px, 38vw, 560px); gap: var(--g); margin-bottom: var(--g); }
+.spread > a { grid-column: span 4; }
+.spread > .w8 { grid-column: span 8; }
+.spread .frame { height: 100%; }
+
+/* Archive: masonry by columns, two fixed ratios so the rhythm stays calm */
+.archive { columns: 3; column-gap: var(--g); }
+.archive > a { margin-bottom: var(--g); break-inside: avoid; }
+.archive .frame { aspect-ratio: 3 / 4; }
+.archive .l .frame { aspect-ratio: 16 / 9; }
+
+/* Films */
+.film-group + .film-group { margin-top: clamp(72px, 9vw, 120px); }
+.film-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding-bottom: 18px; margin-bottom: clamp(24px, 3vw, 36px); border-bottom: 1px solid var(--line); }
+.film-head h3 { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory); }
+.film-head span { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--gold); font-variant-numeric: lining-nums; }
+.films { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 3vw, 40px) clamp(16px, 2vw, 24px); }
+.tours { gap: clamp(16px, 2vw, 24px); }
+.tours > .tour--lead { grid-column: span 2; grid-row: span 2; }
+.tours > .tour--lead .yt { aspect-ratio: auto; height: 100%; }
+.film figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.film figcaption strong { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; line-height: 1.2; color: var(--ivory); font-variant-numeric: lining-nums; }
+.film figcaption span { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); white-space: nowrap; }
+html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
+.films-more { display: flex; justify-content: center; margin-top: clamp(40px, 5vw, 64px); }
+.no-js .films-more { display: none; }
+
+@media (max-width: 900px) {
+  .g-hero__grid { grid-template-columns: 1fr; gap: 40px; }
+  .g-index { min-width: 0; max-width: 420px; }
+  .spread { grid-auto-rows: clamp(180px, 46vw, 360px); }
+  .spread > a { grid-column: span 6; }
+  .spread > .w8 { grid-column: span 12; }
+  .archive { columns: 2; }
+  .films { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tours > .tour--lead { grid-column: auto; grid-row: auto; }
+  .tours > .tour--lead .yt { aspect-ratio: 16 / 9; height: auto; }
+}
+@media (max-width: 560px) {
+  .films { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
-<nav id="navbar">
-  <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
-  <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
-  <ul class="nav-links">
-    <li><a href="/">Home</a></li><li><a href="/#ballrooms">Spaces</a></li><li><a href="/gallery/" class="active">Gallery</a></li><li><a href="/#reviews">Reviews</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/about/">About</a></li>
-      <li class="nav-divider"></li>
-    <li class="nav-mobile-cta"><a href="/contact/">Schedule a Tour</a></li>
+
+<header class="nav" data-solid>
+  <div class="wrap nav__inner">
+    <a href="/" class="nav__logo" aria-label="Inviting Events home"><img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260"></a>
+    <ul class="nav__links">
+      <li><a href="/#spaces">Spaces</a></li>
+      <li><a href="/gallery/" aria-current="page">Gallery</a></li>
+      <li><a href="/pricing/">Pricing</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/contact/" class="btn btn--line btn--sm">Schedule a tour</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  </div>
+</header>
+<div class="menu" id="menu">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/#spaces">Spaces <small>4 rooms</small></a></li>
+    <li><a href="/gallery/" aria-current="page">Gallery</a></li>
+    <li><a href="/pricing/">Pricing</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/contact/">Contact</a></li>
   </ul>
-  <a href="/contact/" class="nav-cta">Schedule a Tour</a>
-</nav>
-<div class="page-header">
-  <span class="sec-tag" style="margin-bottom:12px;">See Our Work</span>
-  <h1>Gallery</h1>
-  <p>Browse photos and videos from events we've hosted. Every setup is custom — your vision, our execution.</p>
-</div>
-<section><div class="sec-inner">
-  <div class="tabs">
-    <div class="tab active" onclick="switchTab('photos',this)">Photos<span class="tab-count">42</span></div>
-    <div class="tab" onclick="switchTab('videos',this)">Videos<span class="tab-count">22</span></div>
+  <div class="menu__foot">
+    <a href="/contact/" class="btn btn--wine">Schedule a tour</a>
+    <div class="menu__contact"><span>Call or text</span><a href="tel:+16785178963">(678) 517-8963</a></div>
   </div>
-  <div class="tab-panel active" id="panel-photos"><div class="photo-grid" id="photoGrid"></div></div>
-  <div class="tab-panel" id="panel-videos">
-    <div class="vid-section"><div class="vid-section-title">Venue Tours</div><div class="vid-grid">
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/kznJeQBwWfg" title="Grand Ballroom" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/-QnP_TSQrxM" title="Auxiliary Ballroom" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/PpiHgPLiAD0" title="Studio 78" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/oi5D9Pm2UXE" title="Private Lounge" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/8a4K1lXphtI" title="Decor Options" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/bUWU_JSWQ9w" title="Location Drone" loading="lazy" allowfullscreen></iframe></div>
-    </div></div>
-    <div class="vid-section"><div class="vid-section-title">Event Highlights</div><div class="vid-grid">
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/tnDfaK7d7jo" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/npWtDvmGfsY" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/HbHaN-bxSTY" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/uIVYtd3FZzY" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/vpLeFP8hiWI" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/GWdQicvxpeM" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/Xywg8cqIxig" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/dTUaA6pFKOA" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/6pXROs3KCwg" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/P2PFhHULkP0" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/3LQsXud4k0M" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/HhSiyuwLk5c" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/NJF3fxuIFUM" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/yQYyjDQYW-0" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/EgyWNu5_-_Y" title="Event" loading="lazy" allowfullscreen></iframe></div>
-      <div class="vid-card"><iframe src="https://www.youtube.com/embed/HHqRwAvN-PM" title="Event" loading="lazy" allowfullscreen></iframe></div>
-    </div></div>
-  </div>
-</div></section>
-<div class="lightbox" id="lightbox">
-  <button class="lb-close" onclick="closeLB()">&times;</button>
-  <button class="lb-nav lb-prev" onclick="navLB(-1)">&lsaquo;</button>
-  <img id="lbImg" src="" alt="">
-  <button class="lb-nav lb-next" onclick="navLB(1)">&rsaquo;</button>
-  <div class="lb-counter" id="lbCounter"></div>
 </div>
-<footer><div class="footer-inner"><div class="footer-brand"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE"><p>Snellville's premier event hall.</p><div class="footer-social"><a href="https://www.facebook.com/invitingevents2/" target="_blank">f</a><a href="https://www.instagram.com/invitingevents/" target="_blank">ig</a></div></div><div class="footer-links"><div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div><div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a><a href="/contact/">Contact</a>
-        </div>
-      </div></div><div class="footer-bottom">Inviting Events &copy; 2026. All rights reserved. <a href="/admin/" style="opacity:0.6;display:inline-flex;align-items:center;gap:5px;margin-left:12px;transition:opacity 0.3s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>   </div></footer>
+
+<main>
+
+<!-- HERO -->
+<section class="page-hero page-hero--plain">
+  <div class="hero__content">
+    <div class="wrap g-hero__grid">
+      <div>
+        <span class="eyebrow">Gallery</span>
+        <h1 class="h1">Rooms dressed for <em>every occasion.</em></h1>
+        <p class="lede" style="margin-top:24px">Weddings, quinceañeras, milestone birthdays and showers, each one set by our team in our own rooms. Browse the photographs, then walk the spaces on film.</p>
+      </div>
+      <nav class="g-index" aria-label="On this page">
+        <a href="#photos"><span>Photographs</span><strong>44</strong></a>
+        <a href="#films"><span>Films</span><strong>22</strong></a>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section class="section g" id="photos" style="padding-top:clamp(56px, 7vw, 96px)">
+  <div class="wrap">
+    <div class="spread">
+      <a class="w8" href="/assets/media/photos/dji-20240425122004-0067-d.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/dji-20240425122004-0067-d.webp" alt="A sweetheart table and throne framed by white blossom trees" width="1800" height="1013"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0006.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0006.webp" alt="A black and gold tablescape with a tall floral centerpiece" width="615" height="820"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0024.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0024.webp" alt="Burgundy linens with crystal centerpieces and silver runners" width="615" height="820" loading="lazy"></div></a>
+      <a class="w8" href="/assets/media/photos/20250329-161424.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/20250329-161424.webp" alt="A quinceañera with marquee letters, navy linens and a crescent moon balloon arch" width="1800" height="1013" loading="lazy"></div></a>
+    </div>
+
+    <div class="archive">
+      <a href="/assets/media/photos/img-20251203-wa0008.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0008.webp" alt="Black linens, gold sequin runners and gold chargers under a pampas and rose centerpiece" width="615" height="820" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/grand-table.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/grand-table.webp" alt="Burgundy napkins, gold chargers and crystal centerpieces by candlelight" width="820" height="456" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0002.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0002.webp" alt="A tall rose and pearl centerpiece over black and white place settings" width="615" height="820" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20250329-161446.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20250329-161446.webp" alt="Marquee letters and a crescent moon balloon arch beside the quinceañera throne" width="820" height="462" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20230304-191500.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20230304-191500.webp" alt="A sweetheart table with a white throne chair and color-washed drapery" width="820" height="462" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0013.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0013.webp" alt="Black and gold tables for a 70th birthday, with marquee numbers behind" width="615" height="820" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20240510-193643.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240510-193643.webp" alt="Studio 78 with marquee letters, a red carpet and a stage" width="820" height="462" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0000.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0000.webp" alt="A lavender feather centerpiece over navy and rose gold place settings" width="615" height="820" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0004.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0004.webp" alt="Ivory linens with black runners and gold-rimmed chargers" width="615" height="820" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/img-20251203-wa0011.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0011.webp" alt="A Class of 2021 head table with a silver throne, blossom trees and feathered parasols" width="820" height="551" loading="lazy" style="object-position:50% 0"></div></a>
+      <a class="l" href="/assets/media/photos/20240531-204214.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240531-204214.webp" alt="Two throne chairs behind a head table draped in sage sequin swags" width="820" height="462" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0019.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0019.webp" alt="Copper chargers and blush napkins on white linens with a sequin runner" width="615" height="820" loading="lazy"></div></a>
+    </div>
+
+    <div class="spread spread--mid reveal">
+      <a class="w8" href="/assets/media/photos/20240531-204201.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/20240531-204201.webp" alt="A head table with a throne chair, sage swags and white blossom trees" width="1800" height="1013" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0012.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0012.webp" alt="A 70th birthday set in black, gold and ivory" width="615" height="820" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0025.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0025.webp" alt="A 60th birthday in burgundy and silver with tall crystal centerpieces" width="615" height="820" loading="lazy"></div></a>
+      <a class="w8" href="/assets/media/photos/20250115-175554.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/20250115-175554.webp" alt="A sweet sixteen stage with a white and gold throne and marquee letters" width="1800" height="1013" loading="lazy"></div></a>
+    </div>
+
+    <div class="archive">
+      <a href="/assets/media/photos/img-20251203-wa0001.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0001.webp" alt="Silver and rose gold place settings with sequin chair covers under blue light" width="615" height="820" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20230304-184316.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20230304-184316.webp" alt="The Grand Ballroom set with round tables and uplighting" width="820" height="462" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20230404-165244.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20230404-165244.webp" alt="Rows of gold chairs set for a ceremony" width="820" height="462" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20230424-133105.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20230424-133105.webp" alt="A red and white rose centerpiece before two gold throne chairs" width="615" height="820" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0026.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0026.webp" alt="Black linens and pink napkins under a tall crystal and floral centerpiece" width="514" height="820" loading="lazy" style="object-position:50% 30%"></div></a>
+      <a class="l" href="/assets/media/photos/20250115-175603.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20250115-175603.webp" alt="Blush linens and rose gold chairs with tall floral centerpieces" width="820" height="462" loading="lazy"></div></a>
+      <a href="/assets/media/photos/20240531-204136.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240531-204136.webp" alt="Sage and gold table setting with a floral centerpiece" width="462" height="820" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/img-20251203-wa0014.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0014.webp" alt="Guests of honor at a head table framed by blossom trees and sparkler fountains" width="820" height="583" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20250329-161431.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20250329-161431.webp" alt="Navy and gold quinceañera tables before a throne and a crescent balloon arch" width="820" height="462" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0020.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0020.webp" alt="Blush and copper tables beneath a balloon arch and a curtain of lights" width="615" height="820" loading="lazy"></div></a>
+      <a href="/assets/media/photos/20240619-131011.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240619-131011.webp" alt="A floral arch centerpiece over gold chargers and ivory linens" width="462" height="820" loading="lazy" style="object-position:50% 35%"></div></a>
+      <a class="l" href="/assets/media/photos/20230604-174051.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20230604-174051.webp" alt="Blush and gold place settings beneath tall white floral centerpieces" width="820" height="462" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20240531-204229.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240531-204229.webp" alt="A cake table with gold columns and sage sequin swags" width="820" height="462" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0015.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0015.webp" alt="A pampas and rose centerpiece over black, silver and gold tables" width="379" height="820" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20230404-165303.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20230404-165303.webp" alt="Ceremony rows of gold chairs facing the front of the hall" width="820" height="462" loading="lazy"></div></a>
+      <a href="/assets/media/photos/20240510-193638.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240510-193638.webp" alt="A throne chair on a red carpet before a gold sequin backdrop in Studio 78" width="462" height="820" loading="lazy"></div></a>
+      <a href="/assets/media/photos/img-20251203-wa0021.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0021.webp" alt="Blush bow napkins on copper chargers with a tall floral centerpiece" width="615" height="820" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20230304-191508.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20230304-191508.webp" alt="A white throne chair and cascading florals at the sweetheart table" width="820" height="462" loading="lazy"></div></a>
+      <a href="/assets/media/photos/20240404-124948.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240404-124948.webp" alt="Two silver and white throne chairs behind a table trimmed in white and navy roses" width="462" height="820" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20250115-175618.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20250115-175618.webp" alt="Blush tables facing a sweet sixteen stage with marquee letters" width="820" height="462" loading="lazy"></div></a>
+      <a href="/assets/media/photos/20240531-204140.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240531-204140.webp" alt="Sage napkins and gold chargers beneath a tall blush floral centerpiece" width="462" height="820" loading="lazy"></div></a>
+      <a href="/assets/media/photos/20240619-131018.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240619-131018.webp" alt="Gold chargers and black napkins on ivory linens, with an ornate mirror behind" width="462" height="820" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20240531-204153.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240531-204153.webp" alt="A white aisle runner lined with pillars and florals" width="820" height="462" loading="lazy"></div></a>
+      <a class="l" href="/assets/media/photos/20230404-165316.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20230404-165316.webp" alt="A ceremony setup with florals at the front and gold chairs in rows" width="820" height="462" loading="lazy"></div></a>
+    </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILMS -->
+<section class="section section--ink2" id="films">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="reveal">
+        <span class="eyebrow">Films</span>
+        <h2 class="h2">Walk the rooms <em>before you visit.</em></h2>
+      </div>
+      <p class="muted reveal" style="max-width:26em">A short tour of each space, then real events as they were set. Each film loads only when you press play.</p>
+    </div>
+
+    <div class="film-group reveal">
+      <div class="film-head"><h3>Venue tours</h3><span>06</span></div>
+      <div class="films tours">
+        <figure class="film tour--lead"><button class="yt" data-yt="kznJeQBwWfg" aria-label="Play the Grand Ballroom tour"><img src="https://i.ytimg.com/vi/kznJeQBwWfg/maxresdefault.jpg" alt="" loading="lazy"><span class="yt__label">Grand Ballroom</span></button></figure>
+        <figure class="film"><button class="yt" data-yt="-QnP_TSQrxM" aria-label="Play the Auxiliary Ballroom tour"><span class="yt__label">Auxiliary Ballroom</span></button></figure>
+        <figure class="film"><button class="yt" data-yt="PpiHgPLiAD0" aria-label="Play the Studio 78 tour"><span class="yt__label">Studio 78</span></button></figure>
+        <figure class="film"><button class="yt" data-yt="oi5D9Pm2UXE" aria-label="Play the Private Lounge tour"><span class="yt__label">Private Lounge</span></button></figure>
+        <figure class="film"><button class="yt" data-yt="8a4K1lXphtI" aria-label="Play the décor color options film"><span class="yt__label">Décor options</span></button></figure>
+        <figure class="film"><button class="yt" data-yt="bUWU_JSWQ9w" aria-label="Play the location film"><span class="yt__label">Location</span></button></figure>
+      </div>
+    </div>
+
+    <div class="film-group reveal">
+      <div class="film-head"><h3>Event highlights</h3><span>16</span></div>
+      <div class="films is-collapsed" id="highlights">
+        <figure class="film"><button class="yt" data-yt="HHqRwAvN-PM" aria-label="Play: wedding in the Grand Ballroom"></button><figcaption><strong>Wedding</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="P2PFhHULkP0" aria-label="Play: quinceañera in the Grand Ballroom"></button><figcaption><strong>Quinceañera</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="GWdQicvxpeM" aria-label="Play: 30th anniversary in Studio 78"></button><figcaption><strong>30th anniversary</strong><span>Studio 78</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="uIVYtd3FZzY" aria-label="Play: sweet sixteen in the Grand Ballroom"></button><figcaption><strong>Sweet sixteen</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="HbHaN-bxSTY" aria-label="Play: baby shower in the Grand Ballroom"></button><figcaption><strong>Baby shower</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="vpLeFP8hiWI" aria-label="Play: 50th birthday in the Auxiliary Ballroom"></button><figcaption><strong>50th birthday</strong><span>Auxiliary Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="dTUaA6pFKOA" aria-label="Play: rose gold wedding in the Grand Ballroom"></button><figcaption><strong>Rose gold wedding</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="tnDfaK7d7jo" aria-label="Play: 65th birthday in the Grand Ballroom"></button><figcaption><strong>65th birthday</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="NJF3fxuIFUM" aria-label="Play: 50th birthday in Studio 78"></button><figcaption><strong>50th birthday</strong><span>Studio 78</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="6pXROs3KCwg" aria-label="Play: graduation party in the Grand Ballroom"></button><figcaption><strong>Graduation party</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="npWtDvmGfsY" aria-label="Play: 75th birthday in the Grand Ballroom"></button><figcaption><strong>75th birthday</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="yQYyjDQYW-0" aria-label="Play: 80th birthday in the Auxiliary Ballroom"></button><figcaption><strong>80th birthday</strong><span>Auxiliary Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="3LQsXud4k0M" aria-label="Play: sweet sixteen in the Grand Ballroom"></button><figcaption><strong>Sweet sixteen</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="HhSiyuwLk5c" aria-label="Play: wedding and reception in the Grand Ballroom"></button><figcaption><strong>Wedding and reception</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="EgyWNu5_-_Y" aria-label="Play: Christmas party in the Grand Ballroom"></button><figcaption><strong>Christmas party</strong><span>Grand Ballroom</span></figcaption></figure>
+        <figure class="film"><button class="yt" data-yt="Xywg8cqIxig" aria-label="Play: chairs-only setup in the Grand Ballroom"></button><figcaption><strong>Chairs-only setup</strong><span>Grand Ballroom</span></figcaption></figure>
+      </div>
+      <div class="films-more"><button type="button" class="btn btn--line" id="filmsMore" aria-controls="highlights" aria-expanded="false">Show all 16 highlights</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta__media"><img src="/assets/media/photos/img-20251203-wa0025.webp" alt="" loading="lazy"></div>
+  <div class="wrap reveal">
+    <span class="eyebrow eyebrow--plain">Now booking</span>
+    <h2 class="h1">Picture it in <em>your colors.</em></h2>
+    <p>Tell us your date and guest count. Robert will walk you through the rooms and the décor in person, and build the event around your vision.</p>
+    <div class="hero__actions">
+      <a href="/contact/" class="btn btn--wine">Schedule a tour</a>
+      <a href="/pricing/" class="btn btn--line">View pricing</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260" loading="lazy">
+        <p>A full-service event hall in Snellville, Georgia. Three ballrooms, a private lounge and every detail in house.</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <address>3485 Stone Mountain Hwy<br>Snellville, GA 30078</address>
+        <p class="muted" style="margin-top:10px">By appointment only</p>
+      </div>
+      <div>
+        <h4>Spaces</h4>
+        <ul>
+          <li><a href="/grand-ballroom/">Grand Ballroom</a></li>
+          <li><a href="/studio-78/">Studio 78</a></li>
+          <li><a href="/auxiliary-ballroom/">Auxiliary Ballroom</a></li>
+          <li><a href="/private-lounge/">Private Lounge &amp; Bar</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+16785178963">(678) 517-8963</a></li>
+          <li><a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a></li>
+          <li><a href="/contact/">Schedule a tour</a></li>
+          <li><a href="/pricing/">Pricing</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Inviting Events. All rights reserved.</span>
+      <nav aria-label="Social">
+        <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">Facebook</a>
+        <a href="/admin/" aria-label="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>
+      </nav>
+    </div>
+  </div>
+</footer>
+
 <script src="/assets/js/global.js"></script>
 <script>
-function switchTab(tab,el){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));el.classList.add('active');document.getElementById('panel-'+tab).classList.add('active');window.scrollTo({top:document.querySelector('.tabs').offsetTop-100,behavior:'smooth'});}
-const B='https://www.theinvitingevents.com/wp-content/uploads/';
-const P=['2025/12/IMG-20251203-WA0027.jpg','2025/08/IMG_20230424_133105.jpg','2025/08/20250329_161446.jpg','2025/08/20250329_161431.jpg','2025/08/20250329_161424.jpg','2025/12/IMG-20251203-WA0024.jpg','2025/12/IMG-20251203-WA0025.jpg','2025/08/20250115_175603.jpg','2025/08/20250115_175618.jpg','2025/08/20250115_175554.jpg','2025/12/IMG-20251203-WA0026.jpg','2025/08/20240619_131018.jpg','2025/08/20240619_131011.jpg','2025/08/20240531_204136.jpg','2025/08/20240531_204140.jpg','2025/08/20240531_204153.jpg','2025/08/20240531_204214.jpg','2025/08/20240531_204201.jpg','2025/08/20240531_204229.jpg','2024/05/20240510_193643.jpg','2024/05/20240510_193638.jpg','2024/05/20230304_191500-1.jpg','2024/05/20230304_184318-1.jpg','2025/12/IMG-20251203-WA0000.jpg','2025/12/IMG-20251203-WA0001.jpg','2025/12/IMG-20251203-WA0002.jpg','2025/12/IMG-20251203-WA0004.jpg','2025/12/IMG-20251203-WA0014.jpg','2025/12/IMG-20251203-WA0011.jpg','2025/12/IMG-20251203-WA0006.jpg','2025/12/IMG-20251203-WA0008.jpg','2025/12/IMG-20251203-WA0010.jpg','2025/12/IMG-20251203-WA0012.jpg','2025/12/IMG-20251203-WA0013.jpg','2025/12/IMG-20251203-WA0019.jpg','2025/12/IMG-20251203-WA0020.jpg','2025/12/IMG-20251203-WA0021.jpg','2025/12/IMG-20251203-WA0015.jpg','2025/08/20240404_124948.jpg','2024/05/20230404_165247-1.jpg','2024/05/20230404_165303-1.jpg','2024/05/20230404_165316-1.jpg'];
-const g=document.getElementById('photoGrid');P.forEach((p,i)=>{const d=document.createElement('div');d.className='photo-item';d.onclick=()=>openLB(i);d.innerHTML='<img src="'+B+p+'" alt="Inviting Events" loading="lazy">';g.appendChild(d);});
-let lbI=0;
-function openLB(i){lbI=i;document.getElementById('lbImg').src=B+P[i];document.getElementById('lbCounter').textContent=(i+1)+' / '+P.length;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
-function closeLB(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow='';}
-function navLB(d){lbI=(lbI+d+P.length)%P.length;document.getElementById('lbImg').src=B+P[lbI];document.getElementById('lbCounter').textContent=(lbI+1)+' / '+P.length;}
-document.getElementById('lightbox').addEventListener('click',e=>{if(e.target.id==='lightbox')closeLB();});
-document.addEventListener('keydown',e=>{if(!document.getElementById('lightbox').classList.contains('open'))return;if(e.key==='Escape')closeLB();if(e.key==='ArrowLeft')navLB(-1);if(e.key==='ArrowRight')navLB(1);});
+// Event highlights: six on load, the rest on request
+(function () {
+  const grid = document.getElementById('highlights');
+  const btn = document.getElementById('filmsMore');
+  if (!grid || !btn) return;
+  btn.addEventListener('click', () => {
+    grid.classList.remove('is-collapsed');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.parentNode.hidden = true;
+    const next = grid.children[6] && grid.children[6].querySelector('.yt');
+    if (next) next.focus({ preventScroll: true });
+  });
+})();
 </script>
-<script src="/assets/js/chat.js"></script>
+<script src="/assets/js/chat.js" defer></script>
 </body>
 </html>

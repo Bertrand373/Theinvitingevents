@@ -1,5 +1,5 @@
 /*
- * INVITING EVENTS — Google Reviews Worker
+ * INVITING EVENTS: Google Reviews Worker
  * ========================================
  * This Cloudflare Worker fetches reviews from Google Places API,
  * caches them for 24 hours, and serves them to the website.

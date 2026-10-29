@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /live/
+Disallow: /tools/
+Disallow: /workers/
+
+Sitemap: https://theinvitingevents.com/sitemap.xml

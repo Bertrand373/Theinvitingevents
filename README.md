@@ -1,141 +1,73 @@
-# Inviting Events — New Site
+# Inviting Events: website
 
-## Project Structure
+Static site for theinvitingevents.com. No build step. Every push to `main` deploys to Cloudflare Pages
+(preview: https://theinvitingevents.pages.dev, on the contact@theinvitingevents.com Cloudflare account).
+
+## Structure
 
 ```
-ie-site/
-├── index.html              ← Homepage
-├── _redirects              ← Cloudflare Pages URL redirects
-├── assets/
-│   ├── css/global.css      ← Shared styles (dark glass theme)
-│   ├── js/global.js        ← Shared JS (nav, scroll animations)
-│   └── images/
-│       ├── logo.png        ← Script logo (white on transparent)
-│       ├── favicon.png     ← IE favicon
-│       └── grand-aux-halls.png  ← Venue photo (placeholder — replace with per-room photos)
-├── contact/index.html      ← Smart contact form
-├── pricing/index.html      ← (TODO) Pricing page with quote builder
-├── quote/index.html        ← Interactive quote builder (standalone)
-├── gallery/index.html      ← (TODO) Photo/video gallery
-├── about/index.html        ← (TODO) About page
-└── live/index.html         ← QR guest portal (permanent URL for table cards)
+index.html                 Home
+grand-ballroom/            Room pages (same URLs as the old WordPress site, so Google rankings carry over)
+studio-78/
+auxiliary-ballroom/
+private-lounge/
+gallery/  pricing/  quote/  about/  contact/
+live/  admin/              QR guest photo portal and admin dashboard (use assets/css/app.css)
+assets/css/global.css      Design system: tokens, type, components
+assets/js/global.js        Nav, mobile menu, reveal, YouTube facades, lightbox
+assets/js/chat.js          Concierge chat widget (talks to workers/api /api/chat)
+assets/media/              All photos (webp, sm/ = thumbnails), hero videos, logo, favicons, og image
+tools/contact-relay.gs     Google Apps Script that emails contact form inquiries to contact@
+workers/api/               ie-api Worker: events, guest photos, contact backup, chat
+functions/reviews-worker.js  Google reviews Worker source (deployed separately)
 ```
 
-## Deployment to Cloudflare Pages
+Design: Cormorant Garamond (display) and Inter (text). Warm black `#0d0b0a`, ivory `#f3ede3`,
+paper `#f2ece2`, wine `#611f1d` for actions, champagne `#c9a978` for fine detail. No em dashes in copy.
 
-### First Time Setup
+## Contact form → Gmail
 
-1. **Create a GitHub repo:**
-   ```bash
-   cd ie-site
-   git init
-   git add .
-   git commit -m "Initial site build"
-   ```
-   Push to GitHub (public or private repo — either works).
+The form on /contact/ does two things:
 
-2. **Connect to Cloudflare Pages:**
-   - Log in to dash.cloudflare.com
-   - Go to Workers & Pages → Create Application → Pages
-   - Connect your GitHub account and select the repo
-   - Build settings:
-     - Build command: (leave blank — it's static HTML)
-     - Build output directory: `/` (root)
-   - Click Deploy
+1. Posts to the Apps Script relay, which emails **contact@theinvitingevents.com** from that same Google
+   Workspace account, with Reply-To set to the customer. The subject starts with
+   "New Message From Inviting Events" like the old WordPress form, so existing Gmail filters keep working.
+2. Saves a backup copy to the ie-api database (`/api/contact`, visible in /admin/).
 
-3. **Set custom domain:**
-   - In Cloudflare Pages project settings → Custom Domains
-   - Add `theinvitingevents.com` and `www.theinvitingevents.com`
-   - Since the domain is on Namecheap with Cloudflare DNS, update
-     the nameservers to Cloudflare if not already done, OR add a
-     CNAME record pointing to your Pages project URL.
+The form only shows "Message sent" when the email went out. If it fails, the visitor sees the phone number and email.
 
-### Updating the Site
+**Setup (one time):** follow the steps at the top of `tools/contact-relay.gs` while signed in as
+contact@theinvitingevents.com, then paste the `/exec` URL into `CONTACT_RELAY` in `contact/index.html`.
+Until that is set, the form saves to the backup database only.
 
-Just push to the GitHub repo — Cloudflare auto-deploys on every push.
+## Go-live checklist
 
-```bash
-git add .
-git commit -m "Updated gallery photos"
-git push
-```
+1. Bob approves the site on theinvitingevents.pages.dev.
+2. Contact relay deployed, URL set, test inquiry received in contact@.
+3. Redeploy the API worker so the chat bot has the correct prices:
+   `cd workers/api && wrangler deploy` (logged in to the contact@ Cloudflare account).
+4. Add theinvitingevents.com to Cloudflare (same account as the Pages project). Before switching, make sure the
+   imported DNS keeps all five Google MX records. Add:
+   - SPF: `TXT @ "v=spf1 include:_spf.google.com ~all"`
+   - DKIM: generate in Google Admin (Apps > Google Workspace > Gmail > Authenticate email), add the
+     `google._domainkey` TXT, then click Start authentication
+   - DMARC: `TXT _dmarc "v=DMARC1; p=none; rua=mailto:contact@theinvitingevents.com"`
+   - Do not import the old Cloudways A record (159.203.138.227) or the `www` CNAME to secure.cloudways.cloud
+5. Pages project → Custom domains: add `theinvitingevents.com` and `www.theinvitingevents.com`.
+6. At Namecheap, switch nameservers to the two Cloudflare nameservers. The domain stays registered at Namecheap.
+7. Check the site, a test inquiry, and inbound mail to contact@. After a week with no issues, cancel Cloudways.
 
-## Video Files — Moving Off YouTube
+Today the apex record at Namecheap is a CNAME to Cloudways next to the MX records. That blocks SPF and leaves
+Bob's outgoing mail unauthenticated. The DNS move above fixes it.
 
-### Current video sources (hosted on WordPress):
-- Hero slider 1: `SliderBanner-Images-1440-x-800-px-3.mp4`
-- Hero slider 2: `SliderBanner-aux-update-1440-x-800-px.mp4`
+## Media
 
-### Current YouTube embeds:
-- Grand Ballroom walkthrough: `kznJeQBwWfg`
-- Decor color options: `8a4K1lXphtI`
+Photos are local WebP files (`assets/media/photos/NAME.webp`, about 1800px, plus `sm/NAME.webp`, about 820px).
+To add photos, convert with `cwebp -q 74 -resize 1800 0 in.jpg -o NAME.webp` (and `-q 70 -resize 820 0` into `sm/`).
+Hero videos were re-encoded to 1280px H.264 with no audio (about 6 MB each, under the Pages 25 MB file limit).
 
-### To self-host videos on R2:
-1. Go to Cloudflare dashboard → R2 → Create Bucket → name it `ie-media`
-2. Upload source MP4 files to the bucket
-3. Enable public access on the bucket (R2 Settings → Public Access)
-4. Update video `src` attributes in HTML to:
-   `https://ie-media.<your-account>.r2.dev/filename.mp4`
+## Reviews
 
-### Recommended video specs:
-- Hero videos: 1920x1080 MP4, H.264, 30fps, 4-6 Mbps
-- Provide a poster frame (first-frame JPG) for each video
-  so something shows before the video loads on slow connections
-
-## Contact Form — Backend Setup
-
-The contact form currently submits to `#` (no backend).
-Options for making it work:
-
-### Option A: Cloudflare Workers (recommended)
-Create a Worker that:
-1. Receives the form POST
-2. Sends an email via Mailchannels or Resend API
-3. Sends to contact@theinvitingevents.com
-4. Returns a success/error response
-
-### Option B: Formspree / Formsubmit (quickest)
-Change the form `action` to a Formspree endpoint:
-```html
-<form action="https://formspree.io/f/YOUR_ID" method="POST">
-```
-Free for 50 submissions/month.
-
-## QR Guest Portal — Next Steps
-
-The `/live/` page is the scaffold. Full implementation needs:
-
-1. **Cloudflare Worker API** (`/api/live-event`)
-   - GET: returns current active event
-   - POST: receives photo uploads, stores to R2
-
-2. **Cloudflare D1 Database**
-   - Events table (id, name, date, active flag)
-   - Uploads table (id, event_id, file_url, uploaded_by, timestamp)
-
-3. **Admin Dashboard** (`/admin/`)
-   - Protected page (simple password or Cloudflare Access)
-   - List upcoming events
-   - Toggle which event is "live"
-   - View uploaded photos per event
-   - Upload branded photos
-
-## DNS Changes (when ready to go live)
-
-In Namecheap DNS (or Cloudflare DNS if you migrate nameservers):
-
-1. Remove the A record pointing to Cloudways (159.203.138.227)
-2. Remove the CNAME for `www` pointing to secure.cloudways.cloud
-3. Add CNAME: `@` → `ie-site.pages.dev` (your Cloudflare Pages URL)
-4. Add CNAME: `www` → `ie-site.pages.dev`
-5. Keep the Google Workspace MX records and verification CNAMEs
-
-**Important:** Don't change DNS until Bob has reviewed and approved
-the new site. Use the free `*.pages.dev` URL for previewing.
-
-## Brand Reference
-
-- **Colors:** #611f1d (burgundy), #fffff0 (cream), #e6e6e6 (gray), #7ab648 (green), #000 (black)
-- **Fonts:** Cardo (H1 headings), Julius Sans One (H2/labels), Questrial (body)
-- **Logo:** White brush script on transparent/dark background
-- **Vibe:** Dark, premium, elegant with restraint. Glassmorphism on black canvas.
+The homepage tries the reviews Worker (`worker-lingering-heart-0510`) for live Google reviews. It currently
+returns `REQUEST_DENIED` from the Google Places API (key issue), so the page shows seven real Google reviews
+saved in index.html instead.

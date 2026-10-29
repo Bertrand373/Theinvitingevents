@@ -1,0 +1,4 @@
+.claude/
+.DS_Store
+.wrangler/
+workers/api/.wrangler/

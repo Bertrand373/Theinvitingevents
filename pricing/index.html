@@ -1,306 +1,505 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pricing — Inviting Events</title>
-<meta name="description" content="View rental rates for all three Inviting Events ballrooms. Bronze, Silver, and Gold packages available.">
-<link rel="icon" type="image/png" href="/assets/images/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pricing | Inviting Events, Snellville, GA</title>
+<meta name="description" content="Rental rates for the Grand Ballroom, Studio 78 and the Auxiliary Ballroom at Inviting Events in Snellville, GA. Bronze, Silver and Gold packages by day of the week, plus the Private Lounge &amp; Bar.">
+<link rel="canonical" href="https://theinvitingevents.com/pricing/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pricing | Inviting Events, Snellville, GA">
+<meta property="og:description" content="Three ballrooms, three packages, clear rates by day of the week.">
+<meta property="og:image" content="https://theinvitingevents.com/assets/media/brand/og.jpg">
+<meta property="og:url" content="https://theinvitingevents.com/pricing/">
+<meta name="theme-color" content="#0d0b0a">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/media/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/media/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/global.css">
 <style>
-.pricing-head{text-align:center;margin-bottom:16px;}
-.pricing-notes{text-align:center;margin-bottom:64px;}
-.pricing-notes p{font-size:0.82rem;color:var(--cream40);line-height:1.6;}
-.pricing-notes .dep{color:var(--green);font-style:italic;}
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-.room-section{margin-bottom:80px;}
-.room-header{text-align:center;margin-bottom:40px;}
-.room-name{font-family:var(--sub);font-size:0.9rem;letter-spacing:3px;color:var(--cream);margin-bottom:8px;}
-.room-cap{font-size:0.82rem;color:var(--cream40);}
-.room-cap strong{color:var(--cream70);}
-.room-note{font-size:0.75rem;color:var(--green);margin-top:6px;}
+/* Hero rules */
+.rules { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); margin-top: clamp(56px, 7vw, 88px); }
+.rules > div { padding: 28px 28px 0 0; }
+.rules > div + div { padding-left: 28px; border-left: 1px solid var(--line); }
+.rules dt { font-variant-numeric: lining-nums; font-family: var(--serif); font-size: clamp(1.6rem, 2.4vw, 2.1rem); line-height: 1.1; color: var(--ivory); }
+.rules dt em { font-style: italic; }
+.rules dd { margin-top: 12px; font-size: 0.92rem; color: var(--ivory-60); max-width: 22em; }
 
-.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-.tier{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:14px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);overflow:hidden;transition:all 0.3s;position:relative;}
-.tier::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 50%);pointer-events:none;}
-.tier:hover{border-color:rgba(255,255,255,0.18);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,0.3);background:rgba(255,255,255,0.07);}
+/* Room switcher */
+.room-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 clamp(16px, 3vw, 40px); border-bottom: 1px solid var(--paper-line); }
+.room-tabs[hidden] { display: none; }
+.room-tab { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; text-align: left; padding: 0 0 22px; margin-bottom: -1px; border-bottom: 1px solid transparent; color: var(--char-2); transition: color 0.3s var(--ease), border-color 0.3s var(--ease); }
+.room-tab__num { display: block; font-family: var(--serif); font-style: italic; font-size: 1rem; color: var(--wine); opacity: 0.55; transition: opacity 0.3s; }
+.room-tab__name { display: block; margin-top: 6px; font-family: var(--serif); font-size: clamp(1.3rem, 2.3vw, 2rem); line-height: 1.1; }
+.room-tab__from { display: block; margin-top: 10px; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.8; }
+.room-tab:hover { color: var(--char); }
+.room-tab[aria-selected="true"] { color: var(--char); border-bottom-color: var(--char); }
+.room-tab[aria-selected="true"] .room-tab__num { opacity: 1; }
 
-.tier-top{padding:28px 24px 20px;text-align:center;border-bottom:1px solid rgba(255,255,255,0.08);}
-.tier-badge{font-family:var(--sub);font-size:0.55rem;letter-spacing:3px;display:inline-block;padding:4px 16px;border-radius:2px;margin-bottom:14px;}
-.bronze .tier-badge{background:rgba(139,105,20,0.15);color:#c9a84c;}
-.silver .tier-badge{background:rgba(180,180,180,0.1);color:#aaa;}
-.gold .tier-badge{background:rgba(212,168,67,0.12);color:#d4a843;}
-.tier-desc{font-family:var(--h);font-size:1.1rem;color:var(--cream);margin-bottom:16px;}
+/* Room panels */
+.room { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(40px, 6vw, 96px); padding-top: clamp(48px, 6vw, 72px); }
+.room + .room { margin-top: clamp(48px, 6vw, 72px); border-top: 1px solid var(--paper-line); }
+.is-tabbed .room + .room { margin-top: 0; border-top: 0; }
+.room[hidden] { display: none; }
+.room__info .h3 { margin-top: 16px; font-size: clamp(1.9rem, 3vw, 2.6rem); }
+.room__cap { margin-top: 14px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--wine); }
+.room__info p { margin-top: 18px; max-width: 26em; }
+.room__info .link { margin-top: 28px; }
+.room__note { padding-top: 18px; border-top: 1px solid var(--paper-line); font-size: 0.9rem; color: var(--char); }
+.room__note strong { font-weight: 500; }
+.room__note a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(29,24,21,0.35); }
 
-.tier-prices{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
-.tier-price-row{display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;}
-.tier-price-row .day{color:var(--cream40);}
-.tier-price-row .price{font-family:var(--h);font-size:1.1rem;color:var(--cream);}
+/* Rate table */
+.rate { width: 100%; border-collapse: collapse; table-layout: fixed; font-variant-numeric: lining-nums tabular-nums; }
+.rate col.rate__daycol { width: 25%; }
+.rate th, .rate td { text-align: left; vertical-align: baseline; padding: 22px 0 22px 20px; border-bottom: 1px solid var(--paper-line); }
+.rate th:first-child { padding-left: 0; }
+.rate thead th { vertical-align: top; padding-top: 0; padding-bottom: 20px; border-bottom-color: var(--char); }
+.rate__tier { display: block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--wine); }
+.rate__pkg { display: block; margin-top: 8px; font-family: var(--serif); font-style: italic; font-weight: 400; font-size: clamp(1.05rem, 1.5vw, 1.3rem); line-height: 1.2; color: var(--char); }
+.rate tbody th, .rate tfoot th { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--char-2); white-space: nowrap; }
+.rate tbody td { font-family: var(--serif); font-size: clamp(1.45rem, 2.5vw, 2.1rem); line-height: 1; color: var(--char); }
+.rate tfoot th, .rate tfoot td { border-bottom: 0; padding-top: 18px; padding-bottom: 0; }
+.rate tfoot td { font-size: 0.88rem; color: var(--char-2); }
 
-.tier-body{padding:24px;}
-.tier-hours{font-family:var(--sub);font-size:0.55rem;letter-spacing:2px;color:var(--green);margin-bottom:16px;text-align:center;}
-.tier-list{font-size:0.78rem;color:var(--cream40);line-height:2;}
-.tier-list span{display:block;padding-left:16px;position:relative;}
-.tier-list span::before{content:'';position:absolute;left:2px;top:50%;width:5px;height:1px;background:rgba(122,182,72,0.5);transform:translateY(-50%);}
+.rates-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 28px 40px; margin-top: clamp(72px, 9vw, 120px); padding-top: 40px; border-top: 1px solid var(--paper-line); }
+.rates-foot p { margin-top: 10px; max-width: 30em; }
+.rates-foot__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; }
 
-.quote-cta{text-align:center;margin-top:80px;padding:60px 40px;background:var(--glass);border:1px solid var(--glass-b);border-radius:16px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);}
-.quote-cta h3{font-family:var(--h);font-size:1.6rem;color:var(--cream);margin-bottom:12px;}
-.quote-cta p{font-size:0.88rem;color:var(--cream40);margin-bottom:28px;max-width:400px;margin-left:auto;margin-right:auto;}
+/* What's included */
+.incl { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+.incl__col { padding: 36px 32px 0 0; }
+.incl__col + .incl__col { padding-left: 32px; border-left: 1px solid var(--line); }
+.incl__col:last-child { padding-right: 0; }
+.incl__name { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.incl__col .h3 { margin-top: 14px; }
+.incl__hours { margin-top: 10px; font-size: 0.85rem; color: var(--ivory-60); }
+.incl__lead { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+.incl ul { list-style: none; margin-top: 28px; border-top: 1px solid var(--line); }
+.incl li { padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 0.95rem; color: var(--ivory-80); line-height: 1.5; }
+.incl li.is-plus { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--ivory); }
+.incl__sub { margin-top: 36px; }
+.incl__sub ul { margin-top: 12px; }
+.incl__sub li { color: var(--ivory-60); }
+.incl-photo { margin-top: clamp(56px, 7vw, 96px); aspect-ratio: 1800 / 706; }
+.incl-photo img { filter: brightness(1.5) saturate(0.9); }
+.incl-cap { margin-top: 16px; font-size: 0.85rem; color: var(--ivory-60); }
 
-@media(max-width:900px){
-  .tier-grid{grid-template-columns:1fr;}
+/* Lounge */
+.lounge-rates { margin-top: 36px; border-top: 1px solid var(--line); }
+.lounge-rates > div { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.lounge-rates dt { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); }
+.lounge-rates dd { font-family: var(--serif); font-size: clamp(1.6rem, 2.4vw, 2.1rem); line-height: 1; color: var(--ivory); font-variant-numeric: lining-nums; }
+.lounge-notes { list-style: none; margin-top: 24px; display: grid; gap: 6px; font-size: 0.9rem; color: var(--ivory-60); }
+
+@media (max-width: 900px) {
+  .rules { grid-template-columns: 1fr; }
+  .rules > div, .rules > div + div { padding: 22px 0; border-left: 0; }
+  .rules > div + div { border-top: 1px solid var(--line); }
+  .room { grid-template-columns: 1fr; gap: 44px; }
+  .room__table { order: -1; }
+  .incl { grid-template-columns: 1fr; }
+  .incl__col, .incl__col + .incl__col { padding: 36px 0 40px; border-left: 0; }
+  .incl__col + .incl__col { border-top: 1px solid var(--line); }
 }
-@media(max-width:480px){
-  .tier-top{padding:24px 18px 16px;}
-  .tier-body{padding:18px;}
+@media (max-width: 560px) {
+  .room-tab { padding-bottom: 16px; }
+  .room-tab__name { font-size: 1.2rem; }
+  .room-tab__from { font-size: 0.62rem; letter-spacing: 0.1em; }
+  .rate col.rate__daycol { width: 26%; }
+  .rate th, .rate td { padding: 18px 0 18px 10px; }
+  .rate thead th { padding-bottom: 16px; }
+  .rate__tier { font-size: 0.64rem; letter-spacing: 0.14em; }
+  .rate__pkg { font-size: 0.98rem; }
+  .rate tbody th, .rate tfoot th { font-size: 0.6rem; letter-spacing: 0.08em; }
+  .rate tbody td { font-size: 1.4rem; }
+  .rate tfoot td { font-size: 0.8rem; }
+  .rates-foot__actions { width: 100%; }
+  .rates-foot__actions .btn { width: 100%; }
 }
 </style>
 </head>
 <body>
-<nav id="navbar">
-  <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
-  <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
-  <ul class="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/#ballrooms">Spaces</a></li>
-    <li><a href="/gallery/">Gallery</a></li>
-    <li><a href="/#reviews">Reviews</a></li>
-    <li><a href="/pricing/" class="active">Pricing</a></li>
-    <li><a href="/about/">About</a></li>
-      <li class="nav-divider"></li>
-    <li class="nav-mobile-cta"><a href="/contact/">Schedule a Tour</a></li>
-  </ul>
-  <a href="/contact/" class="nav-cta">Schedule a Tour</a>
-</nav>
 
-<div class="page-header">
-  <span class="sec-tag" style="margin-bottom:12px;">Transparent Pricing</span>
-  <h1>Pricing</h1>
-  <p>Each pricing chart is unique to each ballroom. Choose the package that fits your vision.</p>
+<header class="nav" data-solid>
+  <div class="wrap nav__inner">
+    <a href="/" class="nav__logo" aria-label="Inviting Events home"><img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260"></a>
+    <ul class="nav__links">
+      <li><a href="/#spaces">Spaces</a></li>
+      <li><a href="/gallery/">Gallery</a></li>
+      <li><a href="/pricing/" aria-current="page">Pricing</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/contact/" class="btn btn--line btn--sm">Schedule a tour</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  </div>
+</header>
+<div class="menu" id="menu">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/#spaces">Spaces <small>4 rooms</small></a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/pricing/" aria-current="page">Pricing</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+  <div class="menu__foot">
+    <a href="/contact/" class="btn btn--wine">Schedule a tour</a>
+    <div class="menu__contact"><span>Call or text</span><a href="tel:+16785178963">(678) 517-8963</a></div>
+  </div>
 </div>
 
-<section>
-  <div class="sec-inner">
-    <div class="pricing-notes">
-      <p class="dep">*A $300 refundable security/damage deposit is required.</p>
-    </div>
+<main>
 
-    <!-- GRAND BALLROOM -->
-    <div class="room-section">
-      <div class="room-header">
-        <div class="room-name">Grand Ballroom</div>
-        <div class="room-cap">Capacity of up to <strong>250 guests</strong></div>
-        <div class="room-note">*Inquire for rates above 150 guests</div>
-      </div>
-      <div class="tier-grid">
-        <div class="tier bronze">
-          <div class="tier-top">
-            <div class="tier-badge">Bronze</div>
-            <div class="tier-desc">Room Only</div>
-            <div class="tier-prices">
-              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$1,500</span></div>
-              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$2,000</span></div>
-              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$2,400</span></div>
-            </div>
-          </div>
-          <div class="tier-body">
-            <div class="tier-hours">8 Hours Rental Time</div>
-            <div class="tier-list">
-              <span>Tables</span><span>Chairs / Barstools</span><span>Decorative lighting</span><span>Dance floor</span><span>Bar tables</span>
-            </div>
-          </div>
-        </div>
-        <div class="tier silver">
-          <div class="tier-top">
-            <div class="tier-badge">Silver</div>
-            <div class="tier-desc">Room with Linens</div>
-            <div class="tier-prices">
-              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$2,200</span></div>
-              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$2,600</span></div>
-              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$3,000</span></div>
-            </div>
-          </div>
-          <div class="tier-body">
-            <div class="tier-hours">8 Hours Rental Time</div>
-            <div class="tier-list">
-              <span>Everything in Bronze</span><span>Table linens</span><span>Chair sashes</span><span>Table runners</span><span>Full linen service</span>
-            </div>
-          </div>
-        </div>
-        <div class="tier gold">
-          <div class="tier-top">
-            <div class="tier-badge">Gold</div>
-            <div class="tier-desc">Total Room Decor</div>
-            <div class="tier-prices">
-              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$2,800</span></div>
-              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$4,000</span></div>
-              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$5,100</span></div>
-            </div>
-          </div>
-          <div class="tier-body">
-            <div class="tier-hours">6 Hours Rental Time</div>
-            <div class="tier-list">
-              <span>Full set-up, service & clean-up</span><span>Your choice of linens & colors</span><span>Charger plates & cloth napkins</span><span>Chair sashes & table runners</span><span>Upscale floral centerpieces</span><span>Glass plates & silverware</span><span>Wine/Champagne glasses</span><span>Votive & floating candles</span><span>Silver chafing dishes & trays</span><span>Drink dispensers & coffee urns</span><span>Lighted bar area</span><span>Kitchen area with oven & fridge</span><span>Dance floor & decorative lighting</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- AUXILIARY BALLROOM -->
-    <div class="room-section">
-      <div class="room-header">
-        <div class="room-name">Auxiliary Ballroom</div>
-        <div class="room-cap">Capacity of up to <strong>60 guests</strong></div>
-      </div>
-      <div class="tier-grid">
-        <div class="tier bronze">
-          <div class="tier-top">
-            <div class="tier-badge">Bronze</div>
-            <div class="tier-desc">Room Only</div>
-            <div class="tier-prices">
-              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$800</span></div>
-              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$1,200</span></div>
-              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$1,600</span></div>
-            </div>
-          </div>
-          <div class="tier-body">
-            <div class="tier-hours">8 Hours Rental Time</div>
-            <div class="tier-list">
-              <span>Tables</span><span>Chairs / Barstools</span><span>Decorative lighting</span><span>Dance floor</span><span>Bar tables</span><span>Sound system</span><span>Projector & 110" screen</span><span>3 flat screen TVs</span><span>Pool table</span>
-            </div>
-          </div>
-        </div>
-        <div class="tier silver">
-          <div class="tier-top">
-            <div class="tier-badge">Silver</div>
-            <div class="tier-desc">Room with Linens</div>
-            <div class="tier-prices">
-              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$1,300</span></div>
-              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$1,700</span></div>
-              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$2,100</span></div>
-            </div>
-          </div>
-          <div class="tier-body">
-            <div class="tier-hours">8 Hours Rental Time</div>
-            <div class="tier-list">
-              <span>Everything in Bronze</span><span>Table linens</span><span>Chair sashes</span><span>Table runners</span><span>Full linen service</span>
-            </div>
-          </div>
-        </div>
-        <div class="tier gold">
-          <div class="tier-top">
-            <div class="tier-badge">Gold</div>
-            <div class="tier-desc">Total Room Decor</div>
-            <div class="tier-prices">
-              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$2,000</span></div>
-              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$2,400</span></div>
-              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$2,800</span></div>
-            </div>
-          </div>
-          <div class="tier-body">
-            <div class="tier-hours">6 Hours Rental Time</div>
-            <div class="tier-list">
-              <span>Full set-up, service & clean-up</span><span>Your choice of linens & colors</span><span>Charger plates & cloth napkins</span><span>Centerpieces & candles</span><span>Silver chafing dishes & trays</span><span>Drink dispensers & coffee urns</span><span>Lighted bar area</span><span>Kitchen area with oven & fridge</span><span>Dance floor & decorative lighting</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- STUDIO 78 -->
-    <div class="room-section">
-      <div class="room-header">
-        <div class="room-name">Studio 78</div>
-        <div class="room-cap">Capacity of up to <strong>80 guests</strong></div>
-      </div>
-      <div class="tier-grid">
-        <div class="tier bronze">
-          <div class="tier-top">
-            <div class="tier-badge">Bronze</div>
-            <div class="tier-desc">Room Only</div>
-            <div class="tier-prices">
-              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$1,200</span></div>
-              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$1,600</span></div>
-              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$2,000</span></div>
-            </div>
-          </div>
-          <div class="tier-body">
-            <div class="tier-hours">8 Hours Rental Time</div>
-            <div class="tier-list">
-              <span>Tables</span><span>Chairs / Barstools</span><span>Decorative lighting</span><span>Dance floor</span><span>Bar tables</span>
-            </div>
-          </div>
-        </div>
-        <div class="tier silver">
-          <div class="tier-top">
-            <div class="tier-badge">Silver</div>
-            <div class="tier-desc">Room with Linens</div>
-            <div class="tier-prices">
-              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$1,700</span></div>
-              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$2,100</span></div>
-              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$2,500</span></div>
-            </div>
-          </div>
-          <div class="tier-body">
-            <div class="tier-hours">8 Hours Rental Time</div>
-            <div class="tier-list">
-              <span>Everything in Bronze</span><span>Table linens</span><span>Chair sashes</span><span>Table runners</span><span>Full linen service</span>
-            </div>
-          </div>
-        </div>
-        <div class="tier gold">
-          <div class="tier-top">
-            <div class="tier-badge">Gold</div>
-            <div class="tier-desc">Total Room Decor</div>
-            <div class="tier-prices">
-              <div class="tier-price-row"><span class="day">Mon – Thurs</span><span class="price">$2,500</span></div>
-              <div class="tier-price-row"><span class="day">Fri & Sun</span><span class="price">$2,900</span></div>
-              <div class="tier-price-row"><span class="day">Saturday</span><span class="price">$3,300</span></div>
-            </div>
-          </div>
-          <div class="tier-body">
-            <div class="tier-hours">6 Hours Rental Time</div>
-            <div class="tier-list">
-              <span>Full set-up, service & clean-up</span><span>Your choice of linens & colors</span><span>Charger plates & cloth napkins</span><span>Centerpieces & candles</span><span>Silver chafing dishes & trays</span><span>Drink dispensers & coffee urns</span><span>Lighted bar area</span><span>Kitchen area with oven & fridge</span><span>Dance floor & decorative lighting</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- QUOTE CTA -->
-    <div class="quote-cta reveal">
-      <span class="sec-tag">Quick Estimate</span>
-      <h3>Not Sure Where to Start?</h3>
-      <p>Try our interactive quote builder to get an instant estimate based on your event details.</p>
-      <a href="/quote/" class="btn-primary" style="margin-right:16px;">Get a Quote</a>
-      <a href="/contact/" class="btn-primary" style="background:transparent;border-color:var(--glass-b);">Contact Us</a>
+<!-- HERO -->
+<section class="page-hero page-hero--plain">
+  <div class="hero__content">
+    <div class="wrap">
+      <span class="eyebrow">Pricing</span>
+      <h1 class="h1">Clear rates for <em>every room.</em></h1>
+      <p class="lede" style="margin-top:28px">Every ballroom is offered three ways, from the room alone to a fully decorated event we set, serve and clear. Your rate depends on the room, the package and the day of the week.</p>
+      <dl class="rules">
+        <div><dt>Unique to <em>each room</em></dt><dd>Each pricing chart is unique to each ballroom, so start with the room.</dd></div>
+        <div><dt>$300 deposit</dt><dd>A refundable security and damage deposit is required with every booking.</dd></div>
+        <div><dt>8 or 6 hours</dt><dd>Bronze and Silver include eight hours of rental time. Gold includes six.</dd></div>
+      </dl>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE">
-      <p>Snellville's premier event hall. One stop shop for your next meeting or special event.</p>
-      <div class="footer-social">
-        <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">f</a>
-        <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">ig</a>
+<!-- RATES -->
+<section class="section paper" id="rates" style="margin-top:calc(var(--space) * 0.7)">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="reveal">
+        <span class="eyebrow">Rates by room</span>
+        <h2 class="h2">Choose a room, <em>then a package.</em></h2>
+      </div>
+      <p class="muted reveal" style="max-width:26em">Bronze is the room alone. Silver dresses it in the linens and colors you choose. Gold is total room décor, with setup, service and clean-up.</p>
+    </div>
+
+    <div class="reveal" id="rooms">
+      <div class="room-tabs" role="tablist" aria-label="Choose a ballroom" hidden>
+        <button class="room-tab" type="button" role="tab" id="tab-grand" aria-controls="grand-ballroom" aria-selected="true"><span class="room-tab__num">01</span><span class="room-tab__name">Grand Ballroom</span><span class="room-tab__from">From $1,500</span></button>
+        <button class="room-tab" type="button" role="tab" id="tab-studio" aria-controls="studio-78" aria-selected="false" tabindex="-1"><span class="room-tab__num">02</span><span class="room-tab__name">Studio 78</span><span class="room-tab__from">From $1,200</span></button>
+        <button class="room-tab" type="button" role="tab" id="tab-aux" aria-controls="auxiliary-ballroom" aria-selected="false" tabindex="-1"><span class="room-tab__num">03</span><span class="room-tab__name">Auxiliary Ballroom</span><span class="room-tab__from">From $800</span></button>
+      </div>
+
+      <!-- GRAND BALLROOM -->
+      <div class="room" id="grand-ballroom" role="tabpanel" aria-labelledby="tab-grand">
+        <div class="room__info">
+          <span class="eyebrow">Room 01</span>
+          <h3 class="h3">Grand Ballroom</h3>
+          <div class="room__cap">80 to 250 guests</div>
+          <p>Our main hall, with a dance floor, connected restrooms and a full ladies' suite with shower and makeup room.</p>
+          <p class="room__note"><strong>Rates shown are for up to 150 guests.</strong> The room holds up to 250, so inquire for larger guest counts.</p>
+          <a href="/grand-ballroom/" class="link">See the Grand Ballroom</a>
+        </div>
+        <div class="room__table">
+          <table class="rate">
+            <caption class="sr-only">Grand Ballroom rates by package and day</caption>
+            <colgroup><col class="rate__daycol"><col><col><col></colgroup>
+            <thead><tr>
+              <th scope="col"><span class="sr-only">Day</span></th>
+              <th scope="col"><span class="rate__tier">Bronze</span><span class="rate__pkg">Room only</span></th>
+              <th scope="col"><span class="rate__tier">Silver</span><span class="rate__pkg">Room with linens</span></th>
+              <th scope="col"><span class="rate__tier">Gold</span><span class="rate__pkg">Total room décor</span></th>
+            </tr></thead>
+            <tbody>
+              <tr><th scope="row">Mon&ndash;Thurs</th><td>$1,500</td><td>$2,200</td><td>$2,800</td></tr>
+              <tr><th scope="row">Fri &amp; Sun</th><td>$2,000</td><td>$2,600</td><td>$4,000</td></tr>
+              <tr><th scope="row">Saturday</th><td>$2,400</td><td>$3,000</td><td>$5,100</td></tr>
+            </tbody>
+            <tfoot><tr><th scope="row">Hours</th><td>8 hours</td><td>8 hours</td><td>6 hours</td></tr></tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- STUDIO 78 -->
+      <div class="room" id="studio-78" role="tabpanel" aria-labelledby="tab-studio">
+        <div class="room__info">
+          <span class="eyebrow">Room 02</span>
+          <h3 class="h3">Studio 78</h3>
+          <div class="room__cap">50 to 80 guests</div>
+          <p>Our most distinctive room, made for smaller and more intimate celebrations, with its own suite and lounge area.</p>
+          <a href="/studio-78/" class="link">See Studio 78</a>
+        </div>
+        <div class="room__table">
+          <table class="rate">
+            <caption class="sr-only">Studio 78 rates by package and day</caption>
+            <colgroup><col class="rate__daycol"><col><col><col></colgroup>
+            <thead><tr>
+              <th scope="col"><span class="sr-only">Day</span></th>
+              <th scope="col"><span class="rate__tier">Bronze</span><span class="rate__pkg">Room only</span></th>
+              <th scope="col"><span class="rate__tier">Silver</span><span class="rate__pkg">Room with linens</span></th>
+              <th scope="col"><span class="rate__tier">Gold</span><span class="rate__pkg">Total room décor</span></th>
+            </tr></thead>
+            <tbody>
+              <tr><th scope="row">Mon&ndash;Thurs</th><td>$1,200</td><td>$1,700</td><td>$2,500</td></tr>
+              <tr><th scope="row">Fri &amp; Sun</th><td>$1,600</td><td>$2,100</td><td>$2,900</td></tr>
+              <tr><th scope="row">Saturday</th><td>$2,000</td><td>$2,500</td><td>$3,300</td></tr>
+            </tbody>
+            <tfoot><tr><th scope="row">Hours</th><td>8 hours</td><td>8 hours</td><td>6 hours</td></tr></tfoot>
+          </table>
+        </div>
+      </div>
+
+      <!-- AUXILIARY BALLROOM -->
+      <div class="room" id="auxiliary-ballroom" role="tabpanel" aria-labelledby="tab-aux">
+        <div class="room__info">
+          <span class="eyebrow">Room 03</span>
+          <h3 class="h3">Auxiliary Ballroom</h3>
+          <div class="room__cap">30 to 60 guests</div>
+          <p>Right beside the Grand Ballroom. Lounge-style, with a pool table, a projector and three flat screens.</p>
+          <p class="room__note"><strong>Also offered as the Private Lounge &amp; Bar,</strong> at one flat rate for six hours. <a href="#lounge">See lounge rates</a>.</p>
+          <a href="/auxiliary-ballroom/" class="link">See the Auxiliary Ballroom</a>
+        </div>
+        <div class="room__table">
+          <table class="rate">
+            <caption class="sr-only">Auxiliary Ballroom rates by package and day</caption>
+            <colgroup><col class="rate__daycol"><col><col><col></colgroup>
+            <thead><tr>
+              <th scope="col"><span class="sr-only">Day</span></th>
+              <th scope="col"><span class="rate__tier">Bronze</span><span class="rate__pkg">Room only</span></th>
+              <th scope="col"><span class="rate__tier">Silver</span><span class="rate__pkg">Room with linens</span></th>
+              <th scope="col"><span class="rate__tier">Gold</span><span class="rate__pkg">Total room décor</span></th>
+            </tr></thead>
+            <tbody>
+              <tr><th scope="row">Mon&ndash;Thurs</th><td>$800</td><td>$1,300</td><td>$2,000</td></tr>
+              <tr><th scope="row">Fri &amp; Sun</th><td>$1,200</td><td>$1,700</td><td>$2,400</td></tr>
+              <tr><th scope="row">Saturday</th><td>$1,600</td><td>$2,100</td><td>$2,800</td></tr>
+            </tbody>
+            <tfoot><tr><th scope="row">Hours</th><td>8 hours</td><td>8 hours</td><td>6 hours</td></tr></tfoot>
+          </table>
+        </div>
       </div>
     </div>
-    <div class="footer-links">
-      <div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div>
-      <div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a><a href="/contact/">Contact</a>
-        </div>
-      
+
+    <div class="rates-foot reveal">
+      <div>
+        <h3 class="h3">Not sure where to start?</h3>
+        <p class="muted">Answer six quick questions about your event and see a starting price for your room, package and day.</p>
+      </div>
+      <div class="rates-foot__actions">
+        <a href="/quote/" class="btn btn--wine">Build an estimate</a>
+        <a href="/contact/" class="link">Ask Robert</a>
+      </div>
     </div>
   </div>
-  <div class="footer-bottom">Inviting Events &copy; 2026. All rights reserved. <a href="/admin/" style="opacity:0.6;display:inline-flex;align-items:center;gap:5px;margin-left:12px;transition:opacity 0.3s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>   </div>
+</section>
+
+<!-- WHAT'S INCLUDED -->
+<section class="section" id="included">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="reveal">
+        <span class="eyebrow">What's included</span>
+        <h2 class="h2">From the room alone to <em>every last detail.</em></h2>
+      </div>
+      <p class="muted reveal" style="max-width:26em">Silver builds on Bronze. Gold is the full service: we dress the room in your colors, then set it, serve it and clear it.</p>
+    </div>
+
+    <div class="incl reveal">
+      <div class="incl__col">
+        <span class="incl__name">Bronze</span>
+        <h3 class="h3">Room only</h3>
+        <p class="incl__hours">8 hours rental time</p>
+        <ul>
+          <li>Tables</li>
+          <li>Chairs and barstools</li>
+          <li>Decorative lighting</li>
+          <li>Dance floor</li>
+          <li>Bar tables</li>
+        </ul>
+        <div class="incl__sub">
+          <p class="incl__lead">Auxiliary Ballroom only</p>
+          <ul>
+            <li>Sound system</li>
+            <li>Projector and 110" screen</li>
+            <li>Three flat screen TVs</li>
+            <li>Pool table</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="incl__col">
+        <span class="incl__name">Silver</span>
+        <h3 class="h3">Room with linens</h3>
+        <p class="incl__hours">8 hours rental time</p>
+        <ul>
+          <li class="is-plus">Everything in Bronze, plus</li>
+          <li>Table linens in your choice of color</li>
+        </ul>
+      </div>
+
+      <div class="incl__col">
+        <span class="incl__name">Gold</span>
+        <h3 class="h3">Total room décor</h3>
+        <p class="incl__hours">6 hours rental time</p>
+        <ul>
+          <li>Full setup, service and clean-up</li>
+          <li>Your choice of linens and colors</li>
+          <li>Charger plates and cloth napkins</li>
+          <li>Silver chafing dishes and trays</li>
+          <li>Drink dispensers and coffee urns</li>
+          <li>Lighted bar area</li>
+          <li>Kitchen area with oven and fridge</li>
+          <li>Dance floor and decorative lighting</li>
+        </ul>
+        <div class="incl__sub">
+          <p class="incl__lead">In the Grand Ballroom, also</p>
+          <ul>
+            <li>Chair sashes and table runners</li>
+            <li>Upscale floral centerpieces</li>
+            <li>Glass plates and silverware</li>
+            <li>Wine and champagne glasses</li>
+            <li>Votive and floating candles</li>
+          </ul>
+        </div>
+        <div class="incl__sub">
+          <p class="incl__lead">In Studio 78 and the Auxiliary, also</p>
+          <ul>
+            <li>Centerpieces and candles</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <figure class="reveal">
+      <div class="frame incl-photo"><img src="/assets/media/photos/linens.webp" alt="Shelves of folded table linens in blue, yellow, red, green, pink and purple" loading="lazy" width="1800" height="706"></div>
+      <figcaption class="incl-cap">Linens in every color, pulled from our own warehouses.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- PRIVATE LOUNGE -->
+<section class="section section--ink2" id="lounge">
+  <div class="wrap split">
+    <div class="frame frame--32 reveal"><img src="/assets/media/photos/lounge-pool.webp" alt="The private lounge with a pool table and projector screen" loading="lazy" width="1600" height="888"></div>
+    <div class="reveal">
+      <span class="eyebrow">Private Lounge &amp; Bar</span>
+      <h2 class="h2" style="margin-top:20px">One flat rate, <em>six hours.</em></h2>
+      <p class="lede" style="margin-top:24px">Game nights, comedy nights and birthdays, in a lounge that is yours for the evening.</p>
+      <dl class="lounge-rates">
+        <div><dt>Mon&ndash;Thurs</dt><dd>$1,000</dd></div>
+        <div><dt>Fri &amp; Sat</dt><dd>$1,500</dd></div>
+        <div><dt>Sunday</dt><dd>$1,200</dd></div>
+      </dl>
+      <ul class="lounge-notes">
+        <li>Six hours. Offered in the Auxiliary Ballroom only.</li>
+        <li>Kitchen access is available at an additional charge.</li>
+      </ul>
+      <div class="hero__actions">
+        <a href="/private-lounge/" class="link">About the lounge</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta__media"><img src="/assets/media/photos/img-20251203-wa0024.webp" alt="" loading="lazy"></div>
+  <div class="wrap reveal">
+    <span class="eyebrow eyebrow--plain">Now booking</span>
+    <h2 class="h1">See the rooms <em>in person.</em></h2>
+    <p>Tell us your date and guest count. Robert will walk you through the rooms and packages, and build the event around your vision.</p>
+    <div class="hero__actions">
+      <a href="/contact/" class="btn btn--wine">Schedule a tour</a>
+      <a href="/quote/" class="btn btn--line">Build an estimate</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260" loading="lazy">
+        <p>A full-service event hall in Snellville, Georgia. Three ballrooms, a private lounge and every detail in house.</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <address>3485 Stone Mountain Hwy<br>Snellville, GA 30078</address>
+        <p class="muted" style="margin-top:10px">By appointment only</p>
+      </div>
+      <div>
+        <h4>Spaces</h4>
+        <ul>
+          <li><a href="/grand-ballroom/">Grand Ballroom</a></li>
+          <li><a href="/studio-78/">Studio 78</a></li>
+          <li><a href="/auxiliary-ballroom/">Auxiliary Ballroom</a></li>
+          <li><a href="/private-lounge/">Private Lounge &amp; Bar</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+16785178963">(678) 517-8963</a></li>
+          <li><a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a></li>
+          <li><a href="/contact/">Schedule a tour</a></li>
+          <li><a href="/pricing/">Pricing</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Inviting Events. All rights reserved.</span>
+      <nav aria-label="Social">
+        <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">Facebook</a>
+        <a href="/admin/" aria-label="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>
+      </nav>
+    </div>
+  </div>
 </footer>
+
 <script src="/assets/js/global.js"></script>
-<script src="/assets/js/chat.js"></script>
+<script>
+// Room switcher: tabs when JS runs, all three rooms stacked without it. Deep links work: /pricing/#studio-78
+(function () {
+  const wrap = document.getElementById('rooms');
+  const list = wrap.querySelector('[role="tablist"]');
+  const tabs = Array.from(list.querySelectorAll('[role="tab"]'));
+  const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
+  function select(i, focus) {
+    tabs.forEach((t, n) => {
+      const on = n === i;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      panels[n].hidden = !on;
+    });
+    if (focus) tabs[i].focus();
+  }
+  wrap.classList.add('is-tabbed');
+  list.hidden = false;
+  const fromHash = panels.findIndex(p => '#' + p.id === location.hash);
+  select(fromHash > -1 ? fromHash : 0);
+  if (fromHash > -1) requestAnimationFrame(() => document.getElementById('rates').scrollIntoView());
+  window.addEventListener('hashchange', () => {
+    const n = panels.findIndex(p => '#' + p.id === location.hash);
+    if (n > -1) { select(n); document.getElementById('rates').scrollIntoView(); }
+  });
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => {
+      select(i);
+      history.replaceState(null, '', '#' + panels[i].id);
+    });
+    t.addEventListener('keydown', e => {
+      const k = e.key;
+      if (k !== 'ArrowRight' && k !== 'ArrowLeft' && k !== 'Home' && k !== 'End') return;
+      e.preventDefault();
+      const cur = tabs.indexOf(t);
+      const n = k === 'Home' ? 0 : k === 'End' ? tabs.length - 1 : (cur + (k === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+      select(n, true);
+    });
+  });
+})();
+</script>
+<script src="/assets/js/chat.js" defer></script>
 </body>
 </html>

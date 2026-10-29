@@ -1,157 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About — Inviting Events</title>
-<link rel="icon" type="image/png" href="/assets/images/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About | Inviting Events, Snellville, GA</title>
+<meta name="description" content="Inviting Events grew from Dedicaters Inc, a catering company Robert Pope founded in 1991. Hosting events since 2001, with setup, service, clean-up and décor in house.">
+<link rel="canonical" href="https://theinvitingevents.com/about/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="About | Inviting Events">
+<meta property="og:description" content="From a catering company founded in 1991 to one of the premier event destinations in the Atlanta metro area.">
+<meta property="og:image" content="https://theinvitingevents.com/assets/media/brand/og.jpg">
+<meta property="og:url" content="https://theinvitingevents.com/about/">
+<meta name="theme-color" content="#0d0b0a">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/media/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/media/brand/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/global.css">
+<link rel="preload" as="image" href="/assets/media/photos/grand-table.webp">
 <style>
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-bottom:100px;}
-.about-photo{position:relative;}
-.about-photo img{width:100%;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
-.about-photo::after{content:'';position:absolute;inset:-12px;border:1px solid var(--glass-b);border-radius:16px;pointer-events:none;}
-.about-text h2{font-family:var(--h);font-size:2rem;font-weight:400;color:var(--cream);margin-bottom:24px;line-height:1.3;}
-.about-text h2 em{font-style:italic;color:var(--cream70);}
-.about-text p{font-size:0.92rem;color:var(--cream40);line-height:1.8;margin-bottom:20px;}
-.about-name{font-family:var(--sub);font-size:0.7rem;letter-spacing:2px;color:var(--cream);margin-top:32px;}
-.about-role{font-size:0.82rem;color:var(--cream40);margin-top:4px;}
+/* About page */
+.split--story { grid-template-columns: 5fr 7fr; align-items: start; }
 
-.timeline{position:relative;padding-left:40px;}
-.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:1px;background:rgba(255,255,255,0.06);}
-.tl-item{position:relative;margin-bottom:40px;}
-.tl-item::before{content:'';position:absolute;left:-36px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--burgundy);border:2px solid var(--bg);}
-.tl-year{font-family:var(--sub);font-size:0.6rem;letter-spacing:2px;color:var(--green);margin-bottom:8px;}
-.tl-text{font-size:0.88rem;color:var(--cream40);line-height:1.7;}
+/* Timeline: large serif years on hairline rows */
+.timeline { list-style: none; border-top: 1px solid var(--line); }
+.timeline li { display: grid; grid-template-columns: clamp(7rem, 12vw, 10rem) minmax(0, 1fr); gap: 10px 32px; padding: clamp(28px, 3vw, 40px) 0; border-bottom: 1px solid var(--line); }
+.timeline .yr { grid-row: span 2; font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 4vw, 3.4rem); line-height: 0.9; color: var(--ivory); font-variant-numeric: lining-nums; }
+.timeline .yr em { color: var(--gold); }
+.timeline h3 { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory); line-height: 1.6; }
+.timeline p { color: var(--ivory-60); max-width: 34em; }
 
-.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:64px;}
-.val-card{background:var(--glass);border:1px solid var(--glass-b);border-radius:12px;padding:32px 24px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:all 0.3s;position:relative;overflow:hidden;}
-.val-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.03) 0%,transparent 50%);pointer-events:none;}
-.val-card:hover{border-color:rgba(255,255,255,0.1);}
-.val-card h4{font-family:var(--sub);font-size:0.6rem;letter-spacing:2px;color:var(--cream);margin-bottom:10px;position:relative;}
-.val-card p{font-size:0.82rem;color:var(--cream40);line-height:1.7;position:relative;}
+/* Owner */
+.owner__photo { aspect-ratio: 1 / 1; }
+.owner__photo img { object-position: 50% 20%; transform: scale(1.22); transform-origin: 50% 0; }
+.owner__cap { display: flex; justify-content: space-between; gap: 16px; margin-top: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--paper-line); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--char-2); }
+.owner__cap strong { font-weight: 500; color: var(--char); }
 
-@media(max-width:900px){
-  .about-grid{grid-template-columns:1fr;gap:40px;}
-  .values-grid{grid-template-columns:1fr;}
+/* Pull quotes */
+.pull { margin-top: clamp(40px, 5vw, 56px); padding-top: 32px; border-top: 1px solid var(--line); }
+.pull blockquote { font-family: var(--serif); font-size: clamp(1.45rem, 2.3vw, 1.95rem); line-height: 1.3; color: var(--ivory); text-wrap: pretty; }
+.pull figcaption { margin-top: 20px; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); }
+.pull figcaption span { color: var(--ivory-40); }
+.paper .pull { border-color: var(--paper-line); }
+.paper .pull blockquote { color: var(--char); }
+.paper .pull figcaption { color: var(--char-2); }
+.paper .pull figcaption span { color: var(--char-2); opacity: 0.7; }
+
+/* Team */
+.linens { margin-top: clamp(64px, 8vw, 112px); }
+.linens .frame { aspect-ratio: 21 / 9; }
+.linens figcaption { display: flex; justify-content: space-between; gap: 24px; margin-top: 18px; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); }
+
+@media (max-width: 900px) {
+  .split--story { grid-template-columns: 1fr; }
+  .linens .frame { aspect-ratio: 3 / 2; }
+}
+@media (max-width: 560px) {
+  .timeline li { grid-template-columns: 1fr; gap: 12px; }
+  .timeline .yr { grid-row: auto; margin-bottom: 6px; }
+  .linens figcaption { flex-direction: column; gap: 6px; }
 }
 </style>
 </head>
 <body>
-<nav id="navbar">
-  <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
-  <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
-  <ul class="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/#ballrooms">Spaces</a></li>
-    <li><a href="/gallery/">Gallery</a></li>
-    <li><a href="/#reviews">Reviews</a></li>
-    <li><a href="/pricing/">Pricing</a></li>
-    <li><a href="/about/" class="active">About</a></li>
-      <li class="nav-divider"></li>
-    <li class="nav-mobile-cta"><a href="/contact/">Schedule a Tour</a></li>
-  </ul>
-  <a href="/contact/" class="nav-cta">Schedule a Tour</a>
-</nav>
 
-<div class="page-header">
-  <span class="sec-tag" style="margin-bottom:12px;">Our Story</span>
-  <h1>About Inviting Events</h1>
-  <p>Over 18 years of creating unforgettable events in the Atlanta metro area.</p>
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a href="/" class="nav__logo" aria-label="Inviting Events home"><img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260"></a>
+    <ul class="nav__links">
+      <li><a href="/#spaces">Spaces</a></li>
+      <li><a href="/gallery/">Gallery</a></li>
+      <li><a href="/pricing/">Pricing</a></li>
+      <li><a href="/about/" aria-current="page">About</a></li>
+      <li><a href="/contact/" class="btn btn--line btn--sm">Schedule a tour</a></li>
+    </ul>
+    <button class="nav__toggle" aria-label="Menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
+  </div>
+</header>
+<div class="menu" id="menu">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/#spaces">Spaces <small>4 rooms</small></a></li>
+    <li><a href="/gallery/">Gallery</a></li>
+    <li><a href="/pricing/">Pricing</a></li>
+    <li><a href="/about/" aria-current="page">About</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+  <div class="menu__foot">
+    <a href="/contact/" class="btn btn--wine">Schedule a tour</a>
+    <div class="menu__contact"><span>Call or text</span><a href="tel:+16785178963">(678) 517-8963</a></div>
+  </div>
 </div>
 
-<section>
-  <div class="sec-inner">
-    <div class="about-grid reveal">
-      <div class="about-photo">
-        <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Bob-profile-pic.png" alt="Robert Pope">
-      </div>
-      <div class="about-text">
-        <span class="sec-tag">The Man Behind It All</span>
-        <h2>Built on Hospitality, Driven by <em>Your Vision.</em></h2>
-        <p>Dedicaters Inc, the parent company of Inviting Events, was formed in 1991 by Robert Pope. Prior to founding Inviting Events, Robert had been a manager at several 5-star hotels and restaurants throughout the Atlanta area.</p>
-        <p>Dedicaters Inc initially operated as a catering company and opened its first event hall in 2001. Shortly after, a second facility was opened in 2004. The two facilities were later merged and became known as Inviting Events.</p>
-        <p>Our event hall has served the area consistently for the past 18 years. From local residents to high-profile celebrities, we have been and will continue to be one of the premier event destinations in the Atlanta metro area.</p>
-        <div class="about-name">Robert Pope</div>
-        <div class="about-role">Owner & Founder</div>
-      </div>
-    </div>
+<main>
 
-    <div style="text-align:center;margin-bottom:48px;" class="reveal">
-      <span class="sec-tag">Our Journey</span>
-      <h2 class="sec-title">A Legacy of <em>Excellence.</em></h2>
-    </div>
-
-    <div class="timeline reveal" style="max-width:600px;margin:0 auto 64px;">
-      <div class="tl-item">
-        <div class="tl-year">1991</div>
-        <div class="tl-text">Robert Pope founds Dedicaters Inc as a catering company, bringing 5-star hotel and restaurant experience to private events.</div>
+<!-- HERO -->
+<section class="page-hero">
+  <div class="hero__media"><img src="/assets/media/photos/grand-table.webp" alt="Burgundy napkins, gold chargers and crystal centerpieces by candlelight" width="1600" height="888" fetchpriority="high"></div>
+  <div class="hero__content">
+    <div class="wrap">
+      <span class="eyebrow">About &middot; Since 1991</span>
+      <h1 class="h1">Hospitality first, <em>since 1991.</em></h1>
+      <p class="lede" style="margin-top:24px">Inviting Events grew out of a catering company founded by a manager from Atlanta's five-star hotels and restaurants. We have been hosting celebrations in our own halls since 2001.</p>
+      <div class="hero__actions">
+        <a href="/contact/" class="btn btn--wine">Schedule a tour</a>
+        <a href="#story" class="link">Read our story</a>
       </div>
-      <div class="tl-item">
-        <div class="tl-year">2001</div>
-        <div class="tl-text">The first Dedicaters event hall opens, expanding from catering-only to a full-service event venue.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2004</div>
-        <div class="tl-text">A second facility opens to meet growing demand. Both locations serve the greater Atlanta area.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">2006</div>
-        <div class="tl-text">The two facilities merge into a single, larger venue — Inviting Events is born.</div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-year">Today</div>
-        <div class="tl-text">Over 1,000+ events hosted, 170+ five-star reviews, and three distinct ballrooms serving Snellville and the greater Atlanta metro area.</div>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-bottom:40px;" class="reveal">
-      <span class="sec-tag">What We Stand For</span>
-      <h2 class="sec-title">Our <em>Values.</em></h2>
-    </div>
-
-    <div class="values-grid reveal">
-      <div class="val-card">
-        <h4>Personal Touch</h4>
-        <p>Robert personally consults with every client. No automated bookings, no call centers — just one-on-one attention to make your vision a reality.</p>
-      </div>
-      <div class="val-card">
-        <h4>One Stop Shop</h4>
-        <p>Everything you need is in-house. Decor, linens, lighting, balloons, kitchen, bar — no scrambling to coordinate with outside vendors.</p>
-      </div>
-      <div class="val-card">
-        <h4>Your Vision First</h4>
-        <p>We don't impose a style. You tell us what you want, and we make it happen. Endless color combinations, layouts, and decor options — all included.</p>
-      </div>
-    </div>
-
-    <div style="text-align:center;margin-top:80px;" class="reveal">
-      <a href="/contact/" class="btn-primary">Schedule a Tour</a>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE">
-      <p>Snellville's premier event hall.</p>
-      <div class="footer-social">
-        <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">f</a>
-        <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">ig</a>
-      </div>
+<!-- STORY -->
+<section class="section" id="story">
+  <div class="wrap split split--story">
+    <div class="sticky reveal">
+      <span class="eyebrow">Our story</span>
+      <h2 class="h2" style="margin-top:20px">Thirty-five years of <em>Atlanta hospitality.</em></h2>
+      <p class="lede" style="margin-top:24px">What began as a catering company became two event halls, then one name. Through all of it, the work has been the same: hosting people well.</p>
     </div>
-    <div class="footer-links">
-      <div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div>
-      <div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a><a href="/contact/">Contact</a>
-        </div>
-      
+    <ol class="timeline reveal">
+      <li>
+        <span class="yr">1991</span>
+        <h3>Dedicaters Inc is founded</h3>
+        <p>Robert Pope forms Dedicaters Inc, the parent company of Inviting Events. Before founding it, he managed at several five-star hotels and restaurants throughout the Atlanta area.</p>
+      </li>
+      <li>
+        <span class="yr">2001</span>
+        <h3>The first event hall</h3>
+        <p>Dedicaters began as a catering company. In 2001 it opened its first event hall.</p>
+      </li>
+      <li>
+        <span class="yr">2004</span>
+        <h3>A second facility</h3>
+        <p>A second facility opens. The two later merge and become Inviting Events.</p>
+      </li>
+      <li>
+        <span class="yr"><em>Today</em></span>
+        <h3>Inviting Events</h3>
+        <p>Twenty-five years of hosting, for local residents and high-profile celebrities alike, and one of the premier event destinations in the Atlanta metro area.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- OWNER -->
+<section class="section paper">
+  <div class="wrap split">
+    <figure class="reveal">
+      <div class="frame owner__photo"><img src="/assets/media/photos/img-20251203-wa0027.webp" alt="Robert Pope with a guest at an event" width="986" height="1600" loading="lazy"></div>
+      <figcaption class="owner__cap"><strong>Robert Pope</strong><span>Owner</span></figcaption>
+    </figure>
+    <div class="reveal">
+      <span class="eyebrow">The owner</span>
+      <h2 class="h2" style="margin-top:20px">Robert Pope. <em>Bob, or Mr. Robert.</em></h2>
+      <div class="stack" style="margin-top:28px">
+        <p class="lede">Customers call him Bob, or Mr. Robert. He founded Dedicaters Inc in 1991 after managing at several five-star hotels and restaurants throughout the Atlanta area.</p>
+        <p>Today he walks clients through the rooms himself and builds each event around their vision.</p>
+      </div>
+      <figure class="pull">
+        <blockquote>&ldquo;Bob and his team were great. His customer service and attention to detail were top-notch.&rdquo;</blockquote>
+        <figcaption>Jevic Muteba <span>&middot; Google review</span></figcaption>
+      </figure>
     </div>
   </div>
-  <div class="footer-bottom">Inviting Events &copy; 2026. All rights reserved. <a href="/admin/" style="opacity:0.6;display:inline-flex;align-items:center;gap:5px;margin-left:12px;transition:opacity 0.3s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>   </div>
+</section>
+
+<!-- TEAM -->
+<section class="section">
+  <div class="wrap">
+    <div class="split" style="align-items:start">
+      <div class="sticky reveal">
+        <span class="eyebrow">The team</span>
+        <h2 class="h2" style="margin-top:20px">Set, served <em>and cleared.</em></h2>
+        <p class="lede" style="margin-top:24px">One team takes your event from the first linen to the last chair, so you get to be a guest at your own celebration.</p>
+        <figure class="pull">
+          <blockquote>&ldquo;Mr. Robert and Ali will make sure your event is one that you, your family and your friends will surely remember forever.&rdquo;</blockquote>
+          <figcaption>M G <span>&middot; Google review</span></figcaption>
+        </figure>
+      </div>
+      <div class="rows reveal">
+        <div><span class="num">01</span><h3>Setup</h3><p>Our attendants set the room to your plan, from the table layout to the linens, centerpieces and lighting.</p></div>
+        <div><span class="num">02</span><h3>Service</h3><p>Through the event they keep the buffet warm and the tables clear.</p></div>
+        <div><span class="num">03</span><h3>Clean-up</h3><p>When the night is over, our team breaks it all down.</p></div>
+        <div><span class="num">04</span><h3>In-house décor</h3><p>Linens, chargers, centerpieces, lighting and statement pieces in every color, kept in two warehouses of our own and ready for your theme.</p></div>
+      </div>
+    </div>
+    <figure class="linens reveal">
+      <div class="frame"><img src="/assets/media/photos/linens.webp" alt="Shelves of folded table linens in a range of colors" width="1800" height="706" loading="lazy"></div>
+      <figcaption><span>Linens in every color</span><span>Two warehouses of décor</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="cta__media"><img src="/assets/media/photos/img-20251203-wa0008.webp" alt="" loading="lazy"></div>
+  <div class="wrap reveal">
+    <span class="eyebrow eyebrow--plain">Tours by appointment</span>
+    <h2 class="h1">Come meet <em>Mr. Robert.</em></h2>
+    <p>Walk the rooms, see the décor in person and talk through your date. Call or text to set a time, or send a message and we'll reach out.</p>
+    <div class="hero__actions">
+      <a href="/contact/" class="btn btn--wine">Schedule a tour</a>
+      <a href="/gallery/" class="btn btn--line">View the gallery</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260" loading="lazy">
+        <p>A full-service event hall in Snellville, Georgia. Three ballrooms, a private lounge and every detail in house.</p>
+      </div>
+      <div>
+        <h4>Visit</h4>
+        <address>3485 Stone Mountain Hwy<br>Snellville, GA 30078</address>
+        <p class="muted" style="margin-top:10px">By appointment only</p>
+      </div>
+      <div>
+        <h4>Spaces</h4>
+        <ul>
+          <li><a href="/grand-ballroom/">Grand Ballroom</a></li>
+          <li><a href="/studio-78/">Studio 78</a></li>
+          <li><a href="/auxiliary-ballroom/">Auxiliary Ballroom</a></li>
+          <li><a href="/private-lounge/">Private Lounge &amp; Bar</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+16785178963">(678) 517-8963</a></li>
+          <li><a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a></li>
+          <li><a href="/contact/">Schedule a tour</a></li>
+          <li><a href="/pricing/">Pricing</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>&copy; 2026 Inviting Events. All rights reserved.</span>
+      <nav aria-label="Social">
+        <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">Facebook</a>
+        <a href="/admin/" aria-label="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>
+      </nav>
+    </div>
+  </div>
 </footer>
+
 <script src="/assets/js/global.js"></script>
-<script src="/assets/js/chat.js"></script>
+<script src="/assets/js/chat.js" defer></script>
 </body>
 </html>

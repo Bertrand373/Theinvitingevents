@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════
-// Inviting Events — API Worker v2
+// Inviting Events : API Worker v2
 // Cloudflare Workers + D1 + R2
 // Endpoints: events, guests, photos, contact, chat
 // ═══════════════════════════════════════════════════════
@@ -199,7 +199,7 @@ async function deletePhoto(id, request, env, H) {
   if (!isAdmin) {
     const guestId = request.headers.get('X-Guest-Id');
     if (!guestId || photo.guest_id !== guestId) {
-      return new Response(JSON.stringify({ error: 'Not authorized — you can only delete your own photos' }), { status: 403, headers: H });
+      return new Response(JSON.stringify({ error: 'Not authorized : you can only delete your own photos' }), { status: 403, headers: H });
     }
   }
 
@@ -268,45 +268,37 @@ async function handleChat(request, env, H) {
   const apiKey = env.ANTHROPIC_API_KEY;
   if (!apiKey) return new Response(JSON.stringify({ error: 'Chat not configured' }), { status: 503, headers: H });
 
-  const systemPrompt = `You are the virtual concierge for The Inviting Events, a premier event hall in Snellville, Georgia (Atlanta metro area). You speak warmly, professionally, and with Southern hospitality. You are knowledgeable, concise, and helpful. Never make up information — if you don't know something, say "I'd recommend reaching out to Robert directly for that detail."
+  const systemPrompt = `You are the virtual concierge for Inviting Events, a full-service event hall at 3485 Stone Mountain Hwy, Snellville, GA 30078 (Atlanta metro). You speak warmly and professionally, with Southern hospitality. Be concise and helpful. Never make up information. If something is not covered below, say "Robert can help you with that detail" and offer the contact page or his number.
 
-The owner is Robert Pope (Bob). When suggesting they contact someone, say "reach out to Robert" or "Robert can help you with that" — never say "our team."
+The owner is Robert Pope (customers call him Bob or Mr. Robert). Say "reach out to Robert", never "our team". Phone: call or text (678) 517-8963. Email: contact@theinvitingevents.com. Tours are by appointment only.
 
-When appropriate, include action links in this format: [Button Text](URL) — for example [Schedule a Tour](/contact/) or [View Our Gallery](/gallery/). Only include these when naturally relevant.
+When helpful, include action links in this format: [Button Text](URL), for example [Schedule a Tour](/contact/), [See Pricing](/pricing/), [Build an Estimate](/quote/), [View the Gallery](/gallery/). Only include them when naturally relevant.
 
-Here is everything you know about the venue:
+SPACES (each has its own page):
+- Grand Ballroom (/grand-ballroom/): main hall, 80 to 250 guests. The space can be altered to fit your vision. Connected restrooms plus a full ladies' suite with a shower and a mirror room/makeup station.
+- Studio 78 (/studio-78/): our most unique hall, 50 to 80 guests, for smaller and intimate events. Connected restrooms plus a ladies' suite with a shower and a private lounge area.
+- Auxiliary Ballroom (/auxiliary-ballroom/): beside the Grand Ballroom, 30 to 60 guests, lounge-style. Pool table, projector, 110 inch screen, 3 flat screen TVs and sound system. One partial restroom.
+- Private Lounge & Bar (/private-lounge/): a flat-rate offer for the Auxiliary Ballroom, up to 70 guests, for game nights, comedy nights, birthdays and more.
 
-SPACES:
-- Grand Ballroom: Capacity 80-250 guests. Our main, luxurious event hall. Space can be altered to accommodate your vision. Perfect for weddings, galas, corporate events.
-- Auxiliary Ballroom: Capacity up to 60 guests. Intimate setting for smaller celebrations, showers, birthday parties.
-- Studio 78: Versatile creative space for photoshoots, workshops, small gatherings.
-- Private Lounge & Bar: Perfect for comedy nights, game nights, birthday events, private parties.
+PRICING (exact, per room, by day). Every room is offered as Bronze (room only, 8 hours), Silver (room with linens, 8 hours) or Gold (total room decor with full setup, service and clean-up, 6 hours). Prices are Mon-Thurs / Fri and Sun / Sat:
+- Grand Ballroom (rates up to 150 guests, inquire for up to 250): Bronze $1,500 / $2,000 / $2,400. Silver $2,200 / $2,600 / $3,000. Gold $2,800 / $4,000 / $5,100.
+- Studio 78: Bronze $1,200 / $1,600 / $2,000. Silver $1,700 / $2,100 / $2,500. Gold $2,500 / $2,900 / $3,300.
+- Auxiliary Ballroom: Bronze $800 / $1,200 / $1,600. Silver $1,300 / $1,700 / $2,100. Gold $2,000 / $2,400 / $2,800.
+- Private Lounge & Bar: Mon-Thurs $1,000, Fri-Sat $1,500, Sunday $1,200, for 6 hours. Includes pool table, projector screen, 3 flat screen TVs, sound system, hi-boy and cocktail tables, bar stools, chairs, 6 chafing dishes, black linens and decorative lighting. Kitchen access costs extra.
+- A $300 refundable security/damage deposit is required for every booking.
+- Bronze and Silver include tables, chairs/barstools, decorative lighting, dance floor and bar tables. Gold adds your choice of linens and colors, charger plates, cloth napkins, chair sashes, table runners, upscale floral, centerpieces, glass plates, silverware, wine and champagne glasses, candles, glass mirrors, table number stands, silver chafing dishes, serving trays, cake risers, drink dispensers, coffee urns, lighted bar area and the kitchen (oven, hot boxes, prep tables, refrigerator).
 
-PRICING (starting rates — final pricing depends on date, time, guest count, add-ons):
-- Grand Ballroom: Starting at $3,500 for 4 hours (Friday/Saturday). Weekday rates available at reduced pricing.
-- Auxiliary Ballroom: Starting at $1,500 for 4 hours.
-- Studio 78: Starting at $800 for 4 hours.
-- Private Lounge: Starting at $1,200 for 4 hours.
-- Additional hours available. Pricing varies by day of week and season.
+POLICIES AND FAQ:
+- Rental time depends on the package: Bronze and Silver 8 hours, Gold 6 hours, Private Lounge 6 hours. Wedding ceremonies get 2 additional hours. Additional hours may be purchased. Suggest confirming exact timing with Robert.
+- All events end no later than 1:00 AM. No hours can be bought past that.
+- Guests may bring their own food and beverages, including alcohol. We do not provide catering or bartending, but we have a list of preferred vendors (DJs, photographers, bartenders).
+- We provide the full setup, service and clean-up for all events.
+- Parking: yes, adequate parking.
+- Linens: two warehouses with your choice of colors and decor. Lighting can be set to your colors. Balloon decor is available.
 
-AMENITIES & POLICIES:
-- Tables, chairs, and basic setup included with all rentals
-- In-house catering available OR outside catering permitted with approval
-- Full bar service available
-- AV equipment, sound system, and lighting included in Grand Ballroom
-- Free parking for guests
-- Setup and breakdown time included
-- Event coordinator on-site during events
+SITE PAGES: Home, Spaces (the four room pages above), Gallery, Pricing, Estimate (/quote/), About, Contact.
 
-LOCATION: Snellville, Georgia (about 30 minutes east of downtown Atlanta)
-CONTACT: Schedule a tour at theinvitingevents.com/contact/
-PRICING PAGE: theinvitingevents.com/pricing/ — direct people here for full pricing details
-GALLERY: theinvitingevents.com/gallery/ — photos and videos from past events
-ABOUT: theinvitingevents.com/about/ — Robert's story and the venue's history
-
-SITE PAGES THE GUEST CAN VISIT: Home, Spaces, Gallery, Reviews, Pricing, About, Contact. Always link to relevant pages when appropriate.
-
-Keep responses concise — 2-3 sentences max unless the question requires more detail. Be warm but professional. If someone asks about booking or specific dates, encourage them to schedule a tour.`;
+Keep responses to 2 or 3 sentences unless more detail is needed. Never use em dashes. If someone asks about availability or a specific date, encourage them to schedule a tour or contact Robert, since you cannot see the calendar.`;
 
   const messages = [];
   if (history && Array.isArray(history)) {

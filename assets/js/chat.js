@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════
-// Inviting Events — AI Concierge Chat Widget
+// Inviting Events : AI Concierge Chat Widget
 // Add to any page: <script src="/assets/js/chat.js"></script>
 // ═══════════════════════════════════════════
 (function(){
@@ -10,17 +10,18 @@ let isOpen = false;
 // Inject CSS
 const style = document.createElement('style');
 style.textContent = `
-.ie-chat-fab{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:#611f1d;border:1px solid rgba(255,255,240,0.12);color:#fffff0;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(97,31,29,0.4);transition:all 0.3s;opacity:1}
+.ie-chat-fab{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:#611f1d;border:1px solid rgba(243,237,227,0.12);color:#f3ede3;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(97,31,29,0.4);transition:all 0.3s;opacity:1}
+body.menu-open .ie-chat-fab,body.lightbox-open .ie-chat-fab{opacity:0!important;pointer-events:none!important}
 .ie-chat-fab:hover{background:#7a2522;transform:scale(1.06)}
 .ie-chat-fab:active{transform:scale(0.95)}
 .ie-chat-fab svg{width:24px;height:24px;transition:transform 0.3s}
 .ie-chat-fab.open svg{transform:rotate(90deg)}
 @media(max-width:480px){.ie-chat-fab{bottom:24px;right:20px;width:48px;height:48px}.ie-chat-fab svg{width:22px;height:22px}}
 
-.ie-chat-overlay{position:fixed;inset:0;background:rgba(6,6,6,0.5);z-index:9998;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.ie-chat-overlay{position:fixed;inset:0;background:rgba(13,11,10,0.55);z-index:9998;opacity:0;pointer-events:none;transition:opacity 0.3s;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .ie-chat-overlay.open{opacity:1;pointer-events:all}
 
-.ie-chat-sheet{position:fixed;bottom:0;right:0;z-index:9999;width:100%;max-width:400px;height:70vh;max-height:600px;background:rgba(13,13,13,0.85);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-top:1px solid rgba(255,255,255,0.06);border-left:1px solid rgba(255,255,255,0.06);border-radius:20px 20px 0 0;display:flex;flex-direction:column;transform:translateY(calc(100% + 100px));transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);overflow:hidden;visibility:hidden}
+.ie-chat-sheet{position:fixed;bottom:0;right:0;z-index:9999;width:100%;max-width:400px;height:70vh;max-height:600px;background:rgba(20,17,15,0.96);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);border-top:1px solid rgba(255,255,255,0.06);border-left:1px solid rgba(255,255,255,0.06);border-radius:20px 20px 0 0;display:flex;flex-direction:column;transform:translateY(calc(100% + 100px));transition:transform 0.4s cubic-bezier(0.32,0.72,0,1);overflow:hidden;visibility:hidden}
 .ie-chat-sheet.open{transform:translateY(0);visibility:visible}
 .ie-chat-sheet.closing{transition:transform 0.3s cubic-bezier(0.4,0,1,1);transform:translateY(calc(100% + 100px));visibility:visible}
 @media(min-width:481px){.ie-chat-sheet{right:28px;bottom:92px;border-radius:16px;border:1px solid rgba(255,255,255,0.06);max-height:520px;height:auto;min-height:400px;box-shadow:0 12px 48px rgba(0,0,0,0.5)}}
@@ -30,34 +31,34 @@ style.textContent = `
 .ie-chat-avatar{width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ie-chat-avatar img{width:28px;height:28px;opacity:0.85}
 .ie-chat-head-info{flex:1}
-.ie-chat-head-title{font-family:'Julius Sans One',sans-serif;font-size:0.5rem;letter-spacing:2px;color:rgba(255,255,240,0.4)}
-.ie-chat-head-sub{font-family:'Cardo',serif;font-size:0.95rem;color:#fffff0}
-.ie-chat-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,240,0.04);border:1px solid rgba(255,255,240,0.08);color:#fffff0;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ie-chat-head-title{font-family:'Inter',sans-serif;text-transform:uppercase;font-weight:500;font-size:0.62rem;letter-spacing:0.18em;color:rgba(243,237,227,0.5)}
+.ie-chat-head-sub{font-family:'Cormorant Garamond',serif;font-size:1.3rem;line-height:1.2;color:#f3ede3}
+.ie-chat-close{width:32px;height:32px;border-radius:50%;background:rgba(243,237,227,0.04);border:1px solid rgba(243,237,227,0.08);color:#f3ede3;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ie-chat-close svg{width:14px;height:14px}
 
 .ie-chat-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;position:relative}
-.ie-chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-family:'Questrial',sans-serif;font-size:0.88rem;line-height:1.5;animation:ie-msg-in 0.3s ease}
+.ie-chat-msg{max-width:85%;padding:10px 14px;border-radius:12px;font-family:'Inter',sans-serif;font-size:0.88rem;line-height:1.5;animation:ie-msg-in 0.3s ease}
 @keyframes ie-msg-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.ie-chat-msg.bot{align-self:flex-start;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:rgba(255,255,240,0.85);border-bottom-left-radius:4px}
-.ie-chat-msg .ie-chat-btn{display:inline-block;margin-top:8px;padding:8px 16px;background:#611f1d;color:#fffff0;border-radius:4px;font-family:'Julius Sans One',sans-serif;font-size:0.55rem;letter-spacing:2px;text-decoration:none;transition:all 0.2s;border:1px solid rgba(255,255,240,0.1)}
+.ie-chat-msg.bot{align-self:flex-start;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);color:rgba(243,237,227,0.85);border-bottom-left-radius:4px}
+.ie-chat-msg .ie-chat-btn{display:inline-block;margin-top:8px;padding:8px 16px;background:#611f1d;color:#f3ede3;border-radius:4px;font-family:'Inter',sans-serif;text-transform:uppercase;font-weight:500;font-size:0.66rem;letter-spacing:0.14em;text-decoration:none;transition:all 0.2s;border:1px solid rgba(243,237,227,0.1)}
 .ie-chat-msg .ie-chat-btn:hover{background:#7a2522;box-shadow:0 4px 16px rgba(97,31,29,0.4)}
-.ie-chat-msg.user{align-self:flex-end;background:#611f1d;color:#fffff0;border-bottom-right-radius:4px}
-.ie-chat-msg.typing{color:rgba(255,255,240,0.3)}
+.ie-chat-msg.user{align-self:flex-end;background:#611f1d;color:#f3ede3;border-bottom-right-radius:4px}
+.ie-chat-msg.typing{color:rgba(243,237,227,0.3)}
 .ie-chat-msg.typing span{animation:ie-dots 1.4s infinite}
 .ie-chat-msg.typing span:nth-child(2){animation-delay:0.2s}
 .ie-chat-msg.typing span:nth-child(3){animation-delay:0.4s}
 @keyframes ie-dots{0%,80%,100%{opacity:0.3}40%{opacity:1}}
 
 .ie-chat-input-wrap{padding:12px;border-top:1px solid rgba(255,255,255,0.04);display:flex;gap:8px;flex-shrink:0}
-.ie-chat-input{flex:1;padding:10px 14px;background:rgba(255,255,240,0.04);border:1px solid rgba(255,255,240,0.08);border-radius:24px;color:#fffff0;font-family:'Questrial',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.3s}
+.ie-chat-input{flex:1;padding:10px 14px;background:rgba(243,237,227,0.04);border:1px solid rgba(243,237,227,0.08);border-radius:24px;color:#f3ede3;font-family:'Inter',sans-serif;font-size:0.88rem;outline:none;transition:border-color 0.3s}
 .ie-chat-input:focus{border-color:#611f1d}
-.ie-chat-input::placeholder{color:rgba(255,255,240,0.2)}
-.ie-chat-send{width:38px;height:38px;border-radius:50%;background:#611f1d;border:none;color:#fffff0;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
+.ie-chat-input::placeholder{color:rgba(243,237,227,0.2)}
+.ie-chat-send{width:38px;height:38px;border-radius:50%;background:#611f1d;border:none;color:#f3ede3;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0}
 .ie-chat-send:hover{background:#7a2522}
 .ie-chat-send:disabled{opacity:0.3;cursor:default}
 .ie-chat-send svg{width:16px;height:16px}
 
-.ie-chat-footer{padding:6px 12px 10px;text-align:center;font-size:0.62rem;color:rgba(255,255,240,0.15);font-family:'Questrial',sans-serif;flex-shrink:0}
+.ie-chat-footer{padding:6px 12px 10px;text-align:center;font-size:0.62rem;color:rgba(243,237,227,0.15);font-family:'Inter',sans-serif;flex-shrink:0}
 `;
 document.head.appendChild(style);
 
@@ -70,7 +71,7 @@ container.innerHTML = `
 <div class="ie-chat-overlay" id="ie-chat-overlay"></div>
 <div class="ie-chat-sheet" id="ie-chat-sheet">
   <div class="ie-chat-head">
-    <div class="ie-chat-avatar"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE"></div>
+    <div class="ie-chat-avatar"><img src="/assets/media/brand/monogram.png" alt="IE"></div>
     <div class="ie-chat-head-info">
       <div class="ie-chat-head-title">Inviting Events</div>
       <div class="ie-chat-head-sub">Concierge</div>
@@ -78,7 +79,7 @@ container.innerHTML = `
     <button class="ie-chat-close" id="ie-chat-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="ie-chat-messages" id="ie-chat-messages">
-    <div class="ie-chat-msg bot">Hi there! Ask me anything about our spaces, pricing, or availability.</div>
+    <div class="ie-chat-msg bot">Hello. Ask me about our rooms, rates or planning your event.</div>
   </div>
   <div class="ie-chat-input-wrap">
     <input class="ie-chat-input" id="ie-chat-input" type="text" placeholder="Ask about pricing, rooms, availability..." autocomplete="off">
@@ -92,28 +93,6 @@ document.body.appendChild(container);
 if (window.location.pathname.startsWith('/admin') || window.location.pathname.startsWith('/live')) {
   document.getElementById('ie-chat-fab').style.display = 'none';
 } else {
-
-// Fix mobile nav scroll lock (override global toggleNav)
-if (typeof window.toggleNav === 'function') {
-  const _origToggleNav = window.toggleNav;
-  window.toggleNav = function() {
-    _origToggleNav();
-    const navOpen = document.querySelector('.nav-links').classList.contains('open');
-    document.body.classList.toggle('nav-open', navOpen);
-  };
-}
-// Hide duplicate "Schedule a Tour" text link permanently, show button after fold
-const _navCta = document.querySelector('.nav-cta');
-const _navLinks = document.querySelectorAll('.nav-links a');
-_navLinks.forEach(a => { if (a.textContent.trim().toLowerCase().includes('schedule')) a.parentElement.style.display = 'none'; });
-if (_navCta) {
-  _navCta.style.opacity = '0'; _navCta.style.pointerEvents = 'none'; _navCta.style.transition = 'opacity 0.3s';
-  window.addEventListener('scroll', () => {
-    const past = window.scrollY > window.innerHeight * 0.85;
-    _navCta.style.opacity = past ? '1' : '0';
-    _navCta.style.pointerEvents = past ? 'auto' : 'none';
-  });
-}
 
 // Elements
 const fab = document.getElementById('ie-chat-fab');

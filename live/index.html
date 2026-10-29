@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#060606">
-<title>Guest Portal — Inviting Events</title>
+<title>Guest Portal | Inviting Events</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Julius+Sans+One&family=Questrial&display=swap" rel="stylesheet">
-<link rel="icon" href="/assets/images/favicon.png">
-<link rel="stylesheet" href="/assets/css/global.css">
+<link rel="icon" href="/assets/media/brand/favicon-32.png">
+<link rel="stylesheet" href="/assets/css/app.css">
 <style>
 body::before{content:'';position:fixed;top:-30%;left:-10%;width:600px;height:600px;background:radial-gradient(circle,var(--burg-glow) 0%,transparent 70%);pointer-events:none;z-index:0;animation:drift 20s ease-in-out infinite alternate}
 body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:500px;background:radial-gradient(circle,rgba(122,182,72,0.08) 0%,transparent 70%);pointer-events:none;z-index:0;animation:drift 25s ease-in-out infinite alternate-reverse}
@@ -128,7 +128,7 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
 <body>
 
 <nav id="navbar">
-  <a href="/" class="nav-logo"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/04/inviting-events-logo-cropped-1-1.png" alt="Inviting Events"></a>
+  <a href="/" class="nav-logo"><img src="/assets/media/brand/logo.png" alt="Inviting Events"></a>
   <button class="nav-toggle" onclick="toggleNav()"><span></span><span></span><span></span></button>
   <ul class="nav-links">
     <li><a href="/">Home</a></li><li><a href="/#ballrooms">Spaces</a></li><li><a href="/gallery/">Gallery</a></li><li><a href="/#reviews">Reviews</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/about/">About</a></li>
@@ -183,7 +183,7 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
   </div>
 
   <div class="screen" id="screen-checkin">
-    <div class="checkin-icon"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE"></div>
+    <div class="checkin-icon"><img src="/assets/media/brand/monogram.png" alt="IE"></div>
     <div class="sec-tag" style="text-align:center;margin-bottom:14px">Guest Portal</div>
     <h1 class="checkin-title">Welcome to <em style="font-style:italic;color:var(--cream70)">Your Event</em></h1>
     <p class="checkin-sub">Check in to share photos and browse the live event feed</p>
@@ -206,16 +206,16 @@ body::after{content:'';position:fixed;bottom:-20%;right:-10%;width:500px;height:
     <div class="photo-grid" id="photo-grid"></div>
     <div class="empty-state" id="empty-feed" style="display:none">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-      <p>No photos yet — be the first!<br><span style="color:var(--cream40);font-size:0.78rem">Tap the upload button to share a moment</span></p>
+      <p>No photos yet. Be the first!<br><span style="color:var(--cream40);font-size:0.78rem">Tap the upload button to share a moment</span></p>
     </div>
   </div>
 </div>
 
-<footer><div class="footer-inner"><div class="footer-brand"><img src="https://www.theinvitingevents.com/wp-content/uploads/2024/05/Inviting-Events-favicon-2.png" alt="IE"><p>Snellville's premier event hall.</p><div class="footer-social"><a href="https://www.facebook.com/invitingevents2/" target="_blank">f</a><a href="https://www.instagram.com/invitingevents/" target="_blank">ig</a></div></div><div class="footer-links"><div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div><div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a><a href="/contact/">Contact</a>
+<footer><div class="footer-inner"><div class="footer-brand"><img src="/assets/media/brand/monogram.png" alt="IE"><p>Snellville's premier event hall.</p><div class="footer-social"><a href="https://www.facebook.com/invitingevents2/" target="_blank">f</a><a href="https://www.instagram.com/invitingevents/" target="_blank">ig</a></div></div><div class="footer-links"><div class="footer-col"><h5>Spaces</h5><a href="/gallery/#grand">Grand Ballroom</a><a href="/gallery/#aux">Auxiliary Ballroom</a><a href="/gallery/#studio78">Studio 78</a></div><div class="footer-col"><h5>Info</h5><a href="/pricing/">Pricing</a><a href="/gallery/">Gallery</a><a href="/about/">About</a><a href="/contact/">Contact</a>
         </div></div></div><div class="footer-bottom">Inviting Events © 2026. All rights reserved. <a href="/admin/" style="opacity:0.6;display:inline-flex;align-items:center;gap:5px;margin-left:12px;transition:opacity 0.3s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>   </div></footer>
 
 <script>
-function toggleNav(){document.querySelector('.nav-toggle').classList.toggle('open');document.querySelector('.nav-links').classList.toggle('open')document.body.classList.toggle('nav-open');}
+function toggleNav(){document.querySelector('.nav-toggle').classList.toggle('open');document.querySelector('.nav-links').classList.toggle('open');document.body.classList.toggle('nav-open');}
 window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40)});
 
 const API_BASE='https://ie-api.fancy-brook-a8e8.workers.dev/api';let currentEvent=null,guestToken=null,guestId=null,selectedFiles=[],currentTab='all',feedInterval=null;
@@ -232,7 +232,7 @@ async function checkActiveEvent(){
     if(!r.ok)throw 0;
     const data=await r.json();
 
-    // Multiple concurrent events — show picker
+    // Multiple concurrent events: show picker
     if(data.multiple){
       const cards=document.getElementById('event-cards');
       cards.innerHTML=data.events.map(e=>{
@@ -250,7 +250,7 @@ async function checkActiveEvent(){
     if(currentEvent.status==='upcoming'&&currentEvent.start_time){
       const st=new Date(currentEvent.start_time);
       const timeStr=st.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'});
-      document.getElementById('event-badge').textContent=`${currentEvent.name} — Begins at ${timeStr}`;
+      document.getElementById('event-badge').textContent=`${currentEvent.name} · Begins at ${timeStr}`;
     }
 
     if(currentEvent.status==='ended'){
@@ -268,7 +268,7 @@ function pickEvent(evt){
   document.getElementById('event-badge').textContent=currentEvent.name;
   if(guestToken){enterFeed(currentEvent.status==='ended')}else showScreen('screen-checkin');
 }
-function demoMode(){currentEvent={id:'demo',name:'Smith Wedding Reception — Grand Ballroom',status:'active'};document.getElementById('event-badge').textContent=currentEvent.name;showScreen('screen-checkin')}
+function demoMode(){currentEvent={id:'demo',name:'Smith Wedding Reception · Grand Ballroom',status:'active'};document.getElementById('event-badge').textContent=currentEvent.name;showScreen('screen-checkin')}
 function googleSignIn(){showToast('Google Sign-In coming soon')}
 
 function enterFeed(readOnly){

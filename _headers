@@ -1,0 +1,21 @@
+# Cloudflare Pages response headers
+
+/assets/media/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/assets/css/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/assets/js/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/admin/*
+  X-Robots-Tag: noindex
+  Cache-Control: no-store
+
+/live/*
+  X-Robots-Tag: noindex

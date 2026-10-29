@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="/assets/css/global.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="nav" data-solid>
   <div class="wrap nav__inner">
@@ -31,7 +32,7 @@
 <div class="menu" id="menu">
   <ul>
     <li><a href="/">Home</a></li>
-    <li><a href="/#spaces">Spaces <small>4 rooms</small></a></li>
+    <li><a href="/#spaces">Spaces</a></li>
     <li><a href="/gallery/">Gallery</a></li>
     <li><a href="/pricing/">Pricing</a></li>
     <li><a href="/about/">About</a></li>
@@ -43,13 +44,12 @@
   </div>
 </div>
 
-<main>
+<main id="main">
 <section class="page-hero page-hero--plain" style="padding-bottom:clamp(96px,12vw,160px)">
   <div class="hero__content">
     <div class="wrap">
-      <span class="eyebrow">Page not found</span>
-      <h1 class="h1">This page has <em>moved on.</em></h1>
-      <p class="lede" style="margin-top:24px">The link may be from our old website. Everything is still here, just in a new place.</p>
+      <h1 class="h1">Page not found</h1>
+      <p class="lede" style="margin-top:24px">The link may be from our old website. Use the links below to find the rooms or get in touch.</p>
       <div class="hero__actions">
         <a href="/" class="btn btn--wine">Back to home</a>
         <a href="/#spaces" class="link">See the spaces</a>
@@ -65,15 +65,15 @@
     <div class="footer__top">
       <div class="footer__brand">
         <img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260" loading="lazy">
-        <p>A full-service event hall in Snellville, Georgia. Three ballrooms, a private lounge and every detail in house.</p>
+        <p>Three ballrooms and a private lounge on Stone Mountain Highway in Snellville, Georgia.</p>
       </div>
       <div>
-        <h4>Visit</h4>
+        <p class="footer__title">Visit</p>
         <address>3485 Stone Mountain Hwy<br>Snellville, GA 30078</address>
         <p class="muted" style="margin-top:10px">By appointment only</p>
       </div>
       <div>
-        <h4>Spaces</h4>
+        <p class="footer__title">Spaces</p>
         <ul>
           <li><a href="/grand-ballroom/">Grand Ballroom</a></li>
           <li><a href="/studio-78/">Studio 78</a></li>
@@ -82,7 +82,7 @@
         </ul>
       </div>
       <div>
-        <h4>Contact</h4>
+        <p class="footer__title">Contact</p>
         <ul>
           <li><a href="tel:+16785178963">(678) 517-8963</a></li>
           <li><a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a></li>
@@ -96,7 +96,7 @@
       <nav aria-label="Social">
         <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">Facebook</a>
-        <a href="/admin/" aria-label="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>
+        <a href="/admin/" class="footer__admin" aria-label="Admin sign in" title="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       </nav>
     </div>
   </div>

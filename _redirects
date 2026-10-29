@@ -1,8 +1,23 @@
-# Cloudflare Pages _redirects
-# These handle clean URLs and legacy WordPress redirects
+# Cloudflare Pages redirects
 
-# Old contact form path (if any bookmarks exist)
+# Clean URLs without the trailing slash
 /contact   /contact/   301
 /pricing   /pricing/   301
 /gallery   /gallery/   301
 /about     /about/     301
+/quote     /quote/     301
+
+# Old WordPress pages that are still in search results
+/resources/               /                 301
+/746-2/                   /                 301
+/hello-world/             /                 301
+/category/*               /                 301
+/feed/                    /                 301
+/wp-admin/*               /                 301
+/wp-login.php             /                 301
+
+# Project files that are not part of the website
+/workers/*                /                 301
+/tools/*                  /                 301
+/functions/*              /                 301
+/README.md                /                 301

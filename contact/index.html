@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Contact and Tours | Inviting Events, Snellville GA</title>
+<title>Contact and Tours | Inviting Events, Snellville, GA</title>
 <meta name="description" content="Schedule a tour of Inviting Events in Snellville, Georgia. Send Robert a message or call or text (678) 517-8963. Rooms are shown by appointment only.">
 <link rel="canonical" href="https://theinvitingevents.com/contact/">
 <meta property="og:type" content="website">
@@ -11,6 +11,8 @@
 <meta property="og:description" content="Schedule a tour of our ballrooms and private lounge in Snellville, Georgia.">
 <meta property="og:image" content="https://theinvitingevents.com/assets/media/brand/og.jpg">
 <meta property="og:url" content="https://theinvitingevents.com/contact/">
+<meta property="og:site_name" content="Inviting Events">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0d0b0a">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/brand/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/media/brand/apple-touch-icon.png">
@@ -21,7 +23,7 @@
 <style>
 .contact { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(48px, 8vw, 128px); align-items: start; }
 .contact__aside { display: grid; gap: 36px; padding-top: 6px; }
-.contact__aside h3 { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory-40); margin-bottom: 10px; }
+.contact__aside h3 { font-size: 0.875rem; font-weight: 400; color: var(--ivory-60); margin-bottom: 8px; }
 .contact__aside .big { font-family: var(--serif); font-size: clamp(1.6rem, 2.4vw, 2rem); line-height: 1.2; color: var(--ivory); }
 .contact__aside .big:hover { color: var(--gold); }
 .contact__aside address { font-style: normal; color: var(--ivory-80); }
@@ -31,6 +33,10 @@
 .form__error.is-shown { display: block; }
 .form__error a { color: var(--ivory); border-bottom: 1px solid var(--line-2); }
 .btn[disabled] { opacity: 0.55; cursor: progress; }
+.field .req { color: var(--ivory-40); }
+.field__msg { font-size: 0.875rem; line-height: 1.5; color: var(--gold); }
+.field__msg[hidden] { display: none; }
+.field input[aria-invalid="true"] { border-bottom-color: var(--gold); }
 .thanks { display: none; padding: clamp(36px, 5vw, 56px) 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .thanks.is-shown { display: block; }
 .thanks p { margin-top: 18px; max-width: 32em; color: var(--ivory-80); }
@@ -46,6 +52,7 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="nav" data-solid>
   <div class="wrap nav__inner">
@@ -63,7 +70,7 @@
 <div class="menu" id="menu">
   <ul>
     <li><a href="/">Home</a></li>
-    <li><a href="/#spaces">Spaces <small>4 rooms</small></a></li>
+    <li><a href="/#spaces">Spaces</a></li>
     <li><a href="/gallery/">Gallery</a></li>
     <li><a href="/pricing/">Pricing</a></li>
     <li><a href="/about/">About</a></li>
@@ -75,13 +82,12 @@
   </div>
 </div>
 
-<main>
+<main id="main">
 
 <section class="page-hero page-hero--plain">
   <div class="hero__content">
     <div class="wrap">
-      <span class="eyebrow">Contact</span>
-      <h1 class="h1">Let's plan your <em>event.</em></h1>
+      <h1 class="h1">Schedule a tour</h1>
       <p class="lede" style="margin-top:24px">Our rooms are shown by appointment only. Send a note and Robert will reach out to set up your walkthrough, or call or text him directly.</p>
     </div>
   </div>
@@ -92,8 +98,8 @@
 
     <div>
       <form class="form" id="contactForm" novalidate>
-        <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
-        <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-name">Your name <span class="req">(required)</span></label><input id="f-name" name="name" type="text" autocomplete="name" required><p class="field__msg" id="f-name-msg" hidden></p></div>
+        <div class="field"><label for="f-email">Email <span class="req">(required)</span></label><input id="f-email" name="email" type="email" autocomplete="email" required><p class="field__msg" id="f-email-msg" hidden></p></div>
         <div class="field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
         <div class="field">
           <label for="f-type">Type of event</label>
@@ -118,8 +124,8 @@
             <option value="">Select</option>
             <option>Under 50</option>
             <option>50 to 80</option>
-            <option>80 to 150</option>
-            <option>150 to 250</option>
+            <option>81 to 150</option>
+            <option>151 to 250</option>
             <option>Over 250</option>
           </select>
         </div>
@@ -143,8 +149,7 @@
       </form>
 
       <div class="thanks" id="thanks" tabindex="-1">
-        <span class="eyebrow">Message sent</span>
-        <h2 class="h2" style="margin-top:20px">Thank you<span id="thanksName"></span>.</h2>
+        <h2 class="h2">Thank you<span id="thanksName"></span>.</h2>
         <p>Robert has your message and will reach out soon to set up your tour. If your date is close, call or text <a href="tel:+16785178963">(678) 517-8963</a>.</p>
         <p><a href="/gallery/">Browse the gallery</a> while you wait.</p>
       </div>
@@ -159,7 +164,7 @@
         <a class="link" style="margin-top:16px" href="https://www.google.com/maps/search/?api=1&amp;query=Inviting+Events+3485+Stone+Mountain+Hwy+Snellville+GA+30078" target="_blank" rel="noopener">Directions</a>
       </div>
       <div><h3>Hours</h3><p>By appointment only. Messages sent after hours are answered the next day.</p></div>
-      <div><h3>Pricing first?</h3><a class="link" href="/quote/">Build an estimate</a></div>
+      <div><h3>Prices</h3><a class="link" href="/quote/">Build an estimate</a></div>
     </aside>
 
   </div>
@@ -167,14 +172,13 @@
 
 <section class="section section--ink2">
   <div class="wrap wrap--narrow">
-    <span class="eyebrow reveal">Questions</span>
-    <h2 class="h2 reveal" style="margin:20px 0 48px">We have a few <em>answers.</em></h2>
+    <h2 class="h2 reveal" style="margin:20px 0 48px">Questions</h2>
     <div class="faq reveal">
-      <details><summary>How much time do I get for an event?</summary><p>Six hours in total, with two additional hours for a wedding ceremony. Additional hours may be purchased, so reach out to us for details.</p></details>
+      <details><summary>How much time do I get for an event?</summary><p>Bronze and Silver include eight hours, because you handle your own setup, decorating and cleanup. Gold includes six hours, since our staff does the setup and cleanup for you. Wedding ceremonies get two additional hours, and more time can be purchased.</p></details>
       <details><summary>Can I bring my own food?</summary><p>Yes. You may bring your own food and beverages, including alcohol.</p></details>
-      <details><summary>Can I rent a hall without decorations and service?</summary><p>No. We provide the full setup, service and clean-up for every event.</p></details>
+      <details><summary>Can I rent a hall without decorations and service?</summary><p>Yes. With Bronze (room only) or Silver (room with linens), you decorate, set up and clean up yourself. With Gold, our staff takes care of the décor, setup, service and cleanup.</p></details>
       <details><summary>How late can an event last?</summary><p>All events end no later than 1:00 AM. Additional hours cannot be purchased past that time.</p></details>
-      <details><summary>Is there enough parking?</summary><p>Yes.</p></details>
+      <details><summary>Is there enough parking?</summary><p>Yes. There is parking on site for your guests.</p></details>
       <details><summary>Can I stop by anytime to see the facility?</summary><p>The rooms are shown by appointment only. Call Robert at <a href="tel:+16785178963" style="color:var(--ivory)">(678) 517-8963</a> to set a time.</p></details>
       <details><summary>Will I have a choice of linen colors?</summary><p>Yes. We have two warehouses with your choice of color and décor.</p></details>
     </div>
@@ -188,15 +192,15 @@
     <div class="footer__top">
       <div class="footer__brand">
         <img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260" loading="lazy">
-        <p>A full-service event hall in Snellville, Georgia. Three ballrooms, a private lounge and every detail in house.</p>
+        <p>Three ballrooms and a private lounge on Stone Mountain Highway in Snellville, Georgia.</p>
       </div>
       <div>
-        <h4>Visit</h4>
+        <p class="footer__title">Visit</p>
         <address>3485 Stone Mountain Hwy<br>Snellville, GA 30078</address>
         <p class="muted" style="margin-top:10px">By appointment only</p>
       </div>
       <div>
-        <h4>Spaces</h4>
+        <p class="footer__title">Spaces</p>
         <ul>
           <li><a href="/grand-ballroom/">Grand Ballroom</a></li>
           <li><a href="/studio-78/">Studio 78</a></li>
@@ -205,11 +209,11 @@
         </ul>
       </div>
       <div>
-        <h4>Contact</h4>
+        <p class="footer__title">Contact</p>
         <ul>
           <li><a href="tel:+16785178963">(678) 517-8963</a></li>
           <li><a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a></li>
-          <li><a href="/contact/">Schedule a tour</a></li>
+          <li><a href="/contact/" aria-current="page">Schedule a tour</a></li>
           <li><a href="/pricing/">Pricing</a></li>
         </ul>
       </div>
@@ -219,7 +223,7 @@
       <nav aria-label="Social">
         <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">Facebook</a>
-        <a href="/admin/" aria-label="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>
+        <a href="/admin/" class="footer__admin" aria-label="Admin sign in" title="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       </nav>
     </div>
   </div>
@@ -250,8 +254,34 @@
   pick(roomEl, params.get('room'));
   pick(document.getElementById('f-type'), params.get('type'));
   const g = parseInt(params.get('guests'), 10);
-  if (g) document.getElementById('f-guests').value = g < 50 ? 'Under 50' : g <= 80 ? '50 to 80' : g <= 150 ? '80 to 150' : g <= 250 ? '150 to 250' : 'Over 250';
+  if (g) document.getElementById('f-guests').value = g < 50 ? 'Under 50' : g <= 80 ? '50 to 80' : g <= 150 ? '81 to 150' : g <= 250 ? '151 to 250' : 'Over 250';
   if (params.get('msg')) document.getElementById('f-msg').value = params.get('msg').slice(0, 300) + '\n\n';
+
+  // Per-field validation for the two required fields
+  const checks = [
+    { el: nameEl, msg: document.getElementById('f-name-msg'), test: el => el.value.trim() ? '' : 'Please add your name.' },
+    { el: emailEl, msg: document.getElementById('f-email-msg'), test: el => !el.value.trim() ? 'Please add your email so Robert can reply.' : el.checkValidity() ? '' : 'Please check your email address. It should look like name@example.com.' }
+  ];
+  let tried = false;
+  function mark(c) {
+    const problem = c.test(c.el);
+    if (problem) {
+      c.msg.textContent = problem;
+      c.msg.hidden = false;
+      c.el.setAttribute('aria-invalid', 'true');
+      c.el.setAttribute('aria-describedby', c.msg.id);
+    } else {
+      c.msg.textContent = '';
+      c.msg.hidden = true;
+      c.el.removeAttribute('aria-invalid');
+      c.el.removeAttribute('aria-describedby');
+    }
+    return !problem;
+  }
+  checks.forEach(c => {
+    c.el.addEventListener('input', () => { if (tried) mark(c); });
+    c.el.addEventListener('blur', () => { if (tried) mark(c); });
+  });
 
   function fail(msg, offerContact) {
     err.innerHTML = msg + (offerContact ? ' Please call or text <a href="tel:+16785178963">(678) 517-8963</a> or email <a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a>.' : '');
@@ -261,9 +291,12 @@
   form.addEventListener('submit', async e => {
     e.preventDefault();
     err.classList.remove('is-shown');
-    if (!nameEl.value.trim() || !emailEl.value.trim() || !emailEl.checkValidity()) {
-      fail('Please add your name and a valid email so Robert can reply.');
-      (nameEl.value.trim() ? emailEl : nameEl).focus();
+    tried = true;
+    const bad = checks.filter(c => !mark(c));
+    if (bad.length) {
+      const first = bad[0].el;
+      first.focus({ preventScroll: true });
+      first.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
       return;
     }
 

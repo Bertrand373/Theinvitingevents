@@ -4,13 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Build an Estimate | Inviting Events, Snellville, GA</title>
-<meta name="description" content="Answer six quick questions to see a starting price for your event at Inviting Events in Snellville, GA. Choose your ballroom, package, day and guest count.">
+<meta name="description" content="See a starting price for your event at Inviting Events in Snellville, GA. Choose your guest count, room, package and day.">
 <link rel="canonical" href="https://theinvitingevents.com/quote/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Build an Estimate | Inviting Events, Snellville, GA">
-<meta property="og:description" content="Six quick questions, one starting price for your event.">
+<meta property="og:description" content="See a starting price for your event at Inviting Events in Snellville, GA.">
 <meta property="og:image" content="https://theinvitingevents.com/assets/media/brand/og.jpg">
 <meta property="og:url" content="https://theinvitingevents.com/quote/">
+<meta property="og:site_name" content="Inviting Events">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0d0b0a">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/brand/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/media/brand/apple-touch-icon.png">
@@ -20,102 +22,177 @@
 <link rel="stylesheet" href="/assets/css/global.css">
 <style>
 .builder { max-width: 1000px; }
-.builder-section { padding: clamp(56px, 7vw, 96px) 0 var(--space); }
+.builder-section { padding: clamp(40px, 6vw, 80px) 0 var(--space); }
+.sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* Progress */
-.prog { display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
-.pd { padding-top: 14px; border-top: 1px solid var(--line-2); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-40); transition: border-color 0.4s var(--ease), color 0.4s var(--ease); }
+.prog { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 6px; }
+.pd { padding-top: 12px; border-top: 2px solid var(--line-2); font-size: 0.8rem; line-height: 1.3; color: var(--ivory-40); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pd.dn { border-top-color: var(--ivory-60); color: var(--ivory-60); }
 .pd.on { border-top-color: var(--gold); color: var(--ivory); }
-.si { margin-top: clamp(48px, 6vw, 72px); }
 
-/* Question */
-.q { margin: 18px 0 clamp(32px, 4vw, 48px); font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.1; color: var(--ivory); letter-spacing: -0.01em; text-wrap: balance; }
+/* Step */
+.stage { margin-top: clamp(32px, 5vw, 56px); }
+.stage.in { animation: q-in 0.32s var(--ease) both; }
+@keyframes q-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.si { font-size: 0.875rem; color: var(--ivory-60); }
+.q { margin-top: 10px; font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 3.6vw, 3rem); line-height: 1.1; color: var(--ivory); letter-spacing: -0.01em; text-wrap: balance; scroll-margin-top: calc(var(--nav-h) + 24px); }
+.q:focus { outline: none; }
+.qs { margin-top: 14px; max-width: 38em; color: var(--ivory-60); }
+.qs strong { font-weight: 500; color: var(--ivory); }
+.grid { display: grid; gap: 12px; margin-top: clamp(28px, 4vw, 40px); }
+.g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.g5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 
-/* Options */
-.opts { display: grid; gap: 12px; }
-.opts.c3 { grid-template-columns: repeat(3, 1fr); }
-.gc, .ev {
-  display: block; width: 100%; text-align: left; color: var(--ivory-80);
-  border: 1px solid var(--line-2); border-radius: 2px; background: transparent;
-  transition: border-color 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease);
+/* Choices: selected = ivory fill + wine check. Unavailable = dashed, dimmed, with a reason. */
+.opt {
+  position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 100%;
+  text-align: left; color: var(--ivory-80); background: transparent;
+  border: 1px solid var(--line-2); border-radius: 2px;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent; font-variant-numeric: lining-nums;
+  transition: border-color 0.25s var(--ease); /* fill and text switch together, so a selection never flashes dark on dark */
 }
-.gc { padding: 28px 26px 30px; }
-.gc:hover, .ev:hover { border-color: var(--ivory-60); color: var(--ivory); }
-.gc.sel, .ev.sel { border-color: var(--gold); background: var(--ink-2); color: var(--ivory); }
-.gc-t { display: block; font-family: var(--serif); font-size: clamp(1.5rem, 2.2vw, 1.85rem); line-height: 1.15; color: var(--ivory); }
-.gc-s { display: block; margin-top: 10px; font-size: 0.92rem; color: var(--ivory-60); line-height: 1.55; }
-.gc-cap { display: block; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+.opt::after {
+  content: ''; position: absolute; top: 14px; right: 14px; width: 22px; height: 22px; border-radius: 50%;
+  border: 1px solid var(--line-2); background: transparent center / 12px no-repeat;
+}
+.opt[aria-pressed="true"] { background: var(--ivory); border-color: var(--ivory); color: var(--char); }
+.opt[aria-pressed="true"]::after {
+  border-color: var(--wine); background-color: var(--wine);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23f3ede3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E");
+}
+.opt[aria-disabled="true"] { border-style: dashed; color: var(--ivory-40); cursor: not-allowed; }
+.opt[aria-disabled="true"]::after { display: none; }
+@media (hover: hover) {
+  .opt:not([aria-pressed="true"]):not([aria-disabled="true"]):hover { border-color: var(--ivory-60); color: var(--ivory); }
+  .opt:not([aria-pressed="true"]):not([aria-disabled="true"]):hover::after { border-color: var(--ivory-60); }
+}
 
-.eg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-.ev { padding: 22px 22px; font-family: var(--serif); font-size: 1.35rem; line-height: 1.2; }
+/* Event type chips */
+.ev { justify-content: center; min-height: 72px; padding: 16px 44px 16px 18px; font-family: var(--serif); font-size: 1.3rem; line-height: 1.2; color: var(--ivory); }
+.ev::after { top: 50%; margin-top: -11px; }
+.ev[aria-pressed="true"] { color: var(--char); }
 
-/* Tier cards */
-.tl { display: block; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-.td { display: block; margin-top: 12px; font-family: var(--serif); font-style: italic; font-size: 1.6rem; line-height: 1.15; color: var(--ivory); }
-.tf { display: block; margin-top: 22px; border-top: 1px solid var(--line); }
-.tf span { display: block; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 0.88rem; color: var(--ivory-60); line-height: 1.45; }
+/* Room, package and day cards */
+.card { padding: 24px 52px 26px 24px; }
+.ct { display: block; font-family: var(--serif); font-size: clamp(1.5rem, 2.2vw, 1.85rem); line-height: 1.15; color: var(--ivory); }
+.cm { display: block; margin-top: 6px; font-size: 0.95rem; color: var(--ivory-80); }
+.cd { display: block; margin-top: 12px; font-size: 0.92rem; line-height: 1.55; color: var(--ivory-60); }
+.cp { display: block; margin-top: auto; padding-top: 18px; font-size: 0.92rem; color: var(--ivory-60); }
+.cp strong { font-family: var(--serif); font-weight: 400; font-size: 1.9rem; line-height: 1; color: var(--ivory); font-variant-numeric: lining-nums; }
+.why { display: block; margin-top: auto; padding-top: 18px; font-size: 0.92rem; color: var(--gold); }
+.opt[aria-pressed="true"] .ct, .opt[aria-pressed="true"] .cp strong { color: var(--char); }
+.opt[aria-pressed="true"] .cm, .opt[aria-pressed="true"] .cd, .opt[aria-pressed="true"] .cp { color: var(--char-2); }
+.opt[aria-disabled="true"] .ct, .opt[aria-disabled="true"] .cm { color: var(--ivory-60); }
+.opt[aria-disabled="true"] .cd { color: var(--ivory-40); }
+.cd + .cp, .cm + .cp { margin-top: 0; }
+.day .cp strong { font-size: 2.2rem; }
 
-/* Day price */
-.dp { display: block; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line); font-family: var(--serif); font-size: 2.2rem; line-height: 1; color: var(--ivory); font-variant-numeric: lining-nums; }
+/* Note above a grid */
+.note { margin-top: 20px; padding-left: 16px; border-left: 2px solid var(--gold); font-size: 0.95rem; line-height: 1.6; color: var(--ivory-80); max-width: 40em; }
+.note a { color: var(--ivory); border-bottom: 1px solid var(--line-2); }
 
-/* Guest slider */
-.sw { max-width: 520px; }
-.gn { font-family: var(--serif); font-size: clamp(4.5rem, 9vw, 6.5rem); line-height: 1; color: var(--ivory); font-variant-numeric: lining-nums tabular-nums; }
-.gt { margin: 10px 0 40px; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); }
-input[type="range"] { -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 32px; background: transparent; cursor: pointer; }
-input[type="range"]::-webkit-slider-runnable-track { height: 1px; background: var(--line-2); }
-input[type="range"]::-moz-range-track { height: 1px; background: var(--line-2); }
-input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -11px; border-radius: 50%; background: var(--ivory); border: 0; }
-input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--ivory); border: 0; }
-input[type="range"]:focus-visible { outline: 1px solid var(--gold); outline-offset: 6px; }
-.rl { display: flex; justify-content: space-between; margin-top: 8px; font-size: 0.75rem; color: var(--ivory-40); font-variant-numeric: lining-nums; }
+/* Guest count */
+.gw { max-width: 560px; margin-top: clamp(28px, 4vw, 40px); }
+.gctl { display: flex; align-items: center; gap: 16px; }
+.gb { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border: 1px solid var(--line-2); border-radius: 50%; color: var(--ivory); touch-action: manipulation; -webkit-tap-highlight-color: transparent; transition: border-color 0.25s var(--ease), background 0.25s var(--ease); }
+.gb:active { background: var(--ink-3); }
+@media (hover: hover) { .gb:hover { border-color: var(--ivory-60); } }
+.gn { width: 3.2ch; min-width: 0; padding: 0; text-align: center; font-family: var(--serif); font-size: clamp(4.25rem, 9vw, 6.25rem); line-height: 1.05; color: var(--ivory); background: transparent; border: 0; border-bottom: 1px solid var(--line-2); border-radius: 0; font-variant-numeric: lining-nums tabular-nums; -webkit-appearance: none; appearance: none; }
+.gn:focus { outline: none; border-bottom-color: var(--gold); }
+.gn[aria-invalid="true"] { border-bottom-color: var(--wine-2); }
+.gu { font-size: 0.95rem; color: var(--ivory-60); }
+.range { margin-top: 28px; }
+input[type="range"] { -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 44px; background: transparent; cursor: pointer; touch-action: pan-y; }
+input[type="range"]::-webkit-slider-runnable-track { height: 2px; background: var(--line-2); }
+input[type="range"]::-moz-range-track { height: 2px; background: var(--line-2); }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; margin-top: -13px; border-radius: 50%; background: var(--ivory); border: 0; }
+input[type="range"]::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; background: var(--ivory); border: 0; }
+input[type="range"]:focus { outline: none; }
+input[type="range"]:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.rl { display: flex; justify-content: space-between; margin-top: 4px; font-size: 0.8rem; color: var(--ivory-40); font-variant-numeric: lining-nums; }
+.fit { margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--line); font-size: 0.95rem; line-height: 1.6; color: var(--ivory-80); }
 
 /* Estimate */
-.est { margin-top: 24px; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); border: 1px solid var(--line-2); }
-.est-top { padding: clamp(32px, 4vw, 52px); background: var(--ink-2); border-right: 1px solid var(--line-2); display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
-.el { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-.ep { margin-top: 18px; font-family: var(--serif); font-size: clamp(3.6rem, 7vw, 5.4rem); line-height: 1; color: var(--ivory); font-variant-numeric: lining-nums; }
-.en { margin-top: 16px; font-size: 0.88rem; color: var(--ivory-60); max-width: 22em; }
-.est-body { padding: clamp(28px, 4vw, 48px); }
-.dr { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 13px 0; border-bottom: 1px solid var(--line); }
+.est { margin-top: clamp(28px, 4vw, 40px); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); border: 1px solid var(--line-2); }
+.est-top { padding: clamp(28px, 4vw, 52px); background: var(--ink-2); border-right: 1px solid var(--line-2); display: flex; flex-direction: column; justify-content: space-between; gap: 32px; }
+.el { font-size: 0.95rem; color: var(--gold); }
+.ep { margin-top: 14px; font-family: var(--serif); font-size: clamp(3.4rem, 7vw, 5.2rem); line-height: 1; color: var(--ivory); font-variant-numeric: lining-nums; }
+.ep--q { font-size: clamp(2.2rem, 4.4vw, 3.2rem); line-height: 1.08; text-wrap: balance; }
+.en { font-size: 0.92rem; line-height: 1.6; color: var(--ivory-60); max-width: 24em; }
+.est-body { padding: clamp(24px, 4vw, 48px); }
+.dl { margin: 0; }
+.dr { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--line); }
 .dr:first-child { padding-top: 0; }
-.dk { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); }
-.dv { font-variant-numeric: lining-nums; font-family: var(--serif); font-size: 1.25rem; line-height: 1.2; color: var(--ivory); text-align: right; }
-.dep, .oc { margin-top: 20px; font-size: 0.88rem; line-height: 1.6; color: var(--ivory-60); }
-.oc { padding-left: 16px; border-left: 1px solid var(--gold); color: var(--ivory-80); }
-.qcta { width: 100%; margin-top: 32px; }
-.cta-s { margin-top: 14px; font-size: 0.82rem; color: var(--ivory-60); text-align: center; }
+.dk { flex: none; font-size: 0.9rem; color: var(--ivory-60); }
+.dv { margin: 0; font-family: var(--serif); font-size: 1.25rem; line-height: 1.25; color: var(--ivory); text-align: right; font-variant-numeric: lining-nums; }
+.notes { list-style: none; margin-top: 22px; }
+.notes li { padding: 4px 0; font-size: 0.92rem; line-height: 1.6; color: var(--ivory-60); }
+.notes li.oc { margin: 6px 0; padding: 2px 0 2px 14px; border-left: 2px solid var(--gold); color: var(--ivory-80); }
+.qcta { width: 100%; margin-top: 28px; touch-action: manipulation; }
+.cta-s { margin-top: 12px; font-size: 0.85rem; color: var(--ivory-60); text-align: center; }
 
 /* Step controls */
-.qnav { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-top: clamp(40px, 5vw, 56px); padding-top: 28px; border-top: 1px solid var(--line); }
-.bb { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); padding: 12px 0; transition: color 0.3s; }
+.qnav { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-top: clamp(36px, 5vw, 56px); padding-top: 24px; border-top: 1px solid var(--line); }
+.bb { display: inline-flex; align-items: center; min-height: 48px; padding: 0 8px 0 0; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); transition: color 0.3s; touch-action: manipulation; }
 .bb::before { content: '\2190'; margin-right: 10px; letter-spacing: 0; }
-.bb:hover { color: var(--ivory); }
-.bn:disabled { opacity: 0.32; cursor: default; }
-.bn:disabled:hover { background: var(--wine); border-color: var(--wine); }
+@media (hover: hover) { .bb:hover { color: var(--ivory); } }
+.bn { min-width: 200px; touch-action: manipulation; }
+.bn[aria-disabled="true"] { opacity: 0.4; cursor: default; }
+.bn[aria-disabled="true"]:hover { background: var(--wine); border-color: var(--wine); }
+.hint { min-height: 1.6em; margin-top: 12px; font-size: 0.9rem; color: var(--gold); text-align: right; }
+.hint:empty { margin-top: 0; min-height: 0; }
 
-.aside { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px 32px; margin-top: clamp(72px, 9vw, 112px); padding-top: 28px; border-top: 1px solid var(--line); font-size: 0.9rem; color: var(--ivory-60); }
-.aside nav { display: flex; flex-wrap: wrap; gap: 20px 32px; }
+.aside { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 32px; margin-top: clamp(64px, 9vw, 112px); padding-top: 28px; border-top: 1px solid var(--line); font-size: 0.9rem; color: var(--ivory-60); }
+.aside nav { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 32px; }
+.txt { padding: 10px 0; font-size: 0.9rem; color: var(--ivory-60); text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 4px; touch-action: manipulation; }
+@media (hover: hover) { .txt:hover { color: var(--ivory); text-decoration-color: var(--ivory-60); } }
+.txt[hidden] { display: none; }
 
+@media (max-width: 900px) {
+  .g5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 @media (max-width: 760px) {
-  .opts.c3 { grid-template-columns: 1fr; }
-  .est { grid-template-columns: 1fr; }
-  .est-top { border-right: 0; border-bottom: 1px solid var(--line-2); gap: 0; }
+  .g3, .g2 { grid-template-columns: minmax(0, 1fr); }
+  .est { grid-template-columns: minmax(0, 1fr); }
+  .est-top { border-right: 0; border-bottom: 1px solid var(--line-2); gap: 20px; }
+  .day { flex-direction: row; align-items: baseline; justify-content: space-between; gap: 16px; padding: 20px 52px 20px 20px; }
+  .day::after { top: 50%; margin-top: -11px; }
+  .day .cp { margin: 0; padding: 0; text-align: right; white-space: nowrap; }
+  .day .cp strong { font-size: 1.9rem; }
+  .day .ct { font-size: 1.45rem; }
 }
 @media (max-width: 560px) {
   .pd { font-size: 0; padding-top: 0; }
-  .eg { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .ev { padding: 18px 16px; font-size: 1.2rem; }
-  .gc { padding: 22px 20px 24px; }
-  .day-opts .gc { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
-  .day-opts .gc-s { display: none; }
-  .day-opts .dp { margin-top: 0; padding-top: 0; border-top: 0; font-size: 1.9rem; }
-  .qnav .bn { flex: 1; max-width: 260px; }
+  .grid { gap: 10px; }
+  .opt::after { top: 12px; right: 12px; }
+  .ev { min-height: 64px; padding: 12px 38px 12px 14px; font-size: 1.15rem; }
+  .ev::after { top: 50%; right: 10px; width: 20px; height: 20px; margin-top: -10px; }
+  .card { padding: 20px 48px 22px 18px; }
+  .day { padding: 18px 46px 18px 18px; }
+  .day::after { top: 50%; }
+  .qnav .bn { flex: 1; min-width: 0; max-width: 240px; padding-left: 18px; padding-right: 18px; }
+  .hint { text-align: left; }
+  .gctl { gap: 10px; }
+  .gb { width: 48px; height: 48px; }
+  .dr { flex-wrap: wrap; gap: 2px 16px; }
+}
+@media (max-width: 400px) {
+  .gu { display: none; }
+}
+@media (max-width: 360px) {
+  .ev { font-size: 1.05rem; padding-right: 34px; }
+  .day .ct { font-size: 1.3rem; }
+  .day .cp strong { font-size: 1.65rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .stage.in { animation: none; }
 }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="nav" data-solid>
   <div class="wrap nav__inner">
@@ -133,7 +210,7 @@ input[type="range"]:focus-visible { outline: 1px solid var(--gold); outline-offs
 <div class="menu" id="menu">
   <ul>
     <li><a href="/">Home</a></li>
-    <li><a href="/#spaces">Spaces <small>4 rooms</small></a></li>
+    <li><a href="/#spaces">Spaces</a></li>
     <li><a href="/gallery/">Gallery</a></li>
     <li><a href="/pricing/">Pricing</a></li>
     <li><a href="/about/">About</a></li>
@@ -145,28 +222,30 @@ input[type="range"]:focus-visible { outline: 1px solid var(--gold); outline-offs
   </div>
 </div>
 
-<main>
+<main id="main">
 
 <section class="page-hero page-hero--plain">
   <div class="hero__content">
     <div class="wrap builder">
-      <span class="eyebrow">Estimate</span>
-      <h1 class="h1">Build your <em>estimate.</em></h1>
-      <p class="lede" style="margin-top:28px">Answer a few quick questions to receive a starting price for your event. Robert will personally follow up to discuss the details.</p>
+      <h1 class="h1">Build an estimate</h1>
+      <p class="lede" style="margin-top:28px">Answer a few questions to see a starting price for your event. Robert confirms final pricing when you talk.</p>
     </div>
   </div>
 </section>
 
-<section class="builder-section" id="builder">
+<section class="builder-section" id="builder" aria-label="Estimate builder">
   <div class="wrap builder">
     <div class="prog" id="prog" aria-hidden="true"></div>
-    <div class="si eyebrow" id="si" aria-live="polite"></div>
-    <div id="ct"></div>
+    <div class="stage" id="ct">
+      <noscript><p class="qs">The estimate builder needs JavaScript. You can see every rate on the <a class="link" href="/pricing/">pricing page</a>.</p></noscript>
+    </div>
     <div class="qnav" id="nv"></div>
+    <p class="hint" id="hint" role="status" aria-live="polite"></p>
 
     <div class="aside">
-      <span>Starting rates, confirmed with Robert after your consultation.</span>
+      <span>Starting rates, confirmed with Robert at your tour.</span>
       <nav aria-label="More">
+        <button type="button" class="txt" id="so" hidden>Start over</button>
         <a href="/pricing/" class="link">See all rates</a>
         <a href="tel:+16785178963" class="link">(678) 517-8963</a>
       </nav>
@@ -181,15 +260,15 @@ input[type="range"]:focus-visible { outline: 1px solid var(--gold); outline-offs
     <div class="footer__top">
       <div class="footer__brand">
         <img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260" loading="lazy">
-        <p>A full-service event hall in Snellville, Georgia. Three ballrooms, a private lounge and every detail in house.</p>
+        <p>Three ballrooms and a private lounge on Stone Mountain Highway in Snellville, Georgia.</p>
       </div>
       <div>
-        <h4>Visit</h4>
+        <p class="footer__title">Visit</p>
         <address>3485 Stone Mountain Hwy<br>Snellville, GA 30078</address>
         <p class="muted" style="margin-top:10px">By appointment only</p>
       </div>
       <div>
-        <h4>Spaces</h4>
+        <p class="footer__title">Spaces</p>
         <ul>
           <li><a href="/grand-ballroom/">Grand Ballroom</a></li>
           <li><a href="/studio-78/">Studio 78</a></li>
@@ -198,7 +277,7 @@ input[type="range"]:focus-visible { outline: 1px solid var(--gold); outline-offs
         </ul>
       </div>
       <div>
-        <h4>Contact</h4>
+        <p class="footer__title">Contact</p>
         <ul>
           <li><a href="tel:+16785178963">(678) 517-8963</a></li>
           <li><a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a></li>
@@ -212,7 +291,7 @@ input[type="range"]:focus-visible { outline: 1px solid var(--gold); outline-offs
       <nav aria-label="Social">
         <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">Facebook</a>
-        <a href="/admin/" aria-label="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>
+        <a href="/admin/" class="footer__admin" aria-label="Admin sign in" title="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       </nav>
     </div>
   </div>
@@ -220,154 +299,441 @@ input[type="range"]:focus-visible { outline: 1px solid var(--gold); outline-offs
 
 <script src="/assets/js/global.js"></script>
 <script>
-const PR = {
-  'Grand Ballroom': {
-    Bronze:{'Mon – Thurs':1500,'Fri & Sun':2000,Saturday:2400},
-    Silver:{'Mon – Thurs':2200,'Fri & Sun':2600,Saturday:3000},
-    Gold:{'Mon – Thurs':2800,'Fri & Sun':4000,Saturday:5100}
-  },
-  'Auxiliary Ballroom': {
-    Bronze:{'Mon – Thurs':800,'Fri & Sun':1200,Saturday:1600},
-    Silver:{'Mon – Thurs':1300,'Fri & Sun':1700,Saturday:2100},
-    Gold:{'Mon – Thurs':2000,'Fri & Sun':2400,Saturday:2800}
-  },
-  'Studio 78': {
-    Bronze:{'Mon – Thurs':1200,'Fri & Sun':1600,Saturday:2000},
-    Silver:{'Mon – Thurs':1700,'Fri & Sun':2100,Saturday:2500},
-    Gold:{'Mon – Thurs':2500,'Fri & Sun':2900,Saturday:3300}
-  }
-};
-const CA = {'Grand Ballroom':{mn:80,mx:250,st:150},'Auxiliary Ballroom':{mn:30,mx:60,st:50},'Studio 78':{mn:30,mx:80,st:60}};
-const T=6;
-const STEPS=['Event','Room','Package','Day','Guests','Estimate'];
-let S={s:0,ev:null,rm:null,ti:null,dy:null,g:100};
+(function () {
+  // Rooms, in the order they are offered. min and max are the guest counts each room is sized for.
+  var ROOMS = {
+    'Grand Ballroom': { min: 80, max: 250, cap: '80 to 250 guests', def: 120,
+      about: "Restrooms connected, plus a full ladies' suite with a shower and a mirror room with a makeup station." },
+    'Studio 78': { min: 50, max: 80, cap: '50 to 80 guests', def: 65,
+      about: "Its own ladies' suite and lounge area." },
+    'Auxiliary Ballroom': { min: 30, max: 60, cap: '30 to 60 guests', def: 45,
+      about: 'Next to the Grand Ballroom. Pool table, projector with a 110-inch screen, 3 flat-screen TVs and a sound system.' },
+    'Private Lounge & Bar': { min: 1, max: 60, cap: 'Up to 60 guests', def: 40, lounge: true,
+      about: 'A flat-rate special in the Auxiliary Ballroom for 6 hours, with the pool table, screens and sound. Not all-inclusive.' }
+  };
+  var ROOM_NAMES = Object.keys(ROOMS);
+  var RATE_CAP = 150; // Grand Ballroom posted rates cover up to 150 guests. Above that, no price is shown.
+  var QUOTED = 'Rates for more than 150 guests are quoted in person at a tour.';
 
-function go(){
-  let h='';
-  for(let i=0;i<T;i++){
-    h+=`<div class="pd ${i<S.s?'dn':i===S.s?'on':''}">${STEPS[i]}</div>`;
-  }
-  document.getElementById('prog').innerHTML=h;
-  document.getElementById('si').textContent=`Step ${S.s+1} of ${T} · ${STEPS[S.s]}`;
+  // Prices by day: [Mon to Thurs, Fri and Sun, Saturday]
+  var DAYS = ['Mon to Thurs', 'Fri and Sun', 'Saturday'];
+  var PR = {
+    'Grand Ballroom':     { Bronze: [1500, 2000, 2400], Silver: [2200, 2600, 3000], Gold: [2800, 4000, 5100] },
+    'Studio 78':          { Bronze: [1200, 1600, 2000], Silver: [1700, 2100, 2500], Gold: [2500, 2900, 3300] },
+    'Auxiliary Ballroom': { Bronze: [800, 1200, 1600],  Silver: [1300, 1700, 2100], Gold: [2000, 2400, 2800] }
+  };
+  // Lounge flat rates: [Mon to Thurs, Sunday, Fri and Sat]
+  var LDAYS = ['Mon to Thurs', 'Sunday', 'Fri and Sat'];
+  var LP = [1000, 1200, 1500];
+  var DAY_PHRASE = { 'Mon to Thurs': 'a Monday to Thursday', 'Fri and Sun': 'a Friday or Sunday', 'Saturday': 'a Saturday', 'Sunday': 'a Sunday', 'Fri and Sat': 'a Friday or Saturday' };
 
-  const el=document.getElementById('ct');
-  el.style.opacity='0'; el.style.transform='translateY(8px)';
-  setTimeout(()=>{
-    el.innerHTML=[rEv,rRm,rTi,rDy,rGu,rEs][S.s]();
-    el.style.transition='opacity 0.35s ease, transform 0.35s ease';
-    el.style.opacity='1'; el.style.transform='translateY(0)';
-    if(S.s===4){
-      const sl=document.getElementById('gSl');
-      if(sl) sl.oninput=e=>{S.g=+e.target.value;document.getElementById('gN').textContent=S.g;};
+  var PK = {
+    Bronze: { hrs: 8, title: 'Room only', about: '8 hours. You handle setup, decorating and cleanup.' },
+    Silver: { hrs: 8, title: 'Room with linens', about: 'Table linens in your colors. 8 hours. You handle setup, decorating and cleanup.' },
+    Gold:   { hrs: 6, title: 'Total room décor', about: '6 hours. We handle setup, service and cleanup.' }
+  };
+  var PK_NAMES = ['Bronze', 'Silver', 'Gold'];
+
+  // Must match the contact form's event type options exactly.
+  var TYPES = ['Wedding', 'Birthday', 'Sweet 16 or Quinceañera', 'Baby or bridal shower', 'Anniversary', 'Reunion', 'Graduation', 'Corporate', 'Repass', 'Other'];
+
+  var GMIN = 10, GMAX = 250, GDEF = 100;
+  var KEY = 'ie-estimate';
+  var LABEL = { event: 'Event', guests: 'Guests', room: 'Room', package: 'Package', day: 'Day', estimate: 'Estimate' };
+  var LOCK_MS = 400;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var prog = $('prog'), ct = $('ct'), nv = $('nv'), hint = $('hint'), so = $('so'), builder = $('builder');
+  var calm = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+  var lockUntil = 0;
+  var guestDraftBad = false;
+
+  function fresh() { return { s: 'event', ev: null, g: GDEF, gSet: false, rm: null, ti: null, dy: null }; }
+  var S = fresh();
+
+  // ---------- helpers ----------
+  function esc(v) { return String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function money(n) { return '$' + n.toLocaleString('en-US'); }
+  function inRoom(rm) { return rm === 'Studio 78' ? 'Studio 78' : 'the ' + rm; }
+  function TheRoom(rm) { return rm === 'Studio 78' ? 'Studio 78' : 'The ' + rm; }
+  function isLounge(rm) { rm = rm === undefined ? S.rm : rm; return !!(rm && ROOMS[rm] && ROOMS[rm].lounge); }
+  function days() { return isLounge() ? LDAYS : DAYS; }
+  function fits(rm, g) { return g <= ROOMS[rm].max; }
+  function roomy(rm, g) { return g < ROOMS[rm].min; }
+  function roomOk() { return !!S.rm && fits(S.rm, S.g); }
+  function overCap() { return S.rm === 'Grand Ballroom' && S.g > RATE_CAP; }
+  function path() { return isLounge() ? ['event', 'guests', 'room', 'day', 'estimate'] : ['event', 'guests', 'room', 'package', 'day', 'estimate']; }
+  function price(rm, ti, di) { return isLounge(rm) ? LP[di] : PR[rm][ti][di]; }
+  function listJoin(a) { return a.length < 2 ? a.join('') : a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1]; }
+
+  function done(id) {
+    switch (id) {
+      case 'event': return TYPES.indexOf(S.ev) > -1;
+      case 'guests': return !guestDraftBad && S.g >= GMIN && S.g <= GMAX;
+      case 'room': return roomOk();
+      case 'package': return isLounge() || PK_NAMES.indexOf(S.ti) > -1;
+      case 'day': return days().indexOf(S.dy) > -1;
     }
-  },120);
+    return true;
+  }
+  // The furthest step we may show for a requested step: stops at the first unfinished step before it.
+  function clampStep(id) {
+    var p = path(), i = p.indexOf(id);
+    if (i < 0) i = id === 'package' ? p.indexOf('day') : 0;
+    for (var k = 0; k < i; k++) if (!done(p[k])) return p[k];
+    return p[i];
+  }
 
-  const nv=document.getElementById('nv');
-  if(S.s===T-1){nv.innerHTML=`<button type="button" class="bb" onclick="bk()">Back</button><button type="button" class="btn btn--line bn" onclick="rs()">Start over</button>`;return;}
-  const ok=(S.s===0&&S.ev)||(S.s===1&&S.rm)||(S.s===2&&S.ti)||(S.s===3&&S.dy)||(S.s===4);
-  nv.innerHTML=`${S.s>0?'<button type="button" class="bb" onclick="bk()">Back</button>':'<div></div>'}
-    <button type="button" class="btn btn--wine bn" ${ok?'':'disabled'} onclick="nx()">${S.s===4?'See estimate':'Continue'}</button>`;
-}
+  // ---------- persistence ----------
+  function save() { try { sessionStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+  function load() {
+    var o = null;
+    try { o = JSON.parse(sessionStorage.getItem(KEY) || 'null'); } catch (e) {}
+    if (!o || typeof o !== 'object') return;
+    var n = fresh();
+    if (TYPES.indexOf(o.ev) > -1) n.ev = o.ev;
+    var g = parseInt(o.g, 10);
+    if (g >= GMIN && g <= GMAX) { n.g = g; n.gSet = !!o.gSet; }
+    if (ROOM_NAMES.indexOf(o.rm) > -1) n.rm = o.rm;
+    if (PK_NAMES.indexOf(o.ti) > -1) n.ti = o.ti;
+    if (typeof o.dy === 'string') n.dy = o.dy;
+    if (LABEL[o.s]) n.s = o.s;
+    S = n;
+    if (days().indexOf(S.dy) < 0) S.dy = null;
+  }
+  function matchRoom(q) {
+    if (!q) return null;
+    q = q.trim().toLowerCase();
+    if (q.length < 4) return null;
+    for (var i = 0; i < ROOM_NAMES.length; i++) {
+      var n = ROOM_NAMES[i].toLowerCase();
+      if (n === q || n.indexOf(q) === 0) return ROOM_NAMES[i];
+    }
+    return null;
+  }
 
-// Bring the top of the builder into view (only scrolls up, never down)
-function up(){
-  const b=document.getElementById('builder');
-  const navH=(document.querySelector('.nav')||{}).offsetHeight||0;
-  const y=b.getBoundingClientRect().top+window.scrollY-navH-8;
-  if(window.scrollY>y) window.scrollTo({top:y,behavior:'smooth'});
-}
-function nx(){if(S.s<T-1){S.s++;go();up();}}
-function bk(){if(S.s>0){S.s--;go();up();}}
-function rs(){S={s:0,ev:null,rm:null,ti:null,dy:null,g:100};go();up();}
-function pk(k,v){S[k]=v;go();}
+  // ---------- views ----------
+  function head(id, title, sub) {
+    var p = path(), i = p.indexOf(id);
+    return '<p class="si" aria-hidden="true">Step ' + (i + 1) + ' of ' + p.length + ' · ' + LABEL[id] + '</p>' +
+      '<h2 class="q" id="qh" tabindex="-1">' + title + '<span class="sr" id="qstep">, step ' + (i + 1) + ' of ' + p.length + '</span></h2>' +
+      (sub ? '<p class="qs" id="qs">' + sub + '</p>' : '');
+  }
 
-function rEv(){
-  const t=['Wedding','Birthday','Corporate','Graduation','Baby Shower','Repass','Anniversary','Reunion','Other'];
-  return `<h2 class="q">What type of event are you planning?</h2>
-    <div class="eg">${t.map(x=>`<button type="button" class="ev ${S.ev===x?'sel':''}" aria-pressed="${S.ev===x}" onclick="pk('ev','${x}')">${x}</button>`).join('')}</div>`;
-}
+  function vEvent() {
+    return head('event', 'What kind of event are you planning?') +
+      '<div class="grid g5" role="group" aria-labelledby="qh">' + TYPES.map(function (t) {
+        return '<button type="button" class="opt ev" data-pick="ev" data-val="' + esc(t) + '" aria-pressed="' + (S.ev === t) + '">' + esc(t) + '</button>';
+      }).join('') + '</div>';
+  }
 
-function rRm(){
-  const r=[
-    {n:'Grand Ballroom',c:'80 to 250 guests',d:'Our main, luxurious event hall'},
-    {n:'Studio 78',c:'50 to 80 guests',d:'Unique setting for private events'},
-    {n:'Auxiliary Ballroom',c:'30 to 60 guests',d:'Intimate lounge with pool table & projector'}
-  ];
-  return `<h2 class="q">Which ballroom interests you?</h2>
-    <div class="opts c3">${r.map(x=>`
-      <button type="button" class="gc ${S.rm===x.n?'sel':''}" aria-pressed="${S.rm===x.n}" onclick="pk('rm','${x.n}');S.g=${CA[x.n].st};">
-        <span class="gc-t">${x.n}</span>
-        <span class="gc-s">${x.d}</span>
-        <span class="gc-cap">${x.c}</span>
-      </button>`).join('')}</div>`;
-}
+  var MINUS = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14"/></svg>';
+  var PLUS = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>';
 
-function rTi(){
-  const t=[
-    {k:'Bronze',c:'tb',d:'Room only',l:['8 hours rental time','Tables & chairs','Decorative lighting','Dance floor','Bar tables']},
-    {k:'Silver',c:'ts',d:'Room with linens',l:['Everything in Bronze','Table linens in your color','8 hours rental time']},
-    {k:'Gold',c:'tg',d:'Total room décor',l:['Full set-up, service & clean-up','Your choice of linens & colors','Centerpieces & candles','Chafing dishes & silverware','6 hours rental time']}
-  ];
-  return `<h2 class="q">Choose your package</h2>
-    <div class="opts c3">${t.map(x=>`
-      <button type="button" class="gc ${x.c} ${S.ti===x.k?'sel':''}" aria-pressed="${S.ti===x.k}" onclick="pk('ti','${x.k}')">
-        <span class="tl">${x.k}</span>
-        <span class="td">${x.d}</span>
-        <span class="tf">${x.l.map(l=>`<span>${l}</span>`).join('')}</span>
-      </button>`).join('')}</div>`;
-}
+  function vGuests() {
+    return head('guests', 'How many guests are you expecting?', 'A close guess is fine. Next you will see which rooms fit.') +
+      '<div class="gw">' +
+        '<div class="gctl">' +
+          '<button type="button" class="gb" data-step="-5" aria-label="5 fewer guests">' + MINUS + '</button>' +
+          '<label class="sr" for="gIn">Number of guests, ' + GMIN + ' to ' + GMAX + '</label>' +
+          '<input id="gIn" class="gn" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" autocomplete="off" value="' + S.g + '" aria-describedby="fit">' +
+          '<button type="button" class="gb" data-step="5" aria-label="5 more guests">' + PLUS + '</button>' +
+          '<span class="gu" aria-hidden="true">guests</span>' +
+        '</div>' +
+        '<div class="range"><input type="range" id="gSl" min="' + GMIN + '" max="' + GMAX + '" step="1" value="' + S.g + '" aria-label="Number of guests">' +
+        '<div class="rl" aria-hidden="true"><span>' + GMIN + '</span><span>' + GMAX + '</span></div></div>' +
+        '<p class="fit" id="fit">' + fitText() + '</p>' +
+      '</div>';
+  }
+  function fitText() {
+    if (guestDraftBad) return 'Enter a number from ' + GMIN + ' to ' + GMAX + '.';
+    var ok = ROOM_NAMES.filter(function (r) { return fits(r, S.g); });
+    var sized = ok.filter(function (r) { return !roomy(r, S.g); });
+    var t = sized.length ? 'Best fit for ' + S.g + ' guests: ' + listJoin(sized) + '.' :
+      ok.length ? 'For ' + S.g + ' guests: ' + listJoin(ok) + '.' : 'No room is sized for ' + S.g + ' guests. Call or text Robert at (678) 517-8963.';
+    if (S.g > RATE_CAP) t += ' ' + QUOTED;
+    return t;
+  }
 
-function rDy(){
-  const pr=PR[S.rm]?.[S.ti]||{};
-  const d=[{k:'Mon – Thurs',s:'Best rates'},{k:'Fri & Sun',s:'Popular choice'},{k:'Saturday',s:'Premium day'}];
-  return `<h2 class="q">What day of the week?</h2>
-    <div class="opts c3 day-opts">${d.map(x=>`
-      <button type="button" class="gc ${S.dy===x.k?'sel':''}" aria-pressed="${S.dy===x.k}" onclick="pk('dy','${x.k}')">
-        <span><span class="gc-t">${x.k}</span>
-        <span class="gc-s">${x.s}</span></span>
-        <span class="dp">$${(pr[x.k]||0).toLocaleString()}</span>
-      </button>`).join('')}</div>`;
-}
+  function roomCard(n) {
+    var r = ROOMS[n], ok = fits(n, S.g), sel = ok && S.rm === n;
+    var from = r.lounge ? 'Flat rate from <strong>' + money(LP[0]) + '</strong>' : 'From <strong>' + money(PR[n].Bronze[0]) + '</strong>';
+    var foot;
+    if (!ok) foot = '<span class="why">Holds up to ' + r.max + ' guests</span>';
+    else if (n === 'Grand Ballroom' && S.g > RATE_CAP) foot = '<span class="cp">' + QUOTED + '</span>';
+    else if (roomy(n, S.g)) foot = '<span class="cp">' + from + '</span><span class="why">Usually booked for ' + r.min + ' or more guests</span>';
+    else foot = '<span class="cp">' + from + '</span>';
+    return '<button type="button" class="opt card" data-pick="rm" data-val="' + esc(n) + '" aria-pressed="' + sel + '"' + (ok ? '' : ' aria-disabled="true"') + '>' +
+      '<span class="ct">' + esc(n) + '</span><span class="cm">' + r.cap + '</span><span class="cd">' + esc(r.about) + '</span>' + foot + '</button>';
+  }
+  function vRoom() {
+    var note = '';
+    if (S.rm && !fits(S.rm, S.g)) {
+      note = '<p class="note" id="rnote">' + esc(TheRoom(S.rm)) + ' is for ' + ROOMS[S.rm].cap.toLowerCase() + ', so it does not fit ' + S.g + '. Choose another room, or go back to change the guest count.</p>';
+    }
+    var anyFit = ROOM_NAMES.some(function (r) { return fits(r, S.g); });
+    if (!anyFit) note += '<p class="note">No room is sized for ' + S.g + ' guests. Call or text Robert at <a href="tel:+16785178963">(678) 517-8963</a>.</p>';
+    return head('room', 'Which room would you like?', 'Rooms for <strong>' + S.g + ' guests</strong>. Rooms that do not fit are marked.') + note +
+      '<div class="grid g2" role="group" aria-labelledby="qh">' + ROOM_NAMES.map(roomCard).join('') + '</div>';
+  }
 
-function rGu(){
-  const c=CA[S.rm];
-  return `<h2 class="q">How many guests?</h2>
-    <div class="sw">
-      <div class="gn" id="gN" aria-hidden="true">${S.g}</div>
-      <div class="gt">Estimated guests</div>
-      <input type="range" id="gSl" min="${c.mn}" max="${c.mx}" value="${S.g}" step="5" aria-label="Estimated guests">
-      <div class="rl"><span>${c.mn}</span><span>${c.mx} max</span></div>
-    </div>`;
-}
+  function vPackage() {
+    var rm = S.rm;
+    var over = overCap();
+    var sub = over ? QUOTED + ' Choose a package so Robert knows what you have in mind.'
+      : 'Prices shown are Mon to Thurs rates in ' + esc(inRoom(rm)) + '. You choose the day next.';
+    return head('package', 'Choose a package', sub) +
+      '<div class="grid g3" role="group" aria-labelledby="qh">' + PK_NAMES.map(function (k) {
+        var p = PK[k];
+        return '<button type="button" class="opt card" data-pick="ti" data-val="' + k + '" aria-pressed="' + (S.ti === k) + '">' +
+          '<span class="ct">' + k + '</span><span class="cm">' + p.title + '</span>' +
+          '<span class="cd">' + p.about + '</span>' +
+          (over ? '' : '<span class="cp">From <strong>' + money(PR[rm][k][0]) + '</strong></span>') + '</button>';
+      }).join('') + '</div>';
+  }
 
-function rEs(){
-  const price=PR[S.rm]?.[S.ti]?.[S.dy]||0;
-  const hrs=S.ti==='Gold'?6:8;
-  const c=CA[S.rm];
-  return `<div class="est">
-    <div class="est-top">
-      <div>
-        <div class="el">Estimated price</div>
-        <div class="ep">$${price.toLocaleString()}</div>
-      </div>
-      <p class="en">Starting price. Final pricing is confirmed after your consultation.</p>
-    </div>
-    <div class="est-body">
-      <div class="dr"><span class="dk">Event</span><span class="dv">${S.ev}</span></div>
-      <div class="dr"><span class="dk">Ballroom</span><span class="dv">${S.rm}</span></div>
-      <div class="dr"><span class="dk">Package</span><span class="dv">${S.ti}</span></div>
-      <div class="dr"><span class="dk">Day</span><span class="dv">${S.dy}</span></div>
-      <div class="dr"><span class="dk">Guests</span><span class="dv">${S.g}</span></div>
-      <div class="dr"><span class="dk">Rental time</span><span class="dv">${hrs} hours</span></div>
-      <p class="dep">A $300 refundable security deposit is required with all bookings.</p>
-      ${S.g>c.st?`<p class="oc">For events over ${c.st} guests in the ${S.rm}, pricing may be adjusted. Robert will confirm during your consultation.</p>`:''}
-      <a href="/contact/?${new URLSearchParams({room:S.rm,type:S.ev,guests:S.g,msg:`Estimate: ${S.rm}, ${S.ti} package, ${S.dy}, ${S.g} guests ($${price.toLocaleString()}).`})}" class="btn btn--wine qcta">Schedule my tour</a>
-      <p class="cta-s">Your selections carry over to the contact form.</p>
-    </div>
-  </div>`;
-}
+  function vDay() {
+    var lounge = isLounge(), d = days();
+    var sub = lounge ? esc(S.rm) + ', flat rate for 6 hours.' : esc(S.rm) + ', ' + S.ti + ' package, ' + PK[S.ti].hrs + ' hours.';
+    var over = overCap();
+    if (over) sub += ' ' + QUOTED;
+    return head('day', 'Which day of the week?', sub) +
+      '<div class="grid g3" role="group" aria-labelledby="qh">' + d.map(function (k, i) {
+        return '<button type="button" class="opt card day" data-pick="dy" data-val="' + esc(k) + '" aria-pressed="' + (S.dy === k) + '">' +
+          '<span class="ct">' + esc(k) + '</span>' +
+          (over ? '' : '<span class="cp"><strong>' + money(price(S.rm, S.ti, i)) + '</strong></span>') + '</button>';
+      }).join('') + '</div>';
+  }
 
-go();
+  function estimate() {
+    var lounge = isLounge(), di = days().indexOf(S.dy);
+    var amt = price(S.rm, S.ti, di), over = overCap();
+    var hrs = lounge ? 6 : PK[S.ti].hrs;
+    var what = ' for ' + S.g + ' guests in ' + inRoom(S.rm) + (lounge ? '' : ' with the ' + S.ti + ' package') + ' on ' + DAY_PHRASE[S.dy] + '.';
+    var msg = over ? 'I would like a quote' + what : 'My estimate is ' + money(amt) + what;
+    return { amt: amt, over: over, hrs: hrs, msg: msg, lounge: lounge };
+  }
+  function vEstimate() {
+    var e = estimate();
+    var href = '/contact/?' + new URLSearchParams({ room: S.rm, type: S.ev, guests: String(S.g), msg: e.msg }).toString();
+    var lead = e.over ? QUOTED + ' Schedule a tour and Robert will price your event with you.'
+      : e.lounge ? 'Flat rate for 6 hours. Robert confirms final pricing when you talk.'
+      : 'The posted rate for your choices. Robert confirms final pricing when you talk.';
+    var notes = [];
+    if (!e.lounge) notes.push('<li>' + (S.ti === 'Gold' ? 'We handle setup, service and cleanup within your 6 hours.' : 'You handle setup, decorating and cleanup within your 8 hours.') + '</li>');
+    if (S.ev === 'Wedding') notes.push('<li class="oc">Ask Robert about time for the ceremony.</li>');
+    if (e.lounge) notes.push('<li>Kitchen access costs extra.</li>');
+    notes.push('<li>A $300 refundable security deposit is required with every booking.</li>');
+    notes.push('<li>Events end by 1:00 AM.</li>');
+    notes.push('<li>You may bring your own food and beverages, including alcohol.</li>');
+    var rows = [['Event', S.ev], ['Guests', S.g], ['Room', S.rm]];
+    if (!e.lounge) rows.push(['Package', S.ti + ', ' + PK[S.ti].title.toLowerCase()]);
+    rows.push(['Day', S.dy], ['Rental time', e.hrs + ' hours']);
+    return head('estimate', 'Your estimate') +
+      '<div class="est">' +
+        '<div class="est-top">' +
+          '<div><p class="el">' + (e.over ? 'Price' : 'Estimated price') + '</p>' +
+          (e.over ? '<p class="ep ep--q">Quoted at your tour</p>' : '<p class="ep">' + money(e.amt) + '</p>') + '</div>' +
+          '<p class="en">' + lead + '</p>' +
+        '</div>' +
+        '<div class="est-body">' +
+          '<dl class="dl">' + rows.map(function (r) { return '<div class="dr"><dt class="dk">' + r[0] + '</dt><dd class="dv">' + esc(r[1]) + '</dd></div>'; }).join('') + '</dl>' +
+          '<ul class="notes">' + notes.join('') + '</ul>' +
+          '<a href="' + esc(href) + '" class="btn btn--wine qcta" id="tour">Schedule my tour</a>' +
+          '<p class="cta-s">Your choices carry over to the contact form.</p>' +
+        '</div>' +
+      '</div>';
+  }
+
+  var VIEWS = { event: vEvent, guests: vGuests, room: vRoom, package: vPackage, day: vDay, estimate: vEstimate };
+
+  // ---------- chrome: progress, step controls, start over ----------
+  function drawProgress() {
+    var p = path(), i = p.indexOf(S.s);
+    prog.innerHTML = p.map(function (id, k) { return '<div class="pd ' + (k < i ? 'dn' : k === i ? 'on' : '') + '">' + LABEL[id] + '</div>'; }).join('');
+  }
+  function drawNav() {
+    var p = path(), i = p.indexOf(S.s), h = '';
+    h += i > 0 ? '<button type="button" class="bb" data-act="back">Back</button>' : '<span></span>';
+    if (S.s !== 'estimate') {
+      h += '<button type="button" class="btn btn--wine bn" id="next" data-act="next">' + (p[i + 1] === 'estimate' ? 'See estimate' : 'Continue') + '</button>';
+    }
+    nv.innerHTML = h;
+    syncNav();
+  }
+  function syncNav() {
+    var b = $('next');
+    if (b) {
+      if (done(S.s)) b.removeAttribute('aria-disabled'); else b.setAttribute('aria-disabled', 'true');
+    }
+    so.hidden = !(S.ev || S.rm || S.ti || S.dy || S.gSet);
+  }
+  function needText() {
+    switch (S.s) {
+      case 'event': return 'Choose an event type to continue.';
+      case 'guests': return 'Enter a number from ' + GMIN + ' to ' + GMAX + ' to continue.';
+      case 'room': return S.rm ? TheRoom(S.rm) + ' does not fit ' + S.g + ' guests. Choose another room to continue.' : 'Choose a room to continue.';
+      case 'package': return 'Choose a package to continue.';
+      case 'day': return 'Choose a day to continue.';
+    }
+    return '';
+  }
+  function updateStepCount() {
+    var p = path(), i = p.indexOf(S.s), si = ct.querySelector('.si'), sr = $('qstep');
+    if (si) si.textContent = 'Step ' + (i + 1) + ' of ' + p.length + ' · ' + LABEL[S.s];
+    if (sr) sr.textContent = ', step ' + (i + 1) + ' of ' + p.length;
+    drawProgress();
+  }
+
+  function render(moveFocus) {
+    guestDraftBad = false;
+    hint.textContent = '';
+    drawProgress();
+    ct.innerHTML = VIEWS[S.s]();
+    if (!calm.matches) { ct.classList.remove('in'); void ct.offsetWidth; ct.classList.add('in'); }
+    if (S.s === 'guests') bindGuests();
+    drawNav();
+    lockUntil = performance.now() + LOCK_MS;
+    if (moveFocus) {
+      var h = $('qh');
+      if (h) { try { h.focus({ preventScroll: true }); } catch (e) { h.focus(); } }
+      bringIntoView();
+    }
+  }
+  // Scroll the builder top into view, only upward, so the new step starts at its heading.
+  function bringIntoView() {
+    var navEl = document.querySelector('.nav');
+    var navH = navEl ? navEl.offsetHeight : 0;
+    var y = prog.getBoundingClientRect().top + window.pageYOffset - navH - 20;
+    if (window.pageYOffset > y) window.scrollTo({ top: Math.max(0, y), behavior: calm.matches ? 'auto' : 'smooth' });
+  }
+
+  // ---------- navigation and history ----------
+  function depth() { var st = history.state; return st && st.ie ? st.n || 0 : 0; }
+  function go(id, push) {
+    S.s = clampStep(id);
+    save();
+    var st = { ie: 1, step: S.s, n: push ? depth() + 1 : depth() };
+    try { if (push) history.pushState(st, ''); else history.replaceState(st, ''); } catch (e) {}
+    render(true);
+  }
+  function next() {
+    if (!done(S.s)) { hint.textContent = needText(); return; }
+    var p = path(), i = p.indexOf(S.s);
+    if (i < p.length - 1) go(p[i + 1], true);
+  }
+  function back() {
+    var p = path(), i = p.indexOf(S.s);
+    if (i <= 0) return;
+    if (depth() > 0) {
+      // popstate renders the previous step. Lock now, so a second tap cannot fire a second history.back() before it lands.
+      lockUntil = performance.now() + LOCK_MS;
+      history.back();
+    }
+    else go(p[i - 1], false);
+  }
+  function startOver() {
+    S = fresh();
+    try { sessionStorage.removeItem(KEY); } catch (e) {}
+    go('event', true);
+  }
+  window.addEventListener('popstate', function (e) {
+    if (!e.state || !e.state.ie) return;
+    var want = e.state.step;
+    S.s = clampStep(want);
+    save();
+    if (S.s !== want) { try { history.replaceState({ ie: 1, step: S.s, n: e.state.n || 0 }, ''); } catch (err) {} }
+    render(true);
+  });
+
+  // ---------- input ----------
+  // Ignore taps for a moment after each step change so a double tap cannot land on the next step's controls.
+  builder.addEventListener('click', function (e) {
+    if (performance.now() < lockUntil) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+  builder.addEventListener('mousedown', function (e) {
+    if (performance.now() < lockUntil) e.preventDefault(); // no stray focus or text selection from the second tap
+  }, true);
+
+  builder.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-pick],[data-act],[data-step],#so') : null;
+    if (!t) return;
+    if (t.id === 'so') { startOver(); return; }
+    if (t.hasAttribute('data-act')) { t.getAttribute('data-act') === 'next' ? next() : back(); return; }
+    if (t.hasAttribute('data-step')) { setGuests(S.g + parseInt(t.getAttribute('data-step'), 10), null); return; }
+    if (t.getAttribute('aria-disabled') === 'true') {
+      if (t.getAttribute('data-pick') === 'rm') hint.textContent = TheRoom(t.getAttribute('data-val')) + ' does not fit ' + S.g + ' guests.';
+      return;
+    }
+    var k = t.getAttribute('data-pick'), v = t.getAttribute('data-val');
+    S[k] = v;
+    if (k === 'rm') {
+      if (days().indexOf(S.dy) < 0) S.dy = null;
+      var rn = $('rnote'); if (rn) rn.remove();
+      updateStepCount();
+    }
+    ct.querySelectorAll('[data-pick="' + k + '"]').forEach(function (b) { b.setAttribute('aria-pressed', b === t ? 'true' : 'false'); });
+    hint.textContent = '';
+    save();
+    syncNav();
+  });
+
+  function setGuests(n, from) {
+    n = Math.max(GMIN, Math.min(GMAX, Math.round(n)));
+    S.g = n; S.gSet = true; guestDraftBad = false;
+    var inp = $('gIn'), sl = $('gSl');
+    if (inp && from !== 'inp') { inp.value = n; }
+    if (inp) inp.removeAttribute('aria-invalid');
+    if (sl && from !== 'sl') sl.value = n;
+    var f = $('fit'); if (f) f.textContent = fitText();
+    hint.textContent = '';
+    save(); syncNav();
+  }
+  function bindGuests() {
+    var inp = $('gIn'), sl = $('gSl');
+    sl.addEventListener('input', function () { setGuests(+sl.value, 'sl'); });
+    inp.addEventListener('input', function () {
+      var d = inp.value.replace(/\D/g, '');
+      if (d !== inp.value) inp.value = d;
+      var n = parseInt(d, 10);
+      if (n >= GMIN && n <= GMAX) { setGuests(n, 'inp'); return; }
+      guestDraftBad = true;
+      inp.setAttribute('aria-invalid', 'true');
+      $('fit').textContent = fitText();
+      syncNav();
+    });
+    function commit() {
+      var n = parseInt(inp.value, 10);
+      if (isNaN(n)) { inp.value = S.g; guestDraftBad = false; inp.removeAttribute('aria-invalid'); $('fit').textContent = fitText(); syncNav(); }
+      else setGuests(n, null);
+    }
+    inp.addEventListener('change', commit);
+    inp.addEventListener('blur', commit);
+    inp.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); commit(); } });
+    inp.addEventListener('focus', function () { try { inp.select(); } catch (e) {} });
+  }
+
+  // ---------- start ----------
+  load();
+  var st = history.state;
+  if (st && st.ie) {
+    // Refresh, or back from another page: return to the step this entry was on.
+    S.s = clampStep(st.step);
+  } else {
+    // Fresh visit. Room pages can preselect a room with ?room=Grand%20Ballroom
+    var pre = matchRoom(new URLSearchParams(location.search).get('room'));
+    if (pre && pre !== S.rm) {
+      S.rm = pre;
+      if (!S.gSet) S.g = ROOMS[pre].def;
+      if (days().indexOf(S.dy) < 0) S.dy = null;
+      S.s = S.ev ? 'room' : 'event';
+    }
+    S.s = clampStep(S.s);
+  }
+  save();
+  try { history.replaceState({ ie: 1, step: S.s, n: st && st.ie ? st.n || 0 : 0 }, ''); } catch (e) {}
+  render(false);
+})();
 </script>
 <script src="/assets/js/chat.js" defer></script>
 </body>

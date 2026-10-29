@@ -10,7 +10,8 @@ let isOpen = false;
 // Inject CSS
 const style = document.createElement('style');
 style.textContent = `
-.ie-chat-fab{position:fixed;bottom:28px;right:28px;width:52px;height:52px;border-radius:50%;background:#611f1d;border:1px solid rgba(243,237,227,0.12);color:#f3ede3;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(97,31,29,0.4);transition:all 0.3s;opacity:1}
+.ie-chat-fab{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom));right:24px;width:52px;height:52px;border-radius:50%;background:#611f1d;border:1px solid rgba(243,237,227,0.12);color:#f3ede3;cursor:pointer;z-index:9999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 24px rgba(0,0,0,0.35);transition:opacity 0.3s,transform 0.3s,background 0.3s;opacity:1}
+.ie-chat-fab.is-tucked{opacity:0;transform:translateY(16px);pointer-events:none;visibility:hidden}
 body.menu-open .ie-chat-fab,body.lightbox-open .ie-chat-fab{opacity:0!important;pointer-events:none!important}
 .ie-chat-fab:hover{background:#7a2522;transform:scale(1.06)}
 .ie-chat-fab:active{transform:scale(0.95)}
@@ -31,7 +32,7 @@ body.menu-open .ie-chat-fab,body.lightbox-open .ie-chat-fab{opacity:0!important;
 .ie-chat-avatar{width:36px;height:36px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ie-chat-avatar img{width:28px;height:28px;opacity:0.85}
 .ie-chat-head-info{flex:1}
-.ie-chat-head-title{font-family:'Inter',sans-serif;text-transform:uppercase;font-weight:500;font-size:0.62rem;letter-spacing:0.18em;color:rgba(243,237,227,0.5)}
+.ie-chat-head-title{font-family:'Inter',sans-serif;font-weight:500;font-size:0.8rem;color:rgba(243,237,227,0.6)}
 .ie-chat-head-sub{font-family:'Cormorant Garamond',serif;font-size:1.3rem;line-height:1.2;color:#f3ede3}
 .ie-chat-close{width:32px;height:32px;border-radius:50%;background:rgba(243,237,227,0.04);border:1px solid rgba(243,237,227,0.08);color:#f3ede3;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .ie-chat-close svg{width:14px;height:14px}
@@ -76,14 +77,14 @@ container.innerHTML = `
       <div class="ie-chat-head-title">Inviting Events</div>
       <div class="ie-chat-head-sub">Concierge</div>
     </div>
-    <button class="ie-chat-close" id="ie-chat-close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    <button class="ie-chat-close" id="ie-chat-close" aria-label="Close chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
   </div>
   <div class="ie-chat-messages" id="ie-chat-messages">
     <div class="ie-chat-msg bot">Hello. Ask me about our rooms, rates or planning your event.</div>
   </div>
   <div class="ie-chat-input-wrap">
     <input class="ie-chat-input" id="ie-chat-input" type="text" placeholder="Ask about pricing, rooms, availability..." autocomplete="off">
-    <button class="ie-chat-send" id="ie-chat-send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+    <button class="ie-chat-send" id="ie-chat-send" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
   </div>
   <div class="ie-chat-footer">Powered by AI · Responses may not always be accurate</div>
 </div>`;
@@ -96,6 +97,16 @@ if (window.location.pathname.startsWith('/admin') || window.location.pathname.st
 
 // Elements
 const fab = document.getElementById('ie-chat-fab');
+
+// On phones the button steps aside while reading down the page and comes back on the way up
+let lastY = window.scrollY;
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  if (window.innerWidth > 900 || isOpen) { fab.classList.remove('is-tucked'); lastY = y; return; }
+  if (y > lastY + 6 && y > 200) fab.classList.add('is-tucked');
+  else if (y < lastY - 6) fab.classList.remove('is-tucked');
+  lastY = y;
+}, { passive: true });
 const overlay = document.getElementById('ie-chat-overlay');
 const sheet = document.getElementById('ie-chat-sheet');
 const closeBtn = document.getElementById('ie-chat-close');

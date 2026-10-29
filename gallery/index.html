@@ -4,13 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gallery | Inviting Events, Snellville, GA</title>
-<meta name="description" content="Photos and films from weddings, quinceañeras, milestone birthdays and showers at Inviting Events in Snellville, Georgia, plus a video tour of every room.">
+<meta name="description" content="Photos and videos from weddings, quinceañeras, milestone birthdays and showers at Inviting Events in Snellville, Georgia, plus a video tour of every room.">
 <link rel="canonical" href="https://theinvitingevents.com/gallery/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Gallery | Inviting Events">
-<meta property="og:description" content="Photos and films from events we have hosted, and a video tour of every room.">
+<meta property="og:description" content="Photos and videos from events we have hosted, and a video tour of every room.">
 <meta property="og:image" content="https://theinvitingevents.com/assets/media/brand/og.jpg">
 <meta property="og:url" content="https://theinvitingevents.com/gallery/">
+<meta property="og:site_name" content="Inviting Events">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0d0b0a">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/media/brand/favicon-32.png">
 <link rel="apple-touch-icon" href="/assets/media/brand/apple-touch-icon.png">
@@ -23,7 +25,7 @@
 .g-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 48px; align-items: end; }
 .g-index { display: grid; min-width: 260px; border-top: 1px solid var(--line); }
 .g-index a { display: flex; justify-content: space-between; align-items: baseline; gap: 32px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-.g-index span { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); transition: color 0.3s; }
+.g-index span { font-size: 0.9rem; color: var(--ivory-60); transition: color 0.3s; }
 .g-index strong { font-family: var(--serif); font-weight: 400; font-size: 1.6rem; line-height: 1; color: var(--ivory); font-variant-numeric: lining-nums; }
 .g-index a:hover span { color: var(--ivory); }
 
@@ -45,15 +47,15 @@
 /* Films */
 .film-group + .film-group { margin-top: clamp(72px, 9vw, 120px); }
 .film-head { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding-bottom: 18px; margin-bottom: clamp(24px, 3vw, 36px); border-bottom: 1px solid var(--line); }
-.film-head h3 { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory); }
-.film-head span { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--gold); font-variant-numeric: lining-nums; }
+.film-head h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--ivory); }
+.film-head span { font-size: 0.9rem; color: var(--ivory-60); font-variant-numeric: lining-nums; }
 .films { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 3vw, 40px) clamp(16px, 2vw, 24px); }
 .tours { gap: clamp(16px, 2vw, 24px); }
 .tours > .tour--lead { grid-column: span 2; grid-row: span 2; }
 .tours > .tour--lead .yt { aspect-ratio: auto; height: 100%; }
 .film figcaption { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; margin-top: 14px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
 .film figcaption strong { font-family: var(--serif); font-weight: 400; font-size: 1.35rem; line-height: 1.2; color: var(--ivory); font-variant-numeric: lining-nums; }
-.film figcaption span { font-size: 0.7rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-60); white-space: nowrap; }
+.film figcaption span { font-size: 0.875rem; color: var(--ivory-60); white-space: nowrap; }
 html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
 .films-more { display: flex; justify-content: center; margin-top: clamp(40px, 5vw, 64px); }
 .no-js .films-more { display: none; }
@@ -75,6 +77,7 @@ html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="nav" data-solid>
   <div class="wrap nav__inner">
@@ -92,7 +95,7 @@ html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
 <div class="menu" id="menu">
   <ul>
     <li><a href="/">Home</a></li>
-    <li><a href="/#spaces">Spaces <small>4 rooms</small></a></li>
+    <li><a href="/#spaces">Spaces</a></li>
     <li><a href="/gallery/" aria-current="page">Gallery</a></li>
     <li><a href="/pricing/">Pricing</a></li>
     <li><a href="/about/">About</a></li>
@@ -104,20 +107,19 @@ html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
   </div>
 </div>
 
-<main>
+<main id="main">
 
 <!-- HERO -->
 <section class="page-hero page-hero--plain">
   <div class="hero__content">
     <div class="wrap g-hero__grid">
       <div>
-        <span class="eyebrow">Gallery</span>
-        <h1 class="h1">Rooms dressed for <em>every occasion.</em></h1>
-        <p class="lede" style="margin-top:24px">Weddings, quinceañeras, milestone birthdays and showers, each one set by our team in our own rooms. Browse the photographs, then walk the spaces on film.</p>
+        <h1 class="h1">Gallery</h1>
+        <p class="lede" style="margin-top:24px">Weddings, quinceañeras, milestone birthdays and showers, all hosted in our rooms. Browse the photographs, then walk the spaces on film.</p>
       </div>
       <nav class="g-index" aria-label="On this page">
         <a href="#photos"><span>Photographs</span><strong>44</strong></a>
-        <a href="#films"><span>Films</span><strong>22</strong></a>
+        <a href="#films"><span>Videos</span><strong>22</strong></a>
       </nav>
     </div>
   </div>
@@ -132,6 +134,8 @@ html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
       <a href="/assets/media/photos/img-20251203-wa0024.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0024.webp" alt="Burgundy linens with crystal centerpieces and silver runners" width="615" height="820" loading="lazy"></div></a>
       <a class="w8" href="/assets/media/photos/20250329-161424.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/20250329-161424.webp" alt="A quinceañera with marquee letters, navy linens and a crescent moon balloon arch" width="1800" height="1013" loading="lazy"></div></a>
     </div>
+
+    <div class="archive" id="publishedPhotos" hidden></div>
 
     <div class="archive">
       <a href="/assets/media/photos/img-20251203-wa0008.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/img-20251203-wa0008.webp" alt="Black linens, gold sequin runners and gold chargers under a pampas and rose centerpiece" width="615" height="820" loading="lazy"></div></a>
@@ -181,28 +185,26 @@ html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
       <a class="l" href="/assets/media/photos/20240531-204153.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20240531-204153.webp" alt="A white aisle runner lined with pillars and florals" width="820" height="462" loading="lazy"></div></a>
       <a class="l" href="/assets/media/photos/20230404-165316.webp" data-lightbox="gallery"><div class="frame"><img src="/assets/media/photos/sm/20230404-165316.webp" alt="A ceremony setup with florals at the front and gold chairs in rows" width="820" height="462" loading="lazy"></div></a>
     </div>
-    </div>
   </div>
 </section>
 
-<!-- FILMS -->
+<!-- VIDEOS -->
 <section class="section section--ink2" id="films">
   <div class="wrap">
     <div class="section-head">
       <div class="reveal">
-        <span class="eyebrow">Films</span>
-        <h2 class="h2">Walk the rooms <em>before you visit.</em></h2>
+        <h2 class="h2">Videos</h2>
       </div>
       <p class="muted reveal" style="max-width:26em">A short tour of each space, then real events as they were set. Each film loads only when you press play.</p>
     </div>
 
     <div class="film-group reveal">
-      <div class="film-head"><h3>Venue tours</h3><span>06</span></div>
+      <div class="film-head"><h3>Venue tours</h3><span>6</span></div>
       <div class="films tours">
         <figure class="film tour--lead"><button class="yt" data-yt="kznJeQBwWfg" aria-label="Play the Grand Ballroom tour"><img src="https://i.ytimg.com/vi/kznJeQBwWfg/maxresdefault.jpg" alt="" loading="lazy"><span class="yt__label">Grand Ballroom</span></button></figure>
         <figure class="film"><button class="yt" data-yt="-QnP_TSQrxM" aria-label="Play the Auxiliary Ballroom tour"><span class="yt__label">Auxiliary Ballroom</span></button></figure>
         <figure class="film"><button class="yt" data-yt="PpiHgPLiAD0" aria-label="Play the Studio 78 tour"><span class="yt__label">Studio 78</span></button></figure>
-        <figure class="film"><button class="yt" data-yt="oi5D9Pm2UXE" aria-label="Play the Private Lounge tour"><span class="yt__label">Private Lounge</span></button></figure>
+        <figure class="film"><button class="yt" data-yt="oi5D9Pm2UXE" aria-label="Play the Private Lounge &amp; Bar tour"><span class="yt__label">Private Lounge &amp; Bar</span></button></figure>
         <figure class="film"><button class="yt" data-yt="8a4K1lXphtI" aria-label="Play the décor color options film"><span class="yt__label">Décor options</span></button></figure>
         <figure class="film"><button class="yt" data-yt="bUWU_JSWQ9w" aria-label="Play the location film"><span class="yt__label">Location</span></button></figure>
       </div>
@@ -237,9 +239,8 @@ html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
 <section class="cta">
   <div class="cta__media"><img src="/assets/media/photos/img-20251203-wa0025.webp" alt="" loading="lazy"></div>
   <div class="wrap reveal">
-    <span class="eyebrow eyebrow--plain">Now booking</span>
-    <h2 class="h1">Picture it in <em>your colors.</em></h2>
-    <p>Tell us your date and guest count. Robert will walk you through the rooms and the décor in person, and build the event around your vision.</p>
+    <h2 class="h1">Check your date with Robert.</h2>
+    <p>Call or text (678) 517-8963, or send a message with your date and guest count.</p>
     <div class="hero__actions">
       <a href="/contact/" class="btn btn--wine">Schedule a tour</a>
       <a href="/pricing/" class="btn btn--line">View pricing</a>
@@ -254,15 +255,15 @@ html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
     <div class="footer__top">
       <div class="footer__brand">
         <img src="/assets/media/brand/logo.png" alt="Inviting Events" width="900" height="260" loading="lazy">
-        <p>A full-service event hall in Snellville, Georgia. Three ballrooms, a private lounge and every detail in house.</p>
+        <p>Three ballrooms and a private lounge on Stone Mountain Highway in Snellville, Georgia.</p>
       </div>
       <div>
-        <h4>Visit</h4>
+        <p class="footer__title">Visit</p>
         <address>3485 Stone Mountain Hwy<br>Snellville, GA 30078</address>
         <p class="muted" style="margin-top:10px">By appointment only</p>
       </div>
       <div>
-        <h4>Spaces</h4>
+        <p class="footer__title">Spaces</p>
         <ul>
           <li><a href="/grand-ballroom/">Grand Ballroom</a></li>
           <li><a href="/studio-78/">Studio 78</a></li>
@@ -271,7 +272,7 @@ html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
         </ul>
       </div>
       <div>
-        <h4>Contact</h4>
+        <p class="footer__title">Contact</p>
         <ul>
           <li><a href="tel:+16785178963">(678) 517-8963</a></li>
           <li><a href="mailto:contact@theinvitingevents.com">contact@theinvitingevents.com</a></li>
@@ -285,7 +286,7 @@ html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
       <nav aria-label="Social">
         <a href="https://www.instagram.com/invitingevents/" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/invitingevents2/" target="_blank" rel="noopener">Facebook</a>
-        <a href="/admin/" aria-label="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Admin</a>
+        <a href="/admin/" class="footer__admin" aria-label="Admin sign in" title="Admin"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
       </nav>
     </div>
   </div>
@@ -304,6 +305,72 @@ html:not(.no-js) .films.is-collapsed > .film:nth-child(n+7) { display: none; }
     btn.parentNode.hidden = true;
     const next = grid.children[6] && grid.children[6].querySelector('.yt');
     if (next) next.focus({ preventScroll: true });
+  });
+})();
+</script>
+<script>
+// Photos and videos Bob publishes from /admin/ (and guest photos he approves), newest first.
+// Quietly does nothing if the API is unreachable or has nothing to add.
+(function () {
+  var API = 'https://ie-api.fancy-brook-a8e8.workers.dev';
+  var box = document.getElementById('publishedPhotos');
+  if (!box || !window.fetch || !window.Promise) return;
+  function get(q) {
+    return fetch(API + '/api/photos?' + q).then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
+  }
+  function src(p) {
+    return API + '/media/' + String(p.r2_key || '').split('/').map(encodeURIComponent).join('/');
+  }
+  Promise.all([get('dest=gallery&status=approved'), get('dest=event&status=approved')]).then(function (sets) {
+    var seen = {}, items = [];
+    sets.forEach(function (set) {
+      (Array.isArray(set) ? set : []).forEach(function (p) {
+        if (!p || !p.r2_key || seen[p.id] || String(p.approved) !== '1') return;
+        var type = String(p.mime_type || ''), key = String(p.r2_key);
+        var video = /^video\//.test(type) || /\.(mp4|mov|m4v)$/i.test(key);
+        var image = /^image\/(jpeg|png|webp|gif|avif)$/.test(type) || /\.(jpe?g|png|webp|gif|avif)$/i.test(key);
+        if (!video && !image) return;
+        seen[p.id] = 1;
+        items.push({ p: p, video: video });
+      });
+    });
+    if (!items.length) return;
+    var countEl = document.querySelector('.g-index a[href="#photos"] strong');
+    var base = countEl && /^\d+$/.test(countEl.textContent.trim()) ? parseInt(countEl.textContent, 10) : null;
+    function recount() {
+      box.hidden = !box.children.length;
+      if (base !== null) countEl.textContent = String(base + box.children.length);
+    }
+    items.sort(function (a, b) { return String(b.p.uploaded_at || '').localeCompare(String(a.p.uploaded_at || '')); });
+    items.forEach(function (it) {
+      var url = src(it.p), frame = document.createElement('div');
+      frame.className = 'frame';
+      if (it.video) {
+        var wrap = document.createElement('div');
+        wrap.style.marginBottom = 'var(--g)';
+        wrap.style.breakInside = 'avoid';
+        frame.style.aspectRatio = '16 / 9';
+        var v = document.createElement('video');
+        v.src = url + '#t=0.1';
+        v.controls = true; v.playsInline = true; v.preload = 'metadata';
+        v.setAttribute('playsinline', '');
+        v.setAttribute('aria-label', 'Video from an event at Inviting Events');
+        v.style.objectFit = 'contain'; v.style.background = '#000';
+        v.addEventListener('loadedmetadata', function () { if (v.videoWidth && v.videoHeight) frame.style.aspectRatio = v.videoWidth + ' / ' + v.videoHeight; });
+        v.addEventListener('error', function () { wrap.remove(); recount(); }, { once: true });
+        frame.appendChild(v); wrap.appendChild(frame); box.appendChild(wrap);
+      } else {
+        var a = document.createElement('a');
+        a.href = url;
+        a.setAttribute('data-lightbox', 'gallery');
+        var im = document.createElement('img');
+        im.src = url; im.alt = 'A recent event at Inviting Events'; im.loading = 'lazy'; im.decoding = 'async';
+        im.addEventListener('load', function () { if (im.naturalWidth > im.naturalHeight) a.classList.add('l'); });
+        im.addEventListener('error', function () { a.remove(); recount(); }, { once: true });
+        frame.appendChild(im); a.appendChild(frame); box.appendChild(a);
+      }
+    });
+    recount();
   });
 })();
 </script>

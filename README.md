@@ -111,31 +111,25 @@ the admin accepts whatever password the Worker accepts. `PW_HASH` in `admin/inde
 the older open Worker; its hash is public, so after the deploy it is worth moving Bob to a new, longer password
 and deleting `PW_HASH`.
 
-## Go-live checklist
+## Domain and DNS
 
-1. Bob approves the site on theinvitingevents.pages.dev.
-2. Contact relay deployed, URL set, test inquiry received in contact@.
-3. Set the admin secrets, then redeploy the API worker (see Admin below). This also gives the chat bot the
-   correct prices: `cd workers/api && wrangler deploy` (logged in to the contact@ Cloudflare account).
-4. Add theinvitingevents.com to Cloudflare (same account as the Pages project). Before switching, make sure the
-   imported DNS keeps all five Google MX records. Add:
-   - SPF: `TXT @ "v=spf1 include:_spf.google.com ~all"`
-   - DKIM: generate in Google Admin (Apps > Google Workspace > Gmail > Authenticate email), add the
-     `google._domainkey` TXT, then click Start authentication
-   - DMARC: `TXT _dmarc "v=DMARC1; p=none; rua=mailto:contact@theinvitingevents.com"`
-   - Do not import the old Cloudways A record (159.203.138.227) or the `www` CNAME to secure.cloudways.cloud
-5. Pages project → Custom domains: add `theinvitingevents.com` and `www.theinvitingevents.com`.
-6. At Namecheap, switch nameservers to the two Cloudflare nameservers. The domain stays registered at Namecheap.
-7. Check the site, a test inquiry, and inbound mail to contact@. After a week with no issues, cancel Cloudways.
+Live on theinvitingevents.com since 2026-10-30. The domain stays registered at Namecheap (renews April 2027),
+with its nameservers pointed to Cloudflare (`brenda.ns.cloudflare.com`, `hal.ns.cloudflare.com`). DNS lives in the
+contact@ Cloudflare account, next to the Pages project.
 
-Today the apex record at Namecheap is a CNAME to Cloudways next to the MX records. That blocks SPF and leaves
-Bob's outgoing mail unauthenticated. The DNS move above fixes it.
+- Website: the Pages project has `theinvitingevents.com` and `www.theinvitingevents.com` as custom domains. A
+  Redirect Rule sends www to the bare domain with a 301, keeping the path and query string.
+- Mail: the five Google MX records, SPF `v=spf1 include:_spf.google.com ~all`, DKIM `google._domainkey`
+  (generated in Google Admin under Apps > Google Workspace > Gmail > Authenticate email, signing on) and DMARC
+  `_dmarc` at `p=none`.
+
+The old WordPress host (Cloudways) no longer serves anything and can be cancelled.
 
 ## Media
 
 Photos are local WebP files (`assets/media/photos/NAME.webp`, about 1800px, plus `sm/NAME.webp`, about 820px).
 To add photos, convert with `cwebp -q 74 -resize 1800 0 in.jpg -o NAME.webp` (and `-q 70 -resize 820 0` into `sm/`).
-Hero videos were re-encoded to 1280px H.264 with no audio (about 6 MB each, under the Pages 25 MB file limit).
+Hero videos are 1440x800 H.264 at the source's 30 fps with no audio (about 2.7 MB each, under the Pages 25 MB file limit).
 
 ## Reviews
 

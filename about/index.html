@@ -61,7 +61,9 @@
   .timeline li { grid-template-columns: 1fr; gap: 12px; }
   .timeline .yr { grid-row: auto; margin-bottom: 6px; }
 }
-.fam-cap { margin-top: 14px; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory-60); }
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 2vw, 28px); max-width: 980px; margin-top: clamp(40px, 5vw, 64px); }
+.trio figcaption { margin-top: 14px; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory-60); }
+@media (max-width: 560px) { .trio { gap: 8px; } .trio figcaption { font-size: 0.66rem; letter-spacing: 0.12em; margin-top: 10px; } }
 .team-photo { margin-top: 40px; }
 .team-photo figcaption { margin-top: 12px; font-size: 0.875rem; color: var(--ivory-60); }
 </style>
@@ -167,16 +169,17 @@
 
 <!-- FAMILY -->
 <section class="section" style="padding-bottom:0">
-  <div class="wrap split">
+  <div class="wrap">
     <div class="reveal">
       <span class="eyebrow">The family</span>
       <h2 class="h2">Robert and his sons.</h2>
       <p class="lede" style="margin-top:24px">Jamal and Elijah help their father run Inviting Events.</p>
     </div>
-    <figure class="reveal">
-      <div class="frame" style="aspect-ratio:2/3"><img src="/assets/media/photos/pope-trinity.webp" alt="Jamal, Robert and Elijah" loading="lazy" width="1024" height="1536"></div>
-      <figcaption class="fam-cap">From left: Jamal, Robert and Elijah</figcaption>
-    </figure>
+    <div class="trio reveal">
+      <figure><div class="frame frame--45"><img src="/assets/media/photos/pope-jamal.webp" alt="Jamal" loading="lazy" width="640" height="800"></div><figcaption>Jamal</figcaption></figure>
+      <figure><div class="frame frame--45"><img src="/assets/media/photos/pope-robert.webp" alt="Robert Pope" loading="lazy" width="640" height="800"></div><figcaption>Robert</figcaption></figure>
+      <figure><div class="frame frame--45"><img src="/assets/media/photos/pope-elijah.webp" alt="Elijah" loading="lazy" width="640" height="800"></div><figcaption>Elijah</figcaption></figure>
+    </div>
   </div>
 </section>
 

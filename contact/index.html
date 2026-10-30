@@ -234,7 +234,7 @@
 // Contact form. Emails go to contact@ through the Google Apps Script relay in tools/contact-relay.gs.
 // Every inquiry is also saved to the site database as a backup (visible in /admin/).
 (function () {
-  const CONTACT_RELAY = ''; // Apps Script web app URL (ends in /exec)
+  const CONTACT_RELAY = 'https://script.google.com/macros/s/AKfycby9JlL8ThY6QZbEPVuM65pIZ3yyHyOUPwDhcyWAuiIcS0i46u7UadYhQbjnlolah3pu9A/exec'; // Apps Script web app in contact@ (tools/contact-relay.gs)
   const BACKUP = 'https://ie-api.fancy-brook-a8e8.workers.dev/api/contact';
 
   const form = document.getElementById('contactForm');

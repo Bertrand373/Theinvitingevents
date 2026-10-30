@@ -522,7 +522,9 @@ Keep responses to 2 or 3 sentences unless more detail is needed. Never use em da
     });
 
     const data = await res.json();
-    const reply = data.content?.[0]?.text || 'I apologize, I had trouble processing that. Could you try rephrasing?';
+    // The site never uses dashes, so swap any the model writes for a comma
+    const reply = (data.content?.[0]?.text || 'I apologize, I had trouble processing that. Could you try rephrasing?')
+      .replace(/\s*[\u2013\u2014]\s*/g, ', ');
     return new Response(JSON.stringify({ reply }), { headers: H });
   } catch (e) {
     return new Response(JSON.stringify({ reply: 'I apologize, I\'m having a moment. Please try again or reach out to us directly at theinvitingevents.com/contact/' }), { headers: H });

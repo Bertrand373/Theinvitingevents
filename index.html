@@ -22,6 +22,10 @@
 <link rel="stylesheet" href="/assets/css/global.css?v=20261029c">
 <link rel="preload" as="image" href="/assets/media/photos/hero-poster.webp">
 <style>
+.family { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 96px); align-items: end; }
+.family .statement { font-size: clamp(1.6rem, 2.7vw, 2.45rem); }
+.family__photo figcaption { margin-top: 14px; font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory-60); }
+@media (max-width: 900px) { .family { grid-template-columns: 1fr; } .family__photo { max-width: 460px; } }
 .quote-nav { position: relative; }
 .quote-nav .quote-toggle { position: absolute; top: 2px; left: calc(50% + 102px); width: 40px; height: 40px; border: 0; color: var(--ivory-40); display: inline-flex; align-items: center; justify-content: center; }
 .quote-nav .quote-toggle:hover { background: none; color: var(--ivory); }
@@ -113,8 +117,16 @@
 <!-- STATEMENT -->
 <section class="section">
   <div class="wrap">
-    <span class="eyebrow reveal">A family business</span>
-    <p class="statement reveal">Robert Pope managed five-star hotels and restaurants around Atlanta before starting his own catering company in 1991. He opened his first event hall in 2001, and today he runs it <em>with his sons, Jamal and Elijah.</em></p>
+    <div class="family">
+      <div>
+        <span class="eyebrow reveal">A family business</span>
+        <p class="statement reveal">Robert Pope managed five-star hotels and restaurants around Atlanta before starting his own catering company in 1991. He opened his first event hall in 2001, and today he runs it <em>with his sons, Jamal and Elijah.</em></p>
+      </div>
+      <figure class="family__photo reveal">
+        <div class="frame frame--45"><img src="/assets/media/photos/sm/pope-family.webp" srcset="/assets/media/photos/sm/pope-family.webp 820w, /assets/media/photos/pope-family.webp 1300w" sizes="(max-width: 900px) 460px, 36vw" alt="Jamal, Robert and Elijah standing together in one of the ballrooms" loading="lazy" width="820" height="1012"></div>
+        <figcaption>Jamal, Robert and Elijah at Inviting Events</figcaption>
+      </figure>
+    </div>
     <dl class="stats reveal">
       <div><dt>250</dt><dd>Guests in the Grand Ballroom</dd></div>
       <div><dt>3</dt><dd>Ballrooms</dd></div>

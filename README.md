@@ -12,7 +12,7 @@ studio-78/
 auxiliary-ballroom/
 private-lounge/
 gallery/  pricing/  quote/  about/  contact/
-live/  admin/              QR guest photo portal and admin dashboard (use assets/css/app.css)
+live/  admin/              QR guest photo portal and the admin (see Admin below)
 assets/css/global.css      Design system: tokens, type, components
 assets/js/global.js        Nav, mobile menu, reveal, YouTube facades, lightbox
 assets/js/chat.js          Concierge chat widget (talks to workers/api /api/chat)
@@ -40,12 +40,83 @@ The form only shows "Message sent" when the email went out. If it fails, the vis
 contact@theinvitingevents.com, then paste the `/exec` URL into `CONTACT_RELAY` in `contact/index.html`.
 Until that is set, the form saves to the backup database only.
 
+## Admin
+
+`/admin/` is Bob's back office, built for his iPhone: inquiries from the contact form (call, text or email in
+one tap; opening one marks it read, with Mark as unread), events for the QR guest photo page (create, edit,
+go live, text the guest link to the hosts, print table cards), guest photo review (approve one, a selection or
+all of an event; take a photo back off the website without deleting it), the guest list (Download guest list,
+which opens the share sheet on iPhone), and uploads to the website gallery (with Retry the ones that failed).
+
+**Signing in.** Bob uses his admin password. The page sends it as `Authorization: Bearer <password>` on every
+admin call, and the Worker checks it against the `ADMIN_PASSWORD` secret. The password never goes in this repo.
+The session lasts until the tab is closed or Bob taps Sign out. If he ticks "Keep me signed in on this iPhone",
+the key is also kept in that device's localStorage for 30 days; Sign out (or a rejected key) clears both.
+
+**Home screen.** `admin/manifest.webmanifest` plus the Apple meta tags let Bob add the admin to his home screen
+(Share, Add to Home Screen). It opens full screen as "IE Admin" and respects the notch and home bar.
+
+**Appearance.** The Menu (or the sidebar on a computer) has Appearance: Match my phone (default), Light (the
+site's paper palette) or Dark. Saved on the device only. The photo viewer stays dark in both, like the Photos
+app. iPhone reads the status bar style when a home screen app launches, so after switching appearance there the
+status bar text matches from the next launch.
+
+**Table cards.** Each event has Print table cards (`#events/<id>/cards`), and the Events page has general cards
+(`#events/cards`). Sizes: 4x6 and 5x7 table cards, 8x10 entrance or bar sign, printed at true size with CSS
+`@page`. "This event only" codes open `https://theinvitingevents.com/live/?event=<id>`; "Whichever event is
+live" codes open `/live/`, so those cards can stay on the tables. The optional Wi-Fi name and password are saved
+on the device. A full-size card page that needs no sign-in (everything comes from the link), for previews and
+screenshots:
+
+```
+/admin/#card?size=4x6&event=<event id>&name=<event name>&wifi=<network>&password=<wifi password>
+/admin/#card?size=5x7                 (general card: "Share your photos from tonight")
+/admin/#card?size=8x10&event=<id>&name=<name>
+```
+
+Printing that page (its Print button, or the browser's own Print) prints only the card, on paper of that size.
+
+**Works before and after the Worker deploy.** Routes added in this version answer 200 (or 404 with their own
+message), so the admin reads the old Worker's generic 404 as "not available yet": Edit and Take off the website
+stay hidden on the old Worker, inquiries are marked read on the device, and the x on a website photo falls back
+to Delete with a clear confirm.
+
+New and changed Worker routes in this version:
+
+- `PUT /api/events/:id` (admin): edit name, date, room, estimated_guests, notes, start_time, end_time.
+- `POST /api/photos/:id/unapprove` (admin): take a photo off the website; guest photos go back to review.
+- `POST /api/contact/:id/unread` (admin): mark an inquiry unread.
+- `GET /api/event/active`: an event switched on by hand is ignored once its end time plus the grace period has
+  passed, so a forgotten switch never shows last week's event to guests.
+- `POST /api/guest/checkin`: emails are compared and stored lowercased and trimmed.
+- `GET /api/photos?event_id=` (public guest feed): guest names are first name plus last initial.
+
+**Set the secrets and deploy the Worker** (logged in to the contact@ Cloudflare account):
+
+```
+cd workers/api
+npx wrangler secret put ADMIN_PASSWORD   # paste Bob's admin password when asked
+npx wrangler secret put GUEST_SECRET     # paste a long random string, e.g. from: openssl rand -hex 32
+npx wrangler deploy
+```
+
+Set the secrets first. Without `ADMIN_PASSWORD` the Worker refuses every admin call (503) and the admin shows
+"Sign-in is still being set up". `GUEST_SECRET` signs the guest tokens from the QR check-in; if it is
+missing the Worker falls back to `ADMIN_PASSWORD`, so changing the admin password would then sign every guest
+out of an event in progress. Check it worked: `curl -i https://ie-api.fancy-brook-a8e8.workers.dev/api/stats`
+should answer 401.
+
+**Changing the password.** Run `npx wrangler secret put ADMIN_PASSWORD` again. Once the updated Worker is live,
+the admin accepts whatever password the Worker accepts. `PW_HASH` in `admin/index.html` is only a fallback for
+the older open Worker; its hash is public, so after the deploy it is worth moving Bob to a new, longer password
+and deleting `PW_HASH`.
+
 ## Go-live checklist
 
 1. Bob approves the site on theinvitingevents.pages.dev.
 2. Contact relay deployed, URL set, test inquiry received in contact@.
-3. Redeploy the API worker so the chat bot has the correct prices:
-   `cd workers/api && wrangler deploy` (logged in to the contact@ Cloudflare account).
+3. Set the admin secrets, then redeploy the API worker (see Admin below). This also gives the chat bot the
+   correct prices: `cd workers/api && wrangler deploy` (logged in to the contact@ Cloudflare account).
 4. Add theinvitingevents.com to Cloudflare (same account as the Pages project). Before switching, make sure the
    imported DNS keeps all five Google MX records. Add:
    - SPF: `TXT @ "v=spf1 include:_spf.google.com ~all"`
